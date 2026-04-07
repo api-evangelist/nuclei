@@ -5,8 +5,8 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Testing
   - Security Testing
+  - Testing
 url: >-
   https://raw.githubusercontent.com/api-evangelist/nuclei/refs/heads/main/apis.yml
 created: '2026-03-25'
@@ -19,8 +19,8 @@ apis:
       Nuclei is an open source vulnerability scanner from ProjectDiscovery that uses YAML-based templates to find security issues in APIs, web apps, and infrastructure.
     humanURL: https://nuclei.projectdiscovery.io
     tags:
-      - Testing
       - Security Testing
+      - Testing
     properties:
       - type: Documentation
         url: https://docs.projectdiscovery.io/tools/nuclei/overview
