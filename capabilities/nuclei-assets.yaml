@@ -1,0 +1,857 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — assets
+  description: 'PDCP API — assets. 17 operations. Lead operation: Delete asset by filters. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - assets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-assets
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — assets business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-asset
+      path: /v1/asset
+      operations:
+      - name: deletev1asset
+        method: DELETE
+        description: Delete asset by filters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-changelogs
+      path: /v1/asset/changelogs
+      operations:
+      - name: getv1assetchangelogs
+        method: GET
+        description: Get Asset Changelogs for all assets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: event_type
+          in: query
+          type: string
+          description: comma separated event_type e.g. event_type=vul_status,vul_status_change
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,severity
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,severity
+        - name: limit
+          in: query
+          type: integer
+          description: limit the number of changelogs returned
+        - name: offset
+          in: query
+          type: integer
+          description: offset the number of changelogs returned
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-labels
+      path: /v1/asset/labels
+      operations:
+      - name: patchv1assetlabels
+        method: PATCH
+        description: Update Asset Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: update_type
+          in: query
+          type: string
+          description: Append or Replace update_type
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-asset_id
+      path: /v1/asset/{asset_id}
+      operations:
+      - name: getv1assetid
+        method: GET
+        description: Get enumerated asset details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: deletev1assetassetid
+        method: DELETE
+        description: Delete enumerated asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1assetassetid
+        method: PATCH
+        description: Update asset details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-asset_id-changelogs
+      path: /v1/asset/{asset_id}/changelogs
+      operations:
+      - name: getv1assetassetidchangelogs
+        method: GET
+        description: Get Asset Changelogs for a given asset_id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: event_type
+          in: query
+          type: string
+          description: comma separated event_type e.g. event_type=vul_status,vul_status_change
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,severity
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,severity
+        - name: limit
+          in: query
+          type: integer
+          description: number of results to get
+        - name: offset
+          in: query
+          type: integer
+          description: number of results to skip
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-asset_id-labels
+      path: /v1/asset/{asset_id}/labels
+      operations:
+      - name: postv1assetidlabels
+        method: POST
+        description: Add labels to an asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: patchv1assetidlabels
+        method: PATCH
+        description: Modify labels of an asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: update_type
+          in: query
+          type: string
+          description: Append or Replace update_type
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1assetidlabels
+        method: DELETE
+        description: Delete labels of an asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-assets
+      path: /v1/assets
+      operations:
+      - name: getv1assets
+        method: GET
+        description: Get Asset List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: number of assets to skip
+        - name: limit
+          in: query
+          type: integer
+          description: number of assets to fetch
+        - name: search
+          in: query
+          type: string
+          description: search term for asset list
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1assets
+        method: POST
+        description: Upload Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          description: name of asset
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: Content-Type
+          in: header
+          type: string
+          description: set the content type header
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-assets-asset_Id
+      path: /v1/assets/{asset_Id}
+      operations:
+      - name: getv1assetsassetid
+        method: GET
+        description: Get Asset Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: deletev1assetsassetid
+        method: DELETE
+        description: Delete Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1assetsassetid
+        method: PATCH
+        description: Update Asset Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-assets-asset_id-contents
+      path: /v1/assets/{asset_id}/contents
+      operations:
+      - name: getv1assetsidcontents
+        method: GET
+        description: Get Asset Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1assetsassetidcontents
+        method: PATCH
+        description: Update Asset Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: update_type
+          in: query
+          type: string
+          description: use append or replace
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: Content-Type
+          in: header
+          type: string
+          description: set the content type header
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-assets-rest
+    port: 8080
+    description: REST adapter for PDCP API — assets. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/asset
+      name: v1-asset
+      description: REST surface for v1-asset.
+      operations:
+      - method: DELETE
+        name: deletev1asset
+        description: Delete asset by filters
+        call: nuclei-assets.deletev1asset
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/changelogs
+      name: v1-asset-changelogs
+      description: REST surface for v1-asset-changelogs.
+      operations:
+      - method: GET
+        name: getv1assetchangelogs
+        description: Get Asset Changelogs for all assets
+        call: nuclei-assets.getv1assetchangelogs
+        with:
+          time: rest.time
+          event_type: rest.event_type
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          limit: rest.limit
+          offset: rest.offset
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/labels
+      name: v1-asset-labels
+      description: REST surface for v1-asset-labels.
+      operations:
+      - method: PATCH
+        name: patchv1assetlabels
+        description: Update Asset Labels
+        call: nuclei-assets.patchv1assetlabels
+        with:
+          update_type: rest.update_type
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/{asset-id}
+      name: v1-asset-asset-id
+      description: REST surface for v1-asset-asset_id.
+      operations:
+      - method: GET
+        name: getv1assetid
+        description: Get enumerated asset details
+        call: nuclei-assets.getv1assetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1assetassetid
+        description: Delete enumerated asset
+        call: nuclei-assets.deletev1assetassetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetassetid
+        description: Update asset details
+        call: nuclei-assets.patchv1assetassetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/{asset-id}/changelogs
+      name: v1-asset-asset-id-changelogs
+      description: REST surface for v1-asset-asset_id-changelogs.
+      operations:
+      - method: GET
+        name: getv1assetassetidchangelogs
+        description: Get Asset Changelogs for a given asset_id
+        call: nuclei-assets.getv1assetassetidchangelogs
+        with:
+          time: rest.time
+          event_type: rest.event_type
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          limit: rest.limit
+          offset: rest.offset
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/{asset-id}/labels
+      name: v1-asset-asset-id-labels
+      description: REST surface for v1-asset-asset_id-labels.
+      operations:
+      - method: POST
+        name: postv1assetidlabels
+        description: Add labels to an asset
+        call: nuclei-assets.postv1assetidlabels
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetidlabels
+        description: Modify labels of an asset
+        call: nuclei-assets.patchv1assetidlabels
+        with:
+          update_type: rest.update_type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1assetidlabels
+        description: Delete labels of an asset
+        call: nuclei-assets.deletev1assetidlabels
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/assets
+      name: v1-assets
+      description: REST surface for v1-assets.
+      operations:
+      - method: GET
+        name: getv1assets
+        description: Get Asset List
+        call: nuclei-assets.getv1assets
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          search: rest.search
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1assets
+        description: Upload Asset
+        call: nuclei-assets.postv1assets
+        with:
+          name: rest.name
+          X-Team-Id: rest.X-Team-Id
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/assets/{asset-id}
+      name: v1-assets-asset-id
+      description: REST surface for v1-assets-asset_Id.
+      operations:
+      - method: GET
+        name: getv1assetsassetid
+        description: Get Asset Metadata
+        call: nuclei-assets.getv1assetsassetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1assetsassetid
+        description: Delete Asset
+        call: nuclei-assets.deletev1assetsassetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetsassetid
+        description: Update Asset Metadata
+        call: nuclei-assets.patchv1assetsassetid
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/assets/{asset-id}/contents
+      name: v1-assets-asset-id-contents
+      description: REST surface for v1-assets-asset_id-contents.
+      operations:
+      - method: GET
+        name: getv1assetsidcontents
+        description: Get Asset Content
+        call: nuclei-assets.getv1assetsidcontents
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetsassetidcontents
+        description: Update Asset Content
+        call: nuclei-assets.patchv1assetsassetidcontents
+        with:
+          update_type: rest.update_type
+          X-Team-Id: rest.X-Team-Id
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-assets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — assets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: delete-asset-filters
+      description: Delete asset by filters
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-assets.deletev1asset
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-changelogs-all-assets
+      description: Get Asset Changelogs for all assets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assetchangelogs
+      with:
+        time: tools.time
+        event_type: tools.event_type
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        limit: tools.limit
+        offset: tools.offset
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-asset-labels
+      description: Update Asset Labels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.patchv1assetlabels
+      with:
+        update_type: tools.update_type
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumerated-asset-details
+      description: Get enumerated asset details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-enumerated-asset
+      description: Delete enumerated asset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-assets.deletev1assetassetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-asset-details
+      description: Update asset details
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.patchv1assetassetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-changelogs-given-asset
+      description: Get Asset Changelogs for a given asset_id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assetassetidchangelogs
+      with:
+        time: tools.time
+        event_type: tools.event_type
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        limit: tools.limit
+        offset: tools.offset
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-labels-asset
+      description: Add labels to an asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-assets.postv1assetidlabels
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: modify-labels-asset
+      description: Modify labels of an asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.patchv1assetidlabels
+      with:
+        update_type: tools.update_type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-labels-asset
+      description: Delete labels of an asset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-assets.deletev1assetidlabels
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-list
+      description: Get Asset List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assets
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        search: tools.search
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-asset
+      description: Upload Asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-assets.postv1assets
+      with:
+        name: tools.name
+        X-Team-Id: tools.X-Team-Id
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-metadata
+      description: Get Asset Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assetsassetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-asset
+      description: Delete Asset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-assets.deletev1assetsassetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-asset-metadata
+      description: Update Asset Metadata
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.patchv1assetsassetid
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-asset-content
+      description: Get Asset Content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.getv1assetsidcontents
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-asset-content
+      description: Update Asset Content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-assets.patchv1assetsassetidcontents
+      with:
+        update_type: tools.update_type
+        X-Team-Id: tools.X-Team-Id
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,685 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — users
+  description: 'PDCP API — users. 17 operations. Lead operation: Get User Profile. Self-contained Naftiko capability covering
+    one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-users
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — users business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-user
+      path: /v1/user
+      operations:
+      - name: getv1user
+        method: GET
+        description: Get User Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: deletev1user
+        method: DELETE
+        description: Delete user from system along with all data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-user-apikey
+      path: /v1/user/apikey
+      operations:
+      - name: getv1userapikey
+        method: GET
+        description: Get API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: postv1userapikey
+        method: POST
+        description: Create API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletev1userapikey
+        method: DELETE
+        description: Delete API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-user-apikey-rotate
+      path: /v1/user/apikey/rotate
+      operations:
+      - name: postv1userapikeyrotate
+        method: POST
+        description: Rotate API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-user-billing_assets
+      path: /v1/user/billing_assets
+      operations:
+      - name: getv1userbillingassets
+        method: GET
+        description: Get Billing Assets details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-user-delete-code
+      path: /v1/user/delete/code
+      operations:
+      - name: postv1userdeletecode
+        method: POST
+        description: Email user deletion verification code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-user-domain-verification-confirm
+      path: /v1/user/domain-verification/confirm
+      operations:
+      - name: postv1userdomainverificationconfirm
+        method: POST
+        description: Confirm Domain Verification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-user-domain-verification-request
+      path: /v1/user/domain-verification/request
+      operations:
+      - name: postv1userdomainverificationrequest
+        method: POST
+        description: Request Domain Verification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-user-domain-verification-status
+      path: /v1/user/domain-verification/status
+      operations:
+      - name: getv1userdomainverificationstatus
+        method: GET
+        description: Get Domain Verification Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-user-feedback
+      path: /v1/user/feedback
+      operations:
+      - name: postv1userfeedback
+        method: POST
+        description: Create Feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-user-onboarding_status
+      path: /v1/user/onboarding_status
+      operations:
+      - name: getv1usersetupstats
+        method: GET
+        description: Get User Setup Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-user-promo_code
+      path: /v1/user/promo_code
+      operations:
+      - name: getv1userpromocode
+        method: GET
+        description: Get Promocode Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promo_code
+          in: query
+          type: string
+          description: Promocode to get details for
+          required: true
+      - name: postv1userpromocode
+        method: POST
+        description: Apply Promocode
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-user-subscription
+      path: /v1/user/subscription
+      operations:
+      - name: getv1usersubscription
+        method: GET
+        description: Get Subscription Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1usersubscription
+        method: PATCH
+        description: Update current subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-users-rest
+    port: 8080
+    description: REST adapter for PDCP API — users. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/user
+      name: v1-user
+      description: REST surface for v1-user.
+      operations:
+      - method: GET
+        name: getv1user
+        description: Get User Profile
+        call: nuclei-users.getv1user
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1user
+        description: Delete user from system along with all data
+        call: nuclei-users.deletev1user
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/apikey
+      name: v1-user-apikey
+      description: REST surface for v1-user-apikey.
+      operations:
+      - method: GET
+        name: getv1userapikey
+        description: Get API Key
+        call: nuclei-users.getv1userapikey
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1userapikey
+        description: Create API Key
+        call: nuclei-users.postv1userapikey
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1userapikey
+        description: Delete API Key
+        call: nuclei-users.deletev1userapikey
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/apikey/rotate
+      name: v1-user-apikey-rotate
+      description: REST surface for v1-user-apikey-rotate.
+      operations:
+      - method: POST
+        name: postv1userapikeyrotate
+        description: Rotate API Key
+        call: nuclei-users.postv1userapikeyrotate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/billing-assets
+      name: v1-user-billing-assets
+      description: REST surface for v1-user-billing_assets.
+      operations:
+      - method: GET
+        name: getv1userbillingassets
+        description: Get Billing Assets details
+        call: nuclei-users.getv1userbillingassets
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/delete/code
+      name: v1-user-delete-code
+      description: REST surface for v1-user-delete-code.
+      operations:
+      - method: POST
+        name: postv1userdeletecode
+        description: Email user deletion verification code
+        call: nuclei-users.postv1userdeletecode
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/domain-verification/confirm
+      name: v1-user-domain-verification-confirm
+      description: REST surface for v1-user-domain-verification-confirm.
+      operations:
+      - method: POST
+        name: postv1userdomainverificationconfirm
+        description: Confirm Domain Verification
+        call: nuclei-users.postv1userdomainverificationconfirm
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/domain-verification/request
+      name: v1-user-domain-verification-request
+      description: REST surface for v1-user-domain-verification-request.
+      operations:
+      - method: POST
+        name: postv1userdomainverificationrequest
+        description: Request Domain Verification
+        call: nuclei-users.postv1userdomainverificationrequest
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/domain-verification/status
+      name: v1-user-domain-verification-status
+      description: REST surface for v1-user-domain-verification-status.
+      operations:
+      - method: GET
+        name: getv1userdomainverificationstatus
+        description: Get Domain Verification Status
+        call: nuclei-users.getv1userdomainverificationstatus
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/feedback
+      name: v1-user-feedback
+      description: REST surface for v1-user-feedback.
+      operations:
+      - method: POST
+        name: postv1userfeedback
+        description: Create Feedback
+        call: nuclei-users.postv1userfeedback
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/onboarding-status
+      name: v1-user-onboarding-status
+      description: REST surface for v1-user-onboarding_status.
+      operations:
+      - method: GET
+        name: getv1usersetupstats
+        description: Get User Setup Statistics
+        call: nuclei-users.getv1usersetupstats
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/promo-code
+      name: v1-user-promo-code
+      description: REST surface for v1-user-promo_code.
+      operations:
+      - method: GET
+        name: getv1userpromocode
+        description: Get Promocode Details
+        call: nuclei-users.getv1userpromocode
+        with:
+          promo_code: rest.promo_code
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1userpromocode
+        description: Apply Promocode
+        call: nuclei-users.postv1userpromocode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/user/subscription
+      name: v1-user-subscription
+      description: REST surface for v1-user-subscription.
+      operations:
+      - method: GET
+        name: getv1usersubscription
+        description: Get Subscription Status
+        call: nuclei-users.getv1usersubscription
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1usersubscription
+        description: Update current subscription
+        call: nuclei-users.patchv1usersubscription
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — users. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-user-profile
+      description: Get User Profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1user
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-system-along-all
+      description: Delete user from system along with all data
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-users.deletev1user
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-key
+      description: Get API Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1userapikey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-api-key
+      description: Create API Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userapikey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-api-key
+      description: Delete API Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-users.deletev1userapikey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rotate-api-key
+      description: Rotate API Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userapikeyrotate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-billing-assets-details
+      description: Get Billing Assets details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1userbillingassets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: email-user-deletion-verification-code
+      description: Email user deletion verification code
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userdeletecode
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: confirm-domain-verification
+      description: Confirm Domain Verification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userdomainverificationconfirm
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-domain-verification
+      description: Request Domain Verification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userdomainverificationrequest
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-domain-verification-status
+      description: Get Domain Verification Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1userdomainverificationstatus
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-feedback
+      description: Create Feedback
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userfeedback
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-setup-statistics
+      description: Get User Setup Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1usersetupstats
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-promocode-details
+      description: Get Promocode Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1userpromocode
+      with:
+        promo_code: tools.promo_code
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: apply-promocode
+      description: Apply Promocode
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-users.postv1userpromocode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscription-status
+      description: Get Subscription Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-users.getv1usersubscription
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-subscription
+      description: Update current subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-users.patchv1usersubscription
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

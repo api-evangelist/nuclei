@@ -1,0 +1,237 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — chaos
+  description: 'PDCP API — chaos. 3 operations. Lead operation: Get Associated Domains. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - chaos
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-chaos
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — chaos business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-domain-associated
+      path: /v1/domain/associated
+      operations:
+      - name: associateddomains
+        method: GET
+        description: Get Associated Domains
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+          description: Domain name to fetch associated domains. If omitted, returns associated domains for all your verified
+            domains.
+        - name: source
+          in: query
+          type: string
+          description: Comma-separated source filter (acquisition_history, certificate_history, whois_history)
+        - name: active
+          in: query
+          type: boolean
+          description: Filter by liveness (true=alive, false=unreachable)
+        - name: sort
+          in: query
+          type: string
+          description: Sort results
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum results per page (pagination). If omitted, returns all.
+        - name: page
+          in: query
+          type: integer
+          description: Page number (pagination, starts at 1)
+        - name: raw
+          in: query
+          type: boolean
+          description: If true, returns plain text list (one domain per line)
+        - name: X-Team-Id
+          in: header
+          type: string
+    - name: v1-domain-search
+      path: /v1/domain/search
+      operations:
+      - name: domainsearch
+        method: GET
+        description: Domain & Organization Name Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: Search query for domain or organization name
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: fields
+          in: query
+          type: array
+          description: Fields to include in response (CSV)
+        - name: scope
+          in: query
+          type: string
+          description: Scope of search
+    - name: v1-organization-search
+      path: /v1/organization/search
+      operations:
+      - name: organizationsearch
+        method: GET
+        description: Get Organization by Domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+          description: Domain name to search and retrieve associated organization information
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: offset
+          in: query
+          type: integer
+          description: Pagination Offset
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-chaos-rest
+    port: 8080
+    description: REST adapter for PDCP API — chaos. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/domain/associated
+      name: v1-domain-associated
+      description: REST surface for v1-domain-associated.
+      operations:
+      - method: GET
+        name: associateddomains
+        description: Get Associated Domains
+        call: nuclei-chaos.associateddomains
+        with:
+          domain: rest.domain
+          source: rest.source
+          active: rest.active
+          sort: rest.sort
+          limit: rest.limit
+          page: rest.page
+          raw: rest.raw
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/domain/search
+      name: v1-domain-search
+      description: REST surface for v1-domain-search.
+      operations:
+      - method: GET
+        name: domainsearch
+        description: Domain & Organization Name Search
+        call: nuclei-chaos.domainsearch
+        with:
+          query: rest.query
+          limit: rest.limit
+          fields: rest.fields
+          scope: rest.scope
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/organization/search
+      name: v1-organization-search
+      description: REST surface for v1-organization-search.
+      operations:
+      - method: GET
+        name: organizationsearch
+        description: Get Organization by Domain
+        call: nuclei-chaos.organizationsearch
+        with:
+          domain: rest.domain
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-chaos-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — chaos. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-associated-domains
+      description: Get Associated Domains
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-chaos.associateddomains
+      with:
+        domain: tools.domain
+        source: tools.source
+        active: tools.active
+        sort: tools.sort
+        limit: tools.limit
+        page: tools.page
+        raw: tools.raw
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: domain-organization-name-search
+      description: Domain & Organization Name Search
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-chaos.domainsearch
+      with:
+        query: tools.query
+        limit: tools.limit
+        fields: tools.fields
+        scope: tools.scope
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-organization-domain
+      description: Get Organization by Domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-chaos.organizationsearch
+      with:
+        domain: tools.domain
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.

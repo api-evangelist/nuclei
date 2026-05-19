@@ -1,0 +1,1607 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — scans
+  description: 'PDCP API — scans. 32 operations. Lead operation: Get Scan List. Self-contained Naftiko capability covering
+    one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - scans
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-scans-2
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — scans business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-scans
+      path: /v1/scans
+      operations:
+      - name: getv1scans
+        method: GET
+        description: Get Scan List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: number of scan-status results to skip
+        - name: limit
+          in: query
+          type: integer
+          description: number of scan-status results to fetch
+        - name: search
+          in: query
+          type: string
+          description: search term for running scans
+        - name: status
+          in: query
+          type: string
+          description: filter by status (failed, finished, queued, running, starting, uploaded, scheduled)
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,severity
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,severity
+        - name: is_internal
+          in: query
+          type: boolean
+          description: filter by internal scans
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1scans
+        method: POST
+        description: Create Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1scans
+        method: DELETE
+        description: Delete Scan in bulk
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-asset
+      path: /v1/scans/asset
+      operations:
+      - name: getv1scansassets
+        method: GET
+        description: Get list of unique assets scanned in current month.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: search
+          in: query
+          type: string
+          description: Search with host or port
+        - name: limit
+          in: query
+          type: integer
+          description: Limit the number of assets (Default 100)
+        - name: offset
+          in: query
+          type: integer
+          description: Offset the number of assets (Default 0)
+        - name: start_date
+          in: query
+          type: string
+          description: Start date of the range. If not provided, it will be the first day of the current billing cycle.
+        - name: end_date
+          in: query
+          type: string
+          description: End date of the range. If not provided, it will be the last day of the current billing cycle.
+        - name: type
+          in: query
+          type: string
+          description: Type of asset to filter by. Supported values are host, if not provided, it will return all assets.
+    - name: v1-scans-asset-export
+      path: /v1/scans/asset/export
+      operations:
+      - name: getv1scansassetsexport
+        method: GET
+        description: Export list of unique assets scanned in current month
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: search
+          in: query
+          type: string
+          description: Search with host or port
+        - name: format
+          in: query
+          type: string
+          description: supported format is csv, json, or raw (default json)
+        - name: start_date
+          in: query
+          type: string
+          description: Start date of the range. If not provided, it will be the first day of the current billing cycle.
+        - name: end_date
+          in: query
+          type: string
+          description: End date of the range. If not provided, it will be the last day of the current billing cycle.
+        - name: type
+          in: query
+          type: string
+          description: Type of asset to filter by. Supported values are host, if not provided, it will return all assets.
+    - name: v1-scans-history
+      path: /v1/scans/history
+      operations:
+      - name: getv1scanshistory
+        method: GET
+        description: Get All Scans History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: number of rows to skip
+        - name: limit
+          in: query
+          type: integer
+          description: number of rows to get
+        - name: start_date
+          in: query
+          type: string
+          description: start date from which you want to get history
+        - name: end_date
+          in: query
+          type: string
+          description: end date till which you want to get history
+        - name: time_range
+          in: query
+          type: string
+          description: time range to get history
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-import
+      path: /v1/scans/import
+      operations:
+      - name: postv1scansimport
+        method: POST
+        description: Import OSS Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scan_ips
+      path: /v1/scans/scan_ips
+      operations:
+      - name: getv1scansscanips
+        method: GET
+        description: Get Scan IPs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-schedule
+      path: /v1/scans/schedule
+      operations:
+      - name: getv1scansschedule
+        method: GET
+        description: Get Scan Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1scansschedule
+        method: POST
+        description: Set Scan Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1scansschedule
+        method: DELETE
+        description: Delete Scan Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scan_id
+          in: query
+          type: string
+          description: scan_id of schedule to be deleted
+          required: true
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-stats
+      path: /v1/scans/stats
+      operations:
+      - name: getv1scansstats
+        method: GET
+        description: Get All Scan Stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-token
+      path: /v1/scans/token
+      operations:
+      - name: getv1scanstoken
+        method: GET
+        description: Get Scans Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-vuln-vuln_id-export
+      path: /v1/scans/vuln/{vuln_id}/export
+      operations:
+      - name: getv1scansvulnvulnidexport
+        method: GET
+        description: Export Scan Vulnerability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: json, csv (default json)
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-vulns
+      path: /v1/scans/vulns
+      operations:
+      - name: patchv1scansvulns
+        method: PATCH
+        description: Update Vulnerability Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1scansvulns
+        method: DELETE
+        description: Delete Scan Vulnerability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-vulns-labels
+      path: /v1/scans/vulns/labels
+      operations:
+      - name: patchv1scansvulnslabels
+        method: PATCH
+        description: Update Vulnerability Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-vulns-vuln_id-ticket
+      path: /v1/scans/vulns/{vuln_id}/ticket
+      operations:
+      - name: postvulnsidticket
+        method: POST
+        description: Create vulns export to tracker
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: reporting_config_id
+          in: query
+          type: string
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scanId-history
+      path: /v1/scans/{scanId}/history
+      operations:
+      - name: getv1scansscanidhistory
+        method: GET
+        description: Get Scan History
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: number of rows to skip
+        - name: limit
+          in: query
+          type: integer
+          description: number of rows to get
+        - name: start_date
+          in: query
+          type: string
+          description: start date from which you want to get history
+        - name: end_date
+          in: query
+          type: string
+          description: end date till which you want to get history
+        - name: time_range
+          in: query
+          type: string
+          description: time range to get history
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-scan_id
+      path: /v1/scans/{scan_id}
+      operations:
+      - name: getv1scansscanid
+        method: GET
+        description: Get Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: deletev1scansscanid
+        method: DELETE
+        description: Delete Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1scansscanid
+        method: PATCH
+        description: Update Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scan_id-asset
+      path: /v1/scans/{scan_id}/asset
+      operations:
+      - name: getv1scansscanidassets
+        method: GET
+        description: Get list of unique assets for a scan.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+          description: Search with host or port
+        - name: limit
+          in: query
+          type: integer
+          description: Limit the number of assets (Default 100)
+        - name: offset
+          in: query
+          type: integer
+          description: Offset the number of assets (Default 0)
+    - name: v1-scans-scan_id-asset-export
+      path: /v1/scans/{scan_id}/asset/export
+      operations:
+      - name: getv1scansscanidassetsexport
+        method: GET
+        description: Export list of unique assets for a scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+          description: Search with host or port
+        - name: format
+          in: query
+          type: string
+          description: supported format is csv, json, or raw (default json)
+    - name: v1-scans-scan_id-config
+      path: /v1/scans/{scan_id}/config
+      operations:
+      - name: getscansidconfig
+        method: GET
+        description: Get Scan Config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchscansidconfig
+        method: PATCH
+        description: Update Scan Config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: update_type
+          in: query
+          type: string
+          description: 'Update type: append or replace'
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scan_id-export
+      path: /v1/scans/{scan_id}/export
+      operations:
+      - name: getv1scansscanidexport
+        method: GET
+        description: Export Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: json, csv, pdf (default json)
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1scansscanidexport
+        method: POST
+        description: Export Filtered Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: json, csv, pdf (default json)
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scan_id-import
+      path: /v1/scans/{scan_id}/import
+      operations:
+      - name: patchv1scansscanidimport
+        method: PATCH
+        description: Update Imported Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-scans-scan_id-rescan
+      path: /v1/scans/{scan_id}/rescan
+      operations:
+      - name: postv1scansscanidrescan
+        method: POST
+        description: Rescan scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-scan_id-stop
+      path: /v1/scans/{scan_id}/stop
+      operations:
+      - name: postv1scansscanidstop
+        method: POST
+        description: Stop Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-scans-vuln_id-retest
+      path: /v1/scans/{vuln_id}/retest
+      operations:
+      - name: postv1scansvulnidretest
+        method: POST
+        description: Retest vulnerability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-scans-2-rest
+    port: 8080
+    description: REST adapter for PDCP API — scans. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/scans
+      name: v1-scans
+      description: REST surface for v1-scans.
+      operations:
+      - method: GET
+        name: getv1scans
+        description: Get Scan List
+        call: nuclei-scans-2.getv1scans
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          search: rest.search
+          status: rest.status
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          is_internal: rest.is_internal
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1scans
+        description: Create Scan
+        call: nuclei-scans-2.postv1scans
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1scans
+        description: Delete Scan in bulk
+        call: nuclei-scans-2.deletev1scans
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/asset
+      name: v1-scans-asset
+      description: REST surface for v1-scans-asset.
+      operations:
+      - method: GET
+        name: getv1scansassets
+        description: Get list of unique assets scanned in current month.
+        call: nuclei-scans-2.getv1scansassets
+        with:
+          X-Team-Id: rest.X-Team-Id
+          search: rest.search
+          limit: rest.limit
+          offset: rest.offset
+          start_date: rest.start_date
+          end_date: rest.end_date
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/asset/export
+      name: v1-scans-asset-export
+      description: REST surface for v1-scans-asset-export.
+      operations:
+      - method: GET
+        name: getv1scansassetsexport
+        description: Export list of unique assets scanned in current month
+        call: nuclei-scans-2.getv1scansassetsexport
+        with:
+          X-Team-Id: rest.X-Team-Id
+          search: rest.search
+          format: rest.format
+          start_date: rest.start_date
+          end_date: rest.end_date
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/history
+      name: v1-scans-history
+      description: REST surface for v1-scans-history.
+      operations:
+      - method: GET
+        name: getv1scanshistory
+        description: Get All Scans History
+        call: nuclei-scans-2.getv1scanshistory
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          start_date: rest.start_date
+          end_date: rest.end_date
+          time_range: rest.time_range
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/import
+      name: v1-scans-import
+      description: REST surface for v1-scans-import.
+      operations:
+      - method: POST
+        name: postv1scansimport
+        description: Import OSS Scan
+        call: nuclei-scans-2.postv1scansimport
+        with:
+          name: rest.name
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/scan-ips
+      name: v1-scans-scan-ips
+      description: REST surface for v1-scans-scan_ips.
+      operations:
+      - method: GET
+        name: getv1scansscanips
+        description: Get Scan IPs
+        call: nuclei-scans-2.getv1scansscanips
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/schedule
+      name: v1-scans-schedule
+      description: REST surface for v1-scans-schedule.
+      operations:
+      - method: GET
+        name: getv1scansschedule
+        description: Get Scan Schedules
+        call: nuclei-scans-2.getv1scansschedule
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1scansschedule
+        description: Set Scan Schedule
+        call: nuclei-scans-2.postv1scansschedule
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1scansschedule
+        description: Delete Scan Schedule
+        call: nuclei-scans-2.deletev1scansschedule
+        with:
+          scan_id: rest.scan_id
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/stats
+      name: v1-scans-stats
+      description: REST surface for v1-scans-stats.
+      operations:
+      - method: GET
+        name: getv1scansstats
+        description: Get All Scan Stats
+        call: nuclei-scans-2.getv1scansstats
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/token
+      name: v1-scans-token
+      description: REST surface for v1-scans-token.
+      operations:
+      - method: GET
+        name: getv1scanstoken
+        description: Get Scans Token
+        call: nuclei-scans-2.getv1scanstoken
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/vuln/{vuln-id}/export
+      name: v1-scans-vuln-vuln-id-export
+      description: REST surface for v1-scans-vuln-vuln_id-export.
+      operations:
+      - method: GET
+        name: getv1scansvulnvulnidexport
+        description: Export Scan Vulnerability
+        call: nuclei-scans-2.getv1scansvulnvulnidexport
+        with:
+          type: rest.type
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/vulns
+      name: v1-scans-vulns
+      description: REST surface for v1-scans-vulns.
+      operations:
+      - method: PATCH
+        name: patchv1scansvulns
+        description: Update Vulnerability Status
+        call: nuclei-scans-2.patchv1scansvulns
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1scansvulns
+        description: Delete Scan Vulnerability
+        call: nuclei-scans-2.deletev1scansvulns
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/vulns/labels
+      name: v1-scans-vulns-labels
+      description: REST surface for v1-scans-vulns-labels.
+      operations:
+      - method: PATCH
+        name: patchv1scansvulnslabels
+        description: Update Vulnerability Labels
+        call: nuclei-scans-2.patchv1scansvulnslabels
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/vulns/{vuln-id}/ticket
+      name: v1-scans-vulns-vuln-id-ticket
+      description: REST surface for v1-scans-vulns-vuln_id-ticket.
+      operations:
+      - method: POST
+        name: postvulnsidticket
+        description: Create vulns export to tracker
+        call: nuclei-scans-2.postvulnsidticket
+        with:
+          reporting_config_id: rest.reporting_config_id
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scanid}/history
+      name: v1-scans-scanid-history
+      description: REST surface for v1-scans-scanId-history.
+      operations:
+      - method: GET
+        name: getv1scansscanidhistory
+        description: Get Scan History
+        call: nuclei-scans-2.getv1scansscanidhistory
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          start_date: rest.start_date
+          end_date: rest.end_date
+          time_range: rest.time_range
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}
+      name: v1-scans-scan-id
+      description: REST surface for v1-scans-scan_id.
+      operations:
+      - method: GET
+        name: getv1scansscanid
+        description: Get Scan
+        call: nuclei-scans-2.getv1scansscanid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1scansscanid
+        description: Delete Scan
+        call: nuclei-scans-2.deletev1scansscanid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1scansscanid
+        description: Update Scan
+        call: nuclei-scans-2.patchv1scansscanid
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/asset
+      name: v1-scans-scan-id-asset
+      description: REST surface for v1-scans-scan_id-asset.
+      operations:
+      - method: GET
+        name: getv1scansscanidassets
+        description: Get list of unique assets for a scan.
+        call: nuclei-scans-2.getv1scansscanidassets
+        with:
+          search: rest.search
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/asset/export
+      name: v1-scans-scan-id-asset-export
+      description: REST surface for v1-scans-scan_id-asset-export.
+      operations:
+      - method: GET
+        name: getv1scansscanidassetsexport
+        description: Export list of unique assets for a scan
+        call: nuclei-scans-2.getv1scansscanidassetsexport
+        with:
+          search: rest.search
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/config
+      name: v1-scans-scan-id-config
+      description: REST surface for v1-scans-scan_id-config.
+      operations:
+      - method: GET
+        name: getscansidconfig
+        description: Get Scan Config
+        call: nuclei-scans-2.getscansidconfig
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchscansidconfig
+        description: Update Scan Config
+        call: nuclei-scans-2.patchscansidconfig
+        with:
+          update_type: rest.update_type
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/export
+      name: v1-scans-scan-id-export
+      description: REST surface for v1-scans-scan_id-export.
+      operations:
+      - method: GET
+        name: getv1scansscanidexport
+        description: Export Scan
+        call: nuclei-scans-2.getv1scansscanidexport
+        with:
+          type: rest.type
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1scansscanidexport
+        description: Export Filtered Scan
+        call: nuclei-scans-2.postv1scansscanidexport
+        with:
+          type: rest.type
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/import
+      name: v1-scans-scan-id-import
+      description: REST surface for v1-scans-scan_id-import.
+      operations:
+      - method: PATCH
+        name: patchv1scansscanidimport
+        description: Update Imported Scan
+        call: nuclei-scans-2.patchv1scansscanidimport
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/rescan
+      name: v1-scans-scan-id-rescan
+      description: REST surface for v1-scans-scan_id-rescan.
+      operations:
+      - method: POST
+        name: postv1scansscanidrescan
+        description: Rescan scan
+        call: nuclei-scans-2.postv1scansscanidrescan
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{scan-id}/stop
+      name: v1-scans-scan-id-stop
+      description: REST surface for v1-scans-scan_id-stop.
+      operations:
+      - method: POST
+        name: postv1scansscanidstop
+        description: Stop Scan
+        call: nuclei-scans-2.postv1scansscanidstop
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/scans/{vuln-id}/retest
+      name: v1-scans-vuln-id-retest
+      description: REST surface for v1-scans-vuln_id-retest.
+      operations:
+      - method: POST
+        name: postv1scansvulnidretest
+        description: Retest vulnerability
+        call: nuclei-scans-2.postv1scansvulnidretest
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-scans-2-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — scans. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-scan-list
+      description: Get Scan List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scans
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        search: tools.search
+        status: tools.status
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        is_internal: tools.is_internal
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-scan
+      description: Create Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scans
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scan-bulk
+      description: Delete Scan in bulk
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-scans-2.deletev1scans
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-unique-assets-scanned
+      description: Get list of unique assets scanned in current month.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansassets
+      with:
+        X-Team-Id: tools.X-Team-Id
+        search: tools.search
+        limit: tools.limit
+        offset: tools.offset
+        start_date: tools.start_date
+        end_date: tools.end_date
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-list-unique-assets-scanned
+      description: Export list of unique assets scanned in current month
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansassetsexport
+      with:
+        X-Team-Id: tools.X-Team-Id
+        search: tools.search
+        format: tools.format
+        start_date: tools.start_date
+        end_date: tools.end_date
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-scans-history
+      description: Get All Scans History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scanshistory
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        start_date: tools.start_date
+        end_date: tools.end_date
+        time_range: tools.time_range
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-oss-scan
+      description: Import OSS Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansimport
+      with:
+        name: tools.name
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scan-ips
+      description: Get Scan IPs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanips
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scan-schedules
+      description: Get Scan Schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansschedule
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-scan-schedule
+      description: Set Scan Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansschedule
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scan-schedule
+      description: Delete Scan Schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-scans-2.deletev1scansschedule
+      with:
+        scan_id: tools.scan_id
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-scan-stats
+      description: Get All Scan Stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansstats
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scans-token
+      description: Get Scans Token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scanstoken
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-scan-vulnerability
+      description: Export Scan Vulnerability
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansvulnvulnidexport
+      with:
+        type: tools.type
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-vulnerability-status
+      description: Update Vulnerability Status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.patchv1scansvulns
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scan-vulnerability
+      description: Delete Scan Vulnerability
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-scans-2.deletev1scansvulns
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-vulnerability-labels
+      description: Update Vulnerability Labels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.patchv1scansvulnslabels
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-vulns-export-tracker
+      description: Create vulns export to tracker
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postvulnsidticket
+      with:
+        reporting_config_id: tools.reporting_config_id
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scan-history
+      description: Get Scan History
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanidhistory
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        start_date: tools.start_date
+        end_date: tools.end_date
+        time_range: tools.time_range
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scan
+      description: Get Scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scan
+      description: Delete Scan
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-scans-2.deletev1scansscanid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scan
+      description: Update Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.patchv1scansscanid
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-unique-assets-scan
+      description: Get list of unique assets for a scan.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanidassets
+      with:
+        search: tools.search
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-list-unique-assets-scan
+      description: Export list of unique assets for a scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanidassetsexport
+      with:
+        search: tools.search
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scan-config
+      description: Get Scan Config
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getscansidconfig
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scan-config
+      description: Update Scan Config
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.patchscansidconfig
+      with:
+        update_type: tools.update_type
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-scan
+      description: Export Scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.getv1scansscanidexport
+      with:
+        type: tools.type
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-filtered-scan
+      description: Export Filtered Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansscanidexport
+      with:
+        type: tools.type
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-imported-scan
+      description: Update Imported Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-scans-2.patchv1scansscanidimport
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rescan-scan
+      description: Rescan scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansscanidrescan
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-scan
+      description: Stop Scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansscanidstop
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retest-vulnerability
+      description: Retest vulnerability
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: nuclei-scans-2.postv1scansvulnidretest
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

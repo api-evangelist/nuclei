@@ -1,0 +1,308 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — oauth
+  description: 'PDCP API — oauth. 5 operations. Lead operation: Exchange code for access token. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - oauth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-oauth
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — oauth business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-integration-oauth-name-exchange-token
+      path: /v1/integration/oauth/{name}/exchange-token
+      operations:
+      - name: postv1exchangeoauthtoken
+        method: POST
+        description: Exchange code for access token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-integration-oauth-name-generate-url
+      path: /v1/integration/oauth/{name}/generate-url
+      operations:
+      - name: postv1generateoauthurl
+        method: POST
+        description: Get OAuth URL for the service provider
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-integration-oauth-name-list
+      path: /v1/integration/oauth/{name}/list
+      operations:
+      - name: getv1integrationoauthlist
+        method: GET
+        description: List OAuth integrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: OAuth provider name (jira, linear, github)
+          required: true
+        - name: integration_type
+          in: query
+          type: string
+          description: Type of integrations to list
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-integration-oauth-name-revoke
+      path: /v1/integration/oauth/{name}/revoke
+      operations:
+      - name: deletev1integrationoauthrevoke
+        method: DELETE
+        description: Revoke OAuth token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: integration_name
+          in: query
+          type: string
+          description: Name of the config integration to revoke (for config type integrations)
+    - name: v1-integration-oauth-name-status
+      path: /v1/integration/oauth/{name}/status
+      operations:
+      - name: getv1integrationoauthstatus
+        method: GET
+        description: Get OAuth status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: integration_type
+          in: query
+          type: string
+          description: Type of integration (neuron for AI/automation, config for regular configurations)
+        - name: integration_name
+          in: query
+          type: string
+          description: Name of the config integration (required for config type integrations)
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-oauth-rest
+    port: 8080
+    description: REST adapter for PDCP API — oauth. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/integration/oauth/{name}/exchange-token
+      name: v1-integration-oauth-name-exchange-token
+      description: REST surface for v1-integration-oauth-name-exchange-token.
+      operations:
+      - method: POST
+        name: postv1exchangeoauthtoken
+        description: Exchange code for access token
+        call: nuclei-oauth.postv1exchangeoauthtoken
+        with:
+          name: rest.name
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/integration/oauth/{name}/generate-url
+      name: v1-integration-oauth-name-generate-url
+      description: REST surface for v1-integration-oauth-name-generate-url.
+      operations:
+      - method: POST
+        name: postv1generateoauthurl
+        description: Get OAuth URL for the service provider
+        call: nuclei-oauth.postv1generateoauthurl
+        with:
+          name: rest.name
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/integration/oauth/{name}/list
+      name: v1-integration-oauth-name-list
+      description: REST surface for v1-integration-oauth-name-list.
+      operations:
+      - method: GET
+        name: getv1integrationoauthlist
+        description: List OAuth integrations
+        call: nuclei-oauth.getv1integrationoauthlist
+        with:
+          name: rest.name
+          integration_type: rest.integration_type
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/integration/oauth/{name}/revoke
+      name: v1-integration-oauth-name-revoke
+      description: REST surface for v1-integration-oauth-name-revoke.
+      operations:
+      - method: DELETE
+        name: deletev1integrationoauthrevoke
+        description: Revoke OAuth token
+        call: nuclei-oauth.deletev1integrationoauthrevoke
+        with:
+          name: rest.name
+          integration_name: rest.integration_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/integration/oauth/{name}/status
+      name: v1-integration-oauth-name-status
+      description: REST surface for v1-integration-oauth-name-status.
+      operations:
+      - method: GET
+        name: getv1integrationoauthstatus
+        description: Get OAuth status
+        call: nuclei-oauth.getv1integrationoauthstatus
+        with:
+          name: rest.name
+          X-Team-Id: rest.X-Team-Id
+          integration_type: rest.integration_type
+          integration_name: rest.integration_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-oauth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — oauth. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: exchange-code-access-token
+      description: Exchange code for access token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-oauth.postv1exchangeoauthtoken
+      with:
+        name: tools.name
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-oauth-url-service-provider
+      description: Get OAuth URL for the service provider
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: nuclei-oauth.postv1generateoauthurl
+      with:
+        name: tools.name
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-oauth-integrations
+      description: List OAuth integrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-oauth.getv1integrationoauthlist
+      with:
+        name: tools.name
+        integration_type: tools.integration_type
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-oauth-token
+      description: Revoke OAuth token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-oauth.deletev1integrationoauthrevoke
+      with:
+        name: tools.name
+        integration_name: tools.integration_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-oauth-status
+      description: Get OAuth status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-oauth.getv1integrationoauthstatus
+      with:
+        name: tools.name
+        X-Team-Id: tools.X-Team-Id
+        integration_type: tools.integration_type
+        integration_name: tools.integration_name
+      outputParameters:
+      - type: object
+        mapping: $.

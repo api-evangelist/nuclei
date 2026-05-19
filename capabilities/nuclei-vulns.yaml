@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — vulns
+  description: 'PDCP API — vulns. 1 operations. Lead operation: Get Vuln Score Metrics. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - vulns
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-vulns
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — vulns business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-scans-vulns-score-metrics
+      path: /v1/scans/vulns/score/metrics
+      operations:
+      - name: getv1scansvulnsscoremetrics
+        method: GET
+        description: Get Vuln Score Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: interval
+          in: query
+          type: string
+          description: The time interval for the metrics
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-vulns-rest
+    port: 8080
+    description: REST adapter for PDCP API — vulns. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/scans/vulns/score/metrics
+      name: v1-scans-vulns-score-metrics
+      description: REST surface for v1-scans-vulns-score-metrics.
+      operations:
+      - method: GET
+        name: getv1scansvulnsscoremetrics
+        description: Get Vuln Score Metrics
+        call: nuclei-vulns.getv1scansvulnsscoremetrics
+        with:
+          interval: rest.interval
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-vulns-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — vulns. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-vuln-score-metrics
+      description: Get Vuln Score Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-vulns.getv1scansvulnsscoremetrics
+      with:
+        interval: tools.interval
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.

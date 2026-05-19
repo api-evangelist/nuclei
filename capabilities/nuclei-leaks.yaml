@@ -1,0 +1,215 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — leaks
+  description: 'PDCP API — leaks. 4 operations. Lead operation: Get leak information by ID. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - leaks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-leaks
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — leaks business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-leaks-info
+      path: /v1/leaks/info
+      operations:
+      - name: postv1leaksinfo
+        method: POST
+        description: Get leak information by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-leaks-stats-domain
+      path: /v1/leaks/stats/domain
+      operations:
+      - name: getv1leaksstatsdomain
+        method: GET
+        description: Get leak statistics for a domain (Public)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+        - name: unmask_email
+          in: query
+          type: boolean
+    - name: v1-leaks-stats-email
+      path: /v1/leaks/stats/email
+      operations:
+      - name: getv1leaksstatsemail
+        method: GET
+        description: Get leak statistics for an email (Public)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: email
+          in: query
+          type: string
+          description: Email to get stats for
+        - name: unmask_email
+          in: query
+          type: boolean
+    - name: v1-leaks-status
+      path: /v1/leaks/status
+      operations:
+      - name: postv1leaksstatus
+        method: POST
+        description: Update leak status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-leaks-rest
+    port: 8080
+    description: REST adapter for PDCP API — leaks. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/leaks/info
+      name: v1-leaks-info
+      description: REST surface for v1-leaks-info.
+      operations:
+      - method: POST
+        name: postv1leaksinfo
+        description: Get leak information by ID
+        call: nuclei-leaks.postv1leaksinfo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/leaks/stats/domain
+      name: v1-leaks-stats-domain
+      description: REST surface for v1-leaks-stats-domain.
+      operations:
+      - method: GET
+        name: getv1leaksstatsdomain
+        description: Get leak statistics for a domain (Public)
+        call: nuclei-leaks.getv1leaksstatsdomain
+        with:
+          domain: rest.domain
+          unmask_email: rest.unmask_email
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/leaks/stats/email
+      name: v1-leaks-stats-email
+      description: REST surface for v1-leaks-stats-email.
+      operations:
+      - method: GET
+        name: getv1leaksstatsemail
+        description: Get leak statistics for an email (Public)
+        call: nuclei-leaks.getv1leaksstatsemail
+        with:
+          email: rest.email
+          unmask_email: rest.unmask_email
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/leaks/status
+      name: v1-leaks-status
+      description: REST surface for v1-leaks-status.
+      operations:
+      - method: POST
+        name: postv1leaksstatus
+        description: Update leak status
+        call: nuclei-leaks.postv1leaksstatus
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-leaks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — leaks. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-leak-information-id
+      description: Get leak information by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: nuclei-leaks.postv1leaksinfo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-leak-statistics-domain-public
+      description: Get leak statistics for a domain (Public)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-leaks.getv1leaksstatsdomain
+      with:
+        domain: tools.domain
+        unmask_email: tools.unmask_email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-leak-statistics-email-public
+      description: Get leak statistics for an email (Public)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-leaks.getv1leaksstatsemail
+      with:
+        email: tools.email
+        unmask_email: tools.unmask_email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-leak-status
+      description: Update leak status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-leaks.postv1leaksstatus
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

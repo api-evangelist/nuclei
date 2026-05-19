@@ -1,0 +1,2476 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — enumerations
+  description: 'PDCP API — enumerations. 27 operations. Lead operation: Get Enumeration Domain Contents. Self-contained Naftiko
+    capability covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - enumerations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-enumerations
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — enumerations business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-asset-domain-domain_name
+      path: /v1/asset/domain/{domain_name}
+      operations:
+      - name: getv1assetdomaindomainnamecontents
+        method: GET
+        description: Get Enumeration Domain Contents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: is_tech
+          in: query
+          type: boolean
+          description: Return records that have technologies
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Return the records that have favicon
+        - name: search
+          in: query
+          type: string
+          description: Search on the content name
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated hosts, e.g-> host=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by comma separated ports, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by comma separated titles, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,name
+        - name: is_screenshot
+          in: query
+          type: boolean
+          description: asset with screenshots
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+    - name: v1-asset-domain-domain_name-export
+      path: /v1/asset/domain/{domain_name}/export
+      operations:
+      - name: getv1assetdomaindomainnameexport
+        method: GET
+        description: Export Enumeration of user by domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
+          description: Search on the content name
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> host=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by port separated labels, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by status code separated labels, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by title separated labels, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by content length separated labels, e.g-> content_length=p1,p2
+        - name: domain
+          in: query
+          type: string
+          description: Filter by domain names separated labels, e.g-> domain=domain1.com,domain2.com
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: is_screenshot
+          in: query
+          type: boolean
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+    - name: v1-asset-domain-domain_name-filters
+      path: /v1/asset/domain/{domain_name}/filters
+      operations:
+      - name: getv1assetdomaindomainnamefilters
+        method: GET
+        description: Group assets by filters for an domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: host
+          in: query
+          type: string
+        - name: port
+          in: query
+          type: string
+        - name: ip
+          in: query
+          type: string
+        - name: cname
+          in: query
+          type: string
+        - name: technologies
+          in: query
+          type: string
+        - name: status_code
+          in: query
+          type: string
+        - name: content_length
+          in: query
+          type: string
+        - name: domain
+          in: query
+          type: array
+        - name: title
+          in: query
+          type: string
+        - name: webserver
+          in: query
+          type: string
+        - name: labels
+          in: query
+          type: string
+        - name: favicon
+          in: query
+          type: string
+        - name: group_by
+          in: query
+          type: string
+          description: Group by type. e.g. - host, port, favicon.
+          required: true
+        - name: sort_asc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: sort_desc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: is_screenshot
+          in: query
+          type: boolean
+    - name: v1-asset-domain-domain_name-stats
+      path: /v1/asset/domain/{domain_name}/stats
+      operations:
+      - name: getv1assetdomaindomainnamestats
+        method: GET
+        description: Get domain stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate
+      path: /v1/asset/enumerate
+      operations:
+      - name: getv1assetenumerate
+        method: GET
+        description: Get Enumeration List
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: search
+          in: query
+          type: string
+          description: search keyword in enumeration list
+        - name: enum_type
+          in: query
+          type: string
+          description: types of enumeration list (comma seperated)
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,name
+        - name: status
+          in: query
+          type: string
+          description: comma separated filter enumeration result by status
+        - name: time
+          in: query
+          type: string
+          description: time range to get enumerations from
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: is_internal
+          in: query
+          type: boolean
+          description: filter by internal enumerations
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1assetenumerate
+        method: POST
+        description: Create Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1assetenumerates
+        method: DELETE
+        description: Delete Assets in bulk
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-enumerate-contents
+      path: /v1/asset/enumerate/contents
+      operations:
+      - name: getv1assetenumeratecontents
+        method: GET
+        description: Get All Enumeration Contents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: is_tech
+          in: query
+          type: boolean
+          description: Return records that have technologies
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Return the records that have favicon
+        - name: search
+          in: query
+          type: string
+          description: Search on the content name
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> host=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by port separated labels, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by status code separated labels, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by title separated labels, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by content length separated labels, e.g-> content_length=p1,p2
+        - name: domain
+          in: query
+          type: string
+          description: Filter by domain names separated labels, e.g-> domain=domain1.com,domain2.com
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,name
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: is_screenshot
+          in: query
+          type: boolean
+          description: asset with screenshots
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+        - name: is_internal
+          in: query
+          type: boolean
+          description: filter by is_internal (internal vs external hosts)
+    - name: v1-asset-enumerate-export
+      path: /v1/asset/enumerate/export
+      operations:
+      - name: getenumerateexport
+        method: GET
+        description: Export Enumeration of user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
+          description: Search on the content name
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> host=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by port separated labels, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by status code separated labels, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by title separated labels, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by content length separated labels, e.g-> content_length=p1,p2
+        - name: domain
+          in: query
+          type: string
+          description: Filter by domain names separated labels, e.g-> domain=domain1.com,domain2.com
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: is_screenshot
+          in: query
+          type: boolean
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+    - name: v1-asset-enumerate-filters
+      path: /v1/asset/enumerate/filters
+      operations:
+      - name: getv1assetenumeratefilters
+        method: GET
+        description: Group assets by filters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: host
+          in: query
+          type: string
+        - name: port
+          in: query
+          type: string
+        - name: ip
+          in: query
+          type: string
+        - name: cname
+          in: query
+          type: string
+        - name: technologies
+          in: query
+          type: string
+        - name: status_code
+          in: query
+          type: string
+        - name: content_length
+          in: query
+          type: string
+        - name: domain
+          in: query
+          type: string
+        - name: title
+          in: query
+          type: string
+        - name: webserver
+          in: query
+          type: string
+        - name: favicon
+          in: query
+          type: string
+        - name: labels
+          in: query
+          type: string
+        - name: group_by
+          in: query
+          type: string
+          description: Group by type. e.g. - host, port, favicon.
+          required: true
+        - name: sort_asc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: sort_desc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: is_screenshot
+          in: query
+          type: boolean
+        - name: is_tech
+          in: query
+          type: boolean
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Filter items with favicon
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+        - name: custom_filter
+          in: query
+          type: string
+          description: Filter by custom filter. Double encode the query string.
+    - name: v1-asset-enumerate-group
+      path: /v1/asset/enumerate/group
+      operations:
+      - name: postv1assetenumerategroup
+        method: POST
+        description: Create an asset group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-enumerate-group-group_id
+      path: /v1/asset/enumerate/group/{group_id}
+      operations:
+      - name: deletev1assetenumerategroup
+        method: DELETE
+        description: Delete an asset group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1assetenumerategroup
+        method: PATCH
+        description: Update an asset group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: update_type
+          in: query
+          type: string
+          description: Append vs Replace update_type. Default is append
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: v1-asset-enumerate-stats
+      path: /v1/asset/enumerate/stats
+      operations:
+      - name: getv1assetenumeratestats
+        method: GET
+        description: Get all enumeration stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate-enum_id-export
+      path: /v1/asset/enumerate/{enum_id}/export
+      operations:
+      - name: getenumerateidexport
+        method: GET
+        description: Export Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
+          description: Search by string
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated hosts, e.g-> host=p1,p2
+        - name: domains
+          in: query
+          type: string
+          description: Filter by comma separated domains, e.g-> domains=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by comma separated ports, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by comma separated titles, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: is_screenshot
+          in: query
+          type: boolean
+          description: Return records that have screenshots
+        - name: is_tech
+          in: query
+          type: boolean
+          description: Return records that have technologies
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Return the records that have favicon
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+    - name: v1-asset-enumerate-enumerate_id
+      path: /v1/asset/enumerate/{enumerate_id}
+      operations:
+      - name: getv1assetenumerateenumerateid
+        method: GET
+        description: Get Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: patchv1assetenumerateenumerateid
+        method: PATCH
+        description: Update Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1assetenumerateenumerateid
+        method: DELETE
+        description: Delete Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate-enumerate_id-config
+      path: /v1/asset/enumerate/{enumerate_id}/config
+      operations:
+      - name: getv1assetenumerateenumerateidconfig
+        method: GET
+        description: Get enumeration config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate-enumerate_id-contents
+      path: /v1/asset/enumerate/{enumerate_id}/contents
+      operations:
+      - name: getv1assetenumerateenumerateidcontents
+        method: GET
+        description: Get Enumeration Contents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: is_tech
+          in: query
+          type: boolean
+          description: Return records that have technologies
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Return the records that have favicon
+        - name: search
+          in: query
+          type: string
+          description: Search on the content name
+        - name: labels
+          in: query
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        - name: is_new
+          in: query
+          type: boolean
+          description: Filter by new content
+        - name: host
+          in: query
+          type: string
+          description: Filter by comma separated hosts, e.g-> host=p1,p2
+        - name: port
+          in: query
+          type: string
+          description: Filter by comma separated ports, e.g-> port=p1,p2
+        - name: status_code
+          in: query
+          type: string
+          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+        - name: title
+          in: query
+          type: string
+          description: Filter by comma separated titles, e.g-> title=p1,p2
+        - name: content_length
+          in: query
+          type: string
+          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+        - name: cname
+          in: query
+          type: string
+          description: cname to filter
+        - name: domain
+          in: query
+          type: string
+          description: Filter by comma separated domain names, e.g-> domain=domain1.com,domain2.com
+        - name: technologies
+          in: query
+          type: string
+          description: technologies to filter
+        - name: ip
+          in: query
+          type: string
+          description: ips to filter
+        - name: sort_asc
+          in: query
+          type: string
+          description: comma separated ascending sorting e.g sort_asc=created_at,name
+        - name: sort_desc
+          in: query
+          type: string
+          description: comma separated descending sorting e.g sort_desc=created_at,name
+        - name: is_screenshot
+          in: query
+          type: boolean
+          description: asset with screenshots
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: custom_filter
+          in: query
+          type: string
+          description: custom query to filter. double encode the query string.
+        - name: favicon
+          in: query
+          type: string
+          description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+        - name: is_internal
+          in: query
+          type: boolean
+          description: filter by is_internal (internal vs external hosts)
+    - name: v1-asset-enumerate-enumerate_id-filters
+      path: /v1/asset/enumerate/{enumerate_id}/filters
+      operations:
+      - name: getv1assetenumerateidfilters
+        method: GET
+        description: Group assets by filters for an enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          description: The number of items to skip before starting to collect the result set
+        - name: limit
+          in: query
+          type: integer
+          description: The numbers of items to return
+        - name: host
+          in: query
+          type: string
+        - name: port
+          in: query
+          type: string
+        - name: ip
+          in: query
+          type: string
+        - name: cname
+          in: query
+          type: string
+        - name: technologies
+          in: query
+          type: string
+        - name: status_code
+          in: query
+          type: string
+        - name: content_length
+          in: query
+          type: string
+        - name: domain
+          in: query
+          type: string
+        - name: title
+          in: query
+          type: string
+        - name: webserver
+          in: query
+          type: string
+        - name: labels
+          in: query
+          type: string
+        - name: favicon
+          in: query
+          type: string
+        - name: group_by
+          in: query
+          type: string
+          description: Group by type. e.g. - host, port, favicon.
+          required: true
+        - name: sort_asc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: sort_desc
+          in: query
+          type: string
+          description: supported sort fields
+        - name: time
+          in: query
+          type: string
+          description: time filter to select
+        - name: start_date
+          in: query
+          type: string
+          description: time filter start date
+        - name: end_date
+          in: query
+          type: string
+          description: time filter end date
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: is_screenshot
+          in: query
+          type: boolean
+        - name: is_tech
+          in: query
+          type: boolean
+        - name: is_favicon
+          in: query
+          type: boolean
+          description: Filter items with favicon
+        - name: only_dns
+          in: query
+          type: boolean
+          description: Query only dns FQDN records
+        - name: only_ip
+          in: query
+          type: boolean
+          description: Query only dns IP records
+        - name: is_internal
+          in: query
+          type: boolean
+          description: filter by is_internal (internal vs external hosts)
+        - name: custom_filter
+          in: query
+          type: string
+          description: Filter by custom filter. Double encode the query string.
+    - name: v1-asset-enumerate-enumerate_id-rescan
+      path: /v1/asset/enumerate/{enumerate_id}/rescan
+      operations:
+      - name: postv1assetenumerateenumerateidrescan
+        method: POST
+        description: Rescan Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate-enumerate_id-stats
+      path: /v1/asset/enumerate/{enumerate_id}/stats
+      operations:
+      - name: getv1assetenumerateenumerateidstats
+        method: GET
+        description: Get enumeration stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-asset-enumerate-enumerate_id-stop
+      path: /v1/asset/enumerate/{enumerate_id}/stop
+      operations:
+      - name: postv1assetenumerateenumerateidstop
+        method: POST
+        description: Stop Enumeration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    - name: v1-enumeration-schedule
+      path: /v1/enumeration/schedule
+      operations:
+      - name: getv1enumerationschedule
+        method: GET
+        description: Get Enumeration Schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - name: postv1enumerationschedule
+        method: POST
+        description: Set Enumeration Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deletev1enumerationschedule
+        method: DELETE
+        description: Delete Enumeration Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: enumeration_id
+          in: query
+          type: string
+          description: enumeration_id of the schedule to be deleted
+          required: true
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-enumerations-rest
+    port: 8080
+    description: REST adapter for PDCP API — enumerations. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/asset/domain/{domain-name}
+      name: v1-asset-domain-domain-name
+      description: REST surface for v1-asset-domain-domain_name.
+      operations:
+      - method: GET
+        name: getv1assetdomaindomainnamecontents
+        description: Get Enumeration Domain Contents
+        call: nuclei-enumerations.getv1assetdomaindomainnamecontents
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          cname: rest.cname
+          technologies: rest.technologies
+          ip: rest.ip
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          is_screenshot: rest.is_screenshot
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          favicon: rest.favicon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/domain/{domain-name}/export
+      name: v1-asset-domain-domain-name-export
+      description: REST surface for v1-asset-domain-domain_name-export.
+      operations:
+      - method: GET
+        name: getv1assetdomaindomainnameexport
+        description: Export Enumeration of user by domain
+        call: nuclei-enumerations.getv1assetdomaindomainnameexport
+        with:
+          format: rest.format
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          domain: rest.domain
+          cname: rest.cname
+          technologies: rest.technologies
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          is_screenshot: rest.is_screenshot
+          ip: rest.ip
+          favicon: rest.favicon
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/domain/{domain-name}/filters
+      name: v1-asset-domain-domain-name-filters
+      description: REST surface for v1-asset-domain-domain_name-filters.
+      operations:
+      - method: GET
+        name: getv1assetdomaindomainnamefilters
+        description: Group assets by filters for an domain
+        call: nuclei-enumerations.getv1assetdomaindomainnamefilters
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          host: rest.host
+          port: rest.port
+          ip: rest.ip
+          cname: rest.cname
+          technologies: rest.technologies
+          status_code: rest.status_code
+          content_length: rest.content_length
+          domain: rest.domain
+          title: rest.title
+          webserver: rest.webserver
+          labels: rest.labels
+          favicon: rest.favicon
+          group_by: rest.group_by
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          is_screenshot: rest.is_screenshot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/domain/{domain-name}/stats
+      name: v1-asset-domain-domain-name-stats
+      description: REST surface for v1-asset-domain-domain_name-stats.
+      operations:
+      - method: GET
+        name: getv1assetdomaindomainnamestats
+        description: Get domain stats
+        call: nuclei-enumerations.getv1assetdomaindomainnamestats
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate
+      name: v1-asset-enumerate
+      description: REST surface for v1-asset-enumerate.
+      operations:
+      - method: GET
+        name: getv1assetenumerate
+        description: Get Enumeration List
+        call: nuclei-enumerations.getv1assetenumerate
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          search: rest.search
+          enum_type: rest.enum_type
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          status: rest.status
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          custom_filter: rest.custom_filter
+          is_internal: rest.is_internal
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1assetenumerate
+        description: Create Enumeration
+        call: nuclei-enumerations.postv1assetenumerate
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1assetenumerates
+        description: Delete Assets in bulk
+        call: nuclei-enumerations.deletev1assetenumerates
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/contents
+      name: v1-asset-enumerate-contents
+      description: REST surface for v1-asset-enumerate-contents.
+      operations:
+      - method: GET
+        name: getv1assetenumeratecontents
+        description: Get All Enumeration Contents
+        call: nuclei-enumerations.getv1assetenumeratecontents
+        with:
+          offset: rest.offset
+          time: rest.time
+          limit: rest.limit
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          domain: rest.domain
+          cname: rest.cname
+          technologies: rest.technologies
+          ip: rest.ip
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          is_screenshot: rest.is_screenshot
+          favicon: rest.favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+          is_internal: rest.is_internal
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/export
+      name: v1-asset-enumerate-export
+      description: REST surface for v1-asset-enumerate-export.
+      operations:
+      - method: GET
+        name: getenumerateexport
+        description: Export Enumeration of user
+        call: nuclei-enumerations.getenumerateexport
+        with:
+          format: rest.format
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          domain: rest.domain
+          cname: rest.cname
+          technologies: rest.technologies
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          is_screenshot: rest.is_screenshot
+          ip: rest.ip
+          favicon: rest.favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/filters
+      name: v1-asset-enumerate-filters
+      description: REST surface for v1-asset-enumerate-filters.
+      operations:
+      - method: GET
+        name: getv1assetenumeratefilters
+        description: Group assets by filters
+        call: nuclei-enumerations.getv1assetenumeratefilters
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          host: rest.host
+          port: rest.port
+          ip: rest.ip
+          cname: rest.cname
+          technologies: rest.technologies
+          status_code: rest.status_code
+          content_length: rest.content_length
+          domain: rest.domain
+          title: rest.title
+          webserver: rest.webserver
+          favicon: rest.favicon
+          labels: rest.labels
+          group_by: rest.group_by
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          is_screenshot: rest.is_screenshot
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+          custom_filter: rest.custom_filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/group
+      name: v1-asset-enumerate-group
+      description: REST surface for v1-asset-enumerate-group.
+      operations:
+      - method: POST
+        name: postv1assetenumerategroup
+        description: Create an asset group
+        call: nuclei-enumerations.postv1assetenumerategroup
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/group/{group-id}
+      name: v1-asset-enumerate-group-group-id
+      description: REST surface for v1-asset-enumerate-group-group_id.
+      operations:
+      - method: DELETE
+        name: deletev1assetenumerategroup
+        description: Delete an asset group
+        call: nuclei-enumerations.deletev1assetenumerategroup
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetenumerategroup
+        description: Update an asset group
+        call: nuclei-enumerations.patchv1assetenumerategroup
+        with:
+          update_type: rest.update_type
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/stats
+      name: v1-asset-enumerate-stats
+      description: REST surface for v1-asset-enumerate-stats.
+      operations:
+      - method: GET
+        name: getv1assetenumeratestats
+        description: Get all enumeration stats
+        call: nuclei-enumerations.getv1assetenumeratestats
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enum-id}/export
+      name: v1-asset-enumerate-enum-id-export
+      description: REST surface for v1-asset-enumerate-enum_id-export.
+      operations:
+      - method: GET
+        name: getenumerateidexport
+        description: Export Enumeration
+        call: nuclei-enumerations.getenumerateidexport
+        with:
+          format: rest.format
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          domains: rest.domains
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          cname: rest.cname
+          technologies: rest.technologies
+          ip: rest.ip
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          is_screenshot: rest.is_screenshot
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          favicon: rest.favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}
+      name: v1-asset-enumerate-enumerate-id
+      description: REST surface for v1-asset-enumerate-enumerate_id.
+      operations:
+      - method: GET
+        name: getv1assetenumerateenumerateid
+        description: Get Enumeration
+        call: nuclei-enumerations.getv1assetenumerateenumerateid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchv1assetenumerateenumerateid
+        description: Update Enumeration
+        call: nuclei-enumerations.patchv1assetenumerateenumerateid
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1assetenumerateenumerateid
+        description: Delete Enumeration
+        call: nuclei-enumerations.deletev1assetenumerateenumerateid
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/config
+      name: v1-asset-enumerate-enumerate-id-config
+      description: REST surface for v1-asset-enumerate-enumerate_id-config.
+      operations:
+      - method: GET
+        name: getv1assetenumerateenumerateidconfig
+        description: Get enumeration config
+        call: nuclei-enumerations.getv1assetenumerateenumerateidconfig
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/contents
+      name: v1-asset-enumerate-enumerate-id-contents
+      description: REST surface for v1-asset-enumerate-enumerate_id-contents.
+      operations:
+      - method: GET
+        name: getv1assetenumerateenumerateidcontents
+        description: Get Enumeration Contents
+        call: nuclei-enumerations.getv1assetenumerateenumerateidcontents
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          search: rest.search
+          labels: rest.labels
+          is_new: rest.is_new
+          host: rest.host
+          port: rest.port
+          status_code: rest.status_code
+          title: rest.title
+          content_length: rest.content_length
+          cname: rest.cname
+          domain: rest.domain
+          technologies: rest.technologies
+          ip: rest.ip
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          is_screenshot: rest.is_screenshot
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          custom_filter: rest.custom_filter
+          favicon: rest.favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+          is_internal: rest.is_internal
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/filters
+      name: v1-asset-enumerate-enumerate-id-filters
+      description: REST surface for v1-asset-enumerate-enumerate_id-filters.
+      operations:
+      - method: GET
+        name: getv1assetenumerateidfilters
+        description: Group assets by filters for an enumeration
+        call: nuclei-enumerations.getv1assetenumerateidfilters
+        with:
+          offset: rest.offset
+          limit: rest.limit
+          host: rest.host
+          port: rest.port
+          ip: rest.ip
+          cname: rest.cname
+          technologies: rest.technologies
+          status_code: rest.status_code
+          content_length: rest.content_length
+          domain: rest.domain
+          title: rest.title
+          webserver: rest.webserver
+          labels: rest.labels
+          favicon: rest.favicon
+          group_by: rest.group_by
+          sort_asc: rest.sort_asc
+          sort_desc: rest.sort_desc
+          time: rest.time
+          start_date: rest.start_date
+          end_date: rest.end_date
+          X-Team-Id: rest.X-Team-Id
+          is_screenshot: rest.is_screenshot
+          is_tech: rest.is_tech
+          is_favicon: rest.is_favicon
+          only_dns: rest.only_dns
+          only_ip: rest.only_ip
+          is_internal: rest.is_internal
+          custom_filter: rest.custom_filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/rescan
+      name: v1-asset-enumerate-enumerate-id-rescan
+      description: REST surface for v1-asset-enumerate-enumerate_id-rescan.
+      operations:
+      - method: POST
+        name: postv1assetenumerateenumerateidrescan
+        description: Rescan Enumeration
+        call: nuclei-enumerations.postv1assetenumerateenumerateidrescan
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/stats
+      name: v1-asset-enumerate-enumerate-id-stats
+      description: REST surface for v1-asset-enumerate-enumerate_id-stats.
+      operations:
+      - method: GET
+        name: getv1assetenumerateenumerateidstats
+        description: Get enumeration stats
+        call: nuclei-enumerations.getv1assetenumerateenumerateidstats
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/asset/enumerate/{enumerate-id}/stop
+      name: v1-asset-enumerate-enumerate-id-stop
+      description: REST surface for v1-asset-enumerate-enumerate_id-stop.
+      operations:
+      - method: POST
+        name: postv1assetenumerateenumerateidstop
+        description: Stop Enumeration
+        call: nuclei-enumerations.postv1assetenumerateenumerateidstop
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/enumeration/schedule
+      name: v1-enumeration-schedule
+      description: REST surface for v1-enumeration-schedule.
+      operations:
+      - method: GET
+        name: getv1enumerationschedule
+        description: Get Enumeration Schedules
+        call: nuclei-enumerations.getv1enumerationschedule
+        with:
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: postv1enumerationschedule
+        description: Set Enumeration Schedule
+        call: nuclei-enumerations.postv1enumerationschedule
+        with:
+          X-Team-Id: rest.X-Team-Id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletev1enumerationschedule
+        description: Delete Enumeration Schedule
+        call: nuclei-enumerations.deletev1enumerationschedule
+        with:
+          enumeration_id: rest.enumeration_id
+          X-Team-Id: rest.X-Team-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-enumerations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — enumerations. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-enumeration-domain-contents
+      description: Get Enumeration Domain Contents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetdomaindomainnamecontents
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        cname: tools.cname
+        technologies: tools.technologies
+        ip: tools.ip
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        is_screenshot: tools.is_screenshot
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        favicon: tools.favicon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-enumeration-user-domain
+      description: Export Enumeration of user by domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetdomaindomainnameexport
+      with:
+        format: tools.format
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        domain: tools.domain
+        cname: tools.cname
+        technologies: tools.technologies
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        is_screenshot: tools.is_screenshot
+        ip: tools.ip
+        favicon: tools.favicon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: group-assets-filters-domain
+      description: Group assets by filters for an domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetdomaindomainnamefilters
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        host: tools.host
+        port: tools.port
+        ip: tools.ip
+        cname: tools.cname
+        technologies: tools.technologies
+        status_code: tools.status_code
+        content_length: tools.content_length
+        domain: tools.domain
+        title: tools.title
+        webserver: tools.webserver
+        labels: tools.labels
+        favicon: tools.favicon
+        group_by: tools.group_by
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        is_screenshot: tools.is_screenshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-domain-stats
+      description: Get domain stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetdomaindomainnamestats
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration-list
+      description: Get Enumeration List
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerate
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        search: tools.search
+        enum_type: tools.enum_type
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        status: tools.status
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        custom_filter: tools.custom_filter
+        is_internal: tools.is_internal
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-enumeration
+      description: Create Enumeration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-enumerations.postv1assetenumerate
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-assets-bulk
+      description: Delete Assets in bulk
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-enumerations.deletev1assetenumerates
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-enumeration-contents
+      description: Get All Enumeration Contents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumeratecontents
+      with:
+        offset: tools.offset
+        time: tools.time
+        limit: tools.limit
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        domain: tools.domain
+        cname: tools.cname
+        technologies: tools.technologies
+        ip: tools.ip
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        is_screenshot: tools.is_screenshot
+        favicon: tools.favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+        is_internal: tools.is_internal
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-enumeration-user
+      description: Export Enumeration of user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getenumerateexport
+      with:
+        format: tools.format
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        domain: tools.domain
+        cname: tools.cname
+        technologies: tools.technologies
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        is_screenshot: tools.is_screenshot
+        ip: tools.ip
+        favicon: tools.favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: group-assets-filters
+      description: Group assets by filters
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumeratefilters
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        host: tools.host
+        port: tools.port
+        ip: tools.ip
+        cname: tools.cname
+        technologies: tools.technologies
+        status_code: tools.status_code
+        content_length: tools.content_length
+        domain: tools.domain
+        title: tools.title
+        webserver: tools.webserver
+        favicon: tools.favicon
+        labels: tools.labels
+        group_by: tools.group_by
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        is_screenshot: tools.is_screenshot
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+        custom_filter: tools.custom_filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-asset-group
+      description: Create an asset group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-enumerations.postv1assetenumerategroup
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-asset-group
+      description: Delete an asset group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-enumerations.deletev1assetenumerategroup
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-asset-group
+      description: Update an asset group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.patchv1assetenumerategroup
+      with:
+        update_type: tools.update_type
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-enumeration-stats
+      description: Get all enumeration stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumeratestats
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-enumeration
+      description: Export Enumeration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getenumerateidexport
+      with:
+        format: tools.format
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        domains: tools.domains
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        cname: tools.cname
+        technologies: tools.technologies
+        ip: tools.ip
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        is_screenshot: tools.is_screenshot
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        favicon: tools.favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration
+      description: Get Enumeration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerateenumerateid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-enumeration
+      description: Update Enumeration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.patchv1assetenumerateenumerateid
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-enumeration
+      description: Delete Enumeration
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-enumerations.deletev1assetenumerateenumerateid
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration-config
+      description: Get enumeration config
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerateenumerateidconfig
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration-contents
+      description: Get Enumeration Contents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerateenumerateidcontents
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        search: tools.search
+        labels: tools.labels
+        is_new: tools.is_new
+        host: tools.host
+        port: tools.port
+        status_code: tools.status_code
+        title: tools.title
+        content_length: tools.content_length
+        cname: tools.cname
+        domain: tools.domain
+        technologies: tools.technologies
+        ip: tools.ip
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        is_screenshot: tools.is_screenshot
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        custom_filter: tools.custom_filter
+        favicon: tools.favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+        is_internal: tools.is_internal
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: group-assets-filters-enumeration
+      description: Group assets by filters for an enumeration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerateidfilters
+      with:
+        offset: tools.offset
+        limit: tools.limit
+        host: tools.host
+        port: tools.port
+        ip: tools.ip
+        cname: tools.cname
+        technologies: tools.technologies
+        status_code: tools.status_code
+        content_length: tools.content_length
+        domain: tools.domain
+        title: tools.title
+        webserver: tools.webserver
+        labels: tools.labels
+        favicon: tools.favicon
+        group_by: tools.group_by
+        sort_asc: tools.sort_asc
+        sort_desc: tools.sort_desc
+        time: tools.time
+        start_date: tools.start_date
+        end_date: tools.end_date
+        X-Team-Id: tools.X-Team-Id
+        is_screenshot: tools.is_screenshot
+        is_tech: tools.is_tech
+        is_favicon: tools.is_favicon
+        only_dns: tools.only_dns
+        only_ip: tools.only_ip
+        is_internal: tools.is_internal
+        custom_filter: tools.custom_filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rescan-enumeration
+      description: Rescan Enumeration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-enumerations.postv1assetenumerateenumerateidrescan
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration-stats
+      description: Get enumeration stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1assetenumerateenumerateidstats
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-enumeration
+      description: Stop Enumeration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-enumerations.postv1assetenumerateenumerateidstop
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-enumeration-schedules
+      description: Get Enumeration Schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-enumerations.getv1enumerationschedule
+      with:
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-enumeration-schedule
+      description: Set Enumeration Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: nuclei-enumerations.postv1enumerationschedule
+      with:
+        X-Team-Id: tools.X-Team-Id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-enumeration-schedule
+      description: Delete Enumeration Schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: nuclei-enumerations.deletev1enumerationschedule
+      with:
+        enumeration_id: tools.enumeration_id
+        X-Team-Id: tools.X-Team-Id
+      outputParameters:
+      - type: object
+        mapping: $.

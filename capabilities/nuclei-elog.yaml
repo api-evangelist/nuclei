@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: PDCP API — elog
+  description: 'PDCP API — elog. 1 operations. Lead operation: Get elogs of given scan id. Self-contained Naftiko capability
+    covering one Nuclei business surface.'
+  tags:
+  - Nuclei
+  - elog
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUCLEI_API_KEY: NUCLEI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nuclei-elog
+    baseUri: https://api.projectdiscovery.io
+    description: PDCP API — elog business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-scans-scan_id-error_log
+      path: /v1/scans/{scan_id}/error_log
+      operations:
+      - name: getscansidelog
+        method: GET
+        description: Get elogs of given scan id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: host
+          in: query
+          type: string
+          description: target to search in log
+        - name: template
+          in: query
+          type: string
+          description: template to search in log
+        - name: matched
+          in: query
+          type: string
+          description: status to search in log
+        - name: time
+          in: query
+          type: string
+          description: time to filter the logs
+        - name: search
+          in: query
+          type: string
+          description: string to search in error, target and template
+        - name: error
+          in: query
+          type: string
+          description: error to search in log
+        - name: next_page_token
+          in: query
+          type: string
+          description: next page token
+        - name: X-Team-Id
+          in: header
+          type: string
+          description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        - name: template_severity
+          in: query
+          type: string
+          description: severity to search in log
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.NUCLEI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: nuclei-elog-rest
+    port: 8080
+    description: REST adapter for PDCP API — elog. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/scans/{scan-id}/error-log
+      name: v1-scans-scan-id-error-log
+      description: REST surface for v1-scans-scan_id-error_log.
+      operations:
+      - method: GET
+        name: getscansidelog
+        description: Get elogs of given scan id
+        call: nuclei-elog.getscansidelog
+        with:
+          host: rest.host
+          template: rest.template
+          matched: rest.matched
+          time: rest.time
+          search: rest.search
+          error: rest.error
+          next_page_token: rest.next_page_token
+          X-Team-Id: rest.X-Team-Id
+          template_severity: rest.template_severity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nuclei-elog-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for PDCP API — elog. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-elogs-given-scan-id
+      description: Get elogs of given scan id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nuclei-elog.getscansidelog
+      with:
+        host: tools.host
+        template: tools.template
+        matched: tools.matched
+        time: tools.time
+        search: tools.search
+        error: tools.error
+        next_page_token: tools.next_page_token
+        X-Team-Id: tools.X-Team-Id
+        template_severity: tools.template_severity
+      outputParameters:
+      - type: object
+        mapping: $.
