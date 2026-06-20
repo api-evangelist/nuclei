@@ -6,7 +6,7 @@ description: >-
   scanning, CI/CD integration, and ships with thousands of community-contributed templates. The ProjectDiscovery Cloud
   Platform exposes a REST API for managing templates, scans, vulnerabilities, leaks, asset discovery, exports, and more.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Security Testing
   - Testing
