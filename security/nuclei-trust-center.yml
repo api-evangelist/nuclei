@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://security.projectdiscovery.io/
+url: https://security.projectdiscovery.io/
+certifications:
+- SOC 2
+evidence:
+- source: https://security.projectdiscovery.io/
+  keywords:
+  - soc 2
+  - trust center

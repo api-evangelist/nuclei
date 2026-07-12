@@ -55,6 +55,14 @@ apis:
       - type: OpenAPI
         url: openapi/nuclei-openapi.yml
 common:
+  - type: TrustCenter
+    url: security/nuclei-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/nuclei-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/nuclei-domain-security.yml
+  - type: Authentication
+    url: authentication/nuclei-authentication.yml
   - type: Website
     url: https://nuclei.projectdiscovery.io
   - type: Documentation
@@ -69,6 +77,8 @@ common:
     url: https://github.com/projectdiscovery/nuclei-templates
   - type: Cloud
     url: https://cloud.projectdiscovery.io/
+  - url: https://blog.projectdiscovery.io/rss/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

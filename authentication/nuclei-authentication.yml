@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/nuclei-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: X-API-Key
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  sources:
+  - openapi/nuclei-openapi.yml
