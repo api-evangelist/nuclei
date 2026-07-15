@@ -55,6 +55,8 @@ apis:
       - type: OpenAPI
         url: openapi/nuclei-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/nuclei-agentic-access.yml
   - type: TrustCenter
     url: security/nuclei-trust-center.yml
   - type: VulnerabilityDisclosure
