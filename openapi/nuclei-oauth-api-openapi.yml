@@ -1,0 +1,349 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents oauth API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: oauth
+paths:
+  /v1/integration/oauth/{name}/generate-url:
+    post:
+      summary: Get OAuth URL for the service provider
+      tags:
+      - oauth
+      parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                integration_type:
+                  type: string
+                  enum:
+                  - neuron
+                  - config
+                  default: neuron
+                  description: Type of integration (neuron for AI/automation, config for regular configurations)
+                integration_name:
+                  type: string
+                  description: Name for the integration (required for config type, ignored for neuron type)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                required:
+                - url
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-generate-oauth-url
+      security:
+      - X-API-Key: []
+  /v1/integration/oauth/{name}/exchange-token:
+    post:
+      summary: Exchange code for access token
+      tags:
+      - oauth
+      parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                state:
+                  type: string
+                installation_id:
+                  type: string
+              required:
+              - code
+              - state
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user_auth_integration_id:
+                    type: integer
+                    format: int32
+                  config_id:
+                    type: string
+                required:
+                - message
+                - user_auth_integration_id
+                - config_id
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-exchange-oauth-token
+      security:
+      - X-API-Key: []
+  /v1/integration/oauth/{name}/status:
+    get:
+      parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      - schema:
+          type: string
+          enum:
+          - neuron
+          - config
+          default: neuron
+        in: query
+        name: integration_type
+        description: Type of integration (neuron for AI/automation, config for regular configurations)
+      - schema:
+          type: string
+        in: query
+        name: integration_name
+        description: Name of the config integration (required for config type integrations)
+      summary: Get OAuth status
+      tags:
+      - oauth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/OAuthStatus'
+                  metadata:
+                    $ref: '#/components/schemas/OAuthMetadata'
+                  config_id:
+                    type: string
+                required:
+                - status
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-integration-oauth-status
+      security:
+      - X-API-Key: []
+  /v1/integration/oauth/{name}/revoke:
+    delete:
+      summary: Revoke OAuth token
+      tags:
+      - oauth
+      parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: integration_name
+        description: Name of the config integration to revoke (for config type integrations)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-integration-oauth-revoke
+      security:
+      - X-API-Key: []
+  /v1/integration/oauth/{name}/list:
+    get:
+      summary: List OAuth integrations
+      tags:
+      - oauth
+      parameters:
+      - schema:
+          type: string
+        name: name
+        in: path
+        required: true
+        description: OAuth provider name (jira, linear, github)
+      - schema:
+          type: string
+          enum:
+          - neuron
+          - config
+          - all
+          default: config
+        in: query
+        name: integration_type
+        description: Type of integrations to list
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  integrations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        config_id:
+                          type: string
+                        provider:
+                          type: string
+                        integration_type:
+                          type: string
+                        integration_name:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        jira_cloud_id:
+                          type: string
+                        github_installation_id:
+                          type: integer
+                        linear_org_id:
+                          type: string
+                required:
+                - integrations
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-integration-oauth-list
+      security:
+      - X-API-Key: []
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+  schemas:
+    OAuthMetadata:
+      title: OAuthMetadata
+      type: object
+      properties:
+        installation_url:
+          type: string
+      required:
+      - installation_url
+    OAuthStatus:
+      title: OAuthStatus
+      type: string
+      enum:
+      - not_connected
+      - pending
+      - success
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

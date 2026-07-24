@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents usage API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: usage
+paths:
+  /v1/user/usage:
+    parameters: []
+    get:
+      summary: Get API Services Usage
+      tags:
+      - usage
+      responses:
+        '200':
+          $ref: '#/components/responses/UsageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-user-usage
+      requestBody:
+        $ref: '#/components/requestBodies/UsageRequest'
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+components:
+  schemas:
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    UsageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              cvemap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              chaos:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              asnmap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+  requestBodies:
+    UsageRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - range
+            properties:
+              range:
+                $ref: '#/components/schemas/UsageRangeEnum'
+              startDate:
+                type: string
+              endDate:
+                type: string
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

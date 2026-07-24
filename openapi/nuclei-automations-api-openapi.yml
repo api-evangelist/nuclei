@@ -1,0 +1,388 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents automations API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: automations
+paths:
+  /v1/automations:
+    get:
+      summary: Get Automations
+      tags:
+      - automations
+      responses:
+        '200':
+          $ref: '#/components/responses/GetAutomationsListResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-automations
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: integer
+        in: query
+        name: offset
+      - schema:
+          type: integer
+        in: query
+        name: limit
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    post:
+      summary: Create Automation
+      tags:
+      - automations
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '201':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-automations
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AddAutomation'
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+  /v1/automations/{event}:
+    parameters:
+    - schema:
+        type: string
+      name: event
+      in: path
+      required: true
+    get:
+      summary: Get Automation
+      tags:
+      - automations
+      responses:
+        '200':
+          $ref: '#/components/responses/GetAutomationIdResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-automations-event
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    patch:
+      summary: Update Automation
+      tags:
+      - automations
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-automations-event
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateAutomationRequest'
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    delete:
+      summary: Delete Automation
+      tags:
+      - automations
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-automations-event
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+components:
+  schemas:
+    EnumerationIds:
+      title: EnumerationIds
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    GetAutomationsListItem:
+      title: GetAutomationsListItem
+      type: object
+      required:
+      - name
+      - event
+      - status
+      - created_at
+      - updated_at
+      properties:
+        name:
+          type: string
+        event:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    AutomationScanData:
+      title: AutomationScanData
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        templates:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        alerting_config_ids:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            type: string
+        reporting_config_ids:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        exclude_targets:
+          type: array
+          items:
+            type: string
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIds'
+        disable_global_alert_config:
+          type: boolean
+        disable_global_report_config:
+          type: boolean
+        disable_global_scan_config:
+          type: boolean
+        socks5_proxy:
+          type: string
+        agent_id:
+          type: string
+        agent_tags:
+          type: array
+          items:
+            type: string
+        agent_networks:
+          type: array
+          items:
+            type: string
+        agent_auto_discover:
+          type: boolean
+        agent_behavior:
+          type: string
+          enum:
+          - distribute
+          - mirror
+          default: distribute
+        scan_id:
+          type: string
+        update_existing_scan:
+          type: boolean
+        scan_all_assets:
+          type: boolean
+    GetAutomationItem:
+      title: GetAutomationItem
+      type: object
+      required:
+      - id
+      - name
+      - event
+      - status
+      - created_at
+      - updated_at
+      - data
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        event:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        data:
+          $ref: '#/components/schemas/AutomationScanData'
+  responses:
+    GetAutomationIdResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              automation:
+                $ref: '#/components/schemas/GetAutomationItem'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    GetAutomationsListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - automations
+            properties:
+              message:
+                type: string
+              automations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetAutomationsListItem'
+  requestBodies:
+    UpdateAutomationRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              scan_data:
+                $ref: '#/components/schemas/AutomationScanData'
+    AddAutomation:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - name
+            - status
+            - event
+            - scan_data
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              event:
+                type: string
+              scan_data:
+                $ref: '#/components/schemas/AutomationScanData'
+              enumeration_id:
+                type: string
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

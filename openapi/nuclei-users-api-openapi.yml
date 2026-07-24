@@ -1,0 +1,918 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents users API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: users
+paths:
+  /v1/user/feedback:
+    post:
+      summary: Create Feedback
+      tags:
+      - users
+      operationId: post-v1-user-feedback
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/PostFeedbackRequest'
+      description: Add user feedback
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/delete/code:
+    parameters: []
+    post:
+      summary: Email user deletion verification code
+      tags:
+      - users
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-user-delete-code
+      security:
+      - X-API-Key: []
+      description: generate and email user deletion verification code
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user:
+    get:
+      summary: Get User Profile
+      tags:
+      - users
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserProfileResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-user
+      security:
+      - X-API-Key: []
+      description: Get user profile and permissions
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    delete:
+      summary: Delete user from system along with all data
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+              required:
+              - code
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-user
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/apikey:
+    get:
+      summary: Get API Key
+      tags:
+      - users
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserAPIKeyResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-user-apikey
+      security:
+      - X-API-Key: []
+      description: Get user api-key
+    post:
+      summary: Create API Key
+      tags:
+      - users
+      operationId: post-v1-user-apikey
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserAPIKeyResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Create user api-key, this won't create a new api-key if it already exists.
+    delete:
+      summary: Delete API Key
+      tags:
+      - users
+      operationId: delete-v1-user-apikey
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteUserAPIKeyResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Delete user api-key
+  /v1/user/onboarding_status:
+    get:
+      summary: Get User Setup Statistics
+      tags:
+      - users
+      operationId: get-v1-user-setup-stats
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserSetupStatsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get user setup statistics
+  /v1/user/billing_assets:
+    get:
+      summary: Get Billing Assets details
+      tags:
+      - users
+      operationId: get-v1-user-billing-assets
+      responses:
+        '200':
+          $ref: '#/components/responses/GetBillingAssetsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get billing assets details
+  /v1/user/promo_code:
+    get:
+      summary: Get Promocode Details
+      tags:
+      - users
+      operationId: get-v1-user-promocode
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPromocodeDetailsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        required: true
+        name: promo_code
+        description: Promocode to get details for
+      description: Get promocode details
+    post:
+      summary: Apply Promocode
+      tags:
+      - users
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-user-promocode
+      security:
+      - X-API-Key: []
+      description: Apply promocode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                promo_code:
+                  type: string
+              required:
+              - promo_code
+  /v1/user/apikey/rotate:
+    post:
+      summary: Rotate API Key
+      tags:
+      - users
+      operationId: post-v1-user-apikey-rotate
+      responses:
+        '200':
+          $ref: '#/components/responses/PostApiKeyRotateResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Rotate user api-key
+  /v1/user/domain-verification/request:
+    post:
+      summary: Request Domain Verification
+      tags:
+      - users
+      operationId: post-v1-user-domain-verification-request
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  domain:
+                    type: string
+                    description: The domain to be verified
+                  verification_string:
+                    type: string
+                    description: The TXT record value to add to DNS
+                required:
+                - domain
+                - verification_string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '429':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - domain
+              properties:
+                domain:
+                  type: string
+                  description: Root domain to verify (e.g., example.com)
+                  example: example.com
+                verification_type:
+                  $ref: '#/components/schemas/DomainVerificationType'
+      description: Request domain ownership verification through DNS TXT record. Only root domains are supported.
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/domain-verification/confirm:
+    post:
+      summary: Confirm Domain Verification
+      tags:
+      - users
+      operationId: post-v1-user-domain-verification-confirm
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+                  domain:
+                    type: string
+                    description: The verified domain
+                required:
+                - message
+                - domain
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message
+                required:
+                - message
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - domain
+              properties:
+                domain:
+                  type: string
+                  description: Root domain to confirm verification for
+                  example: example.com
+                verification_type:
+                  $ref: '#/components/schemas/DomainVerificationType'
+                email:
+                  type: string
+      description: Confirm domain ownership by checking if the required DNS TXT record has been added.
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/domain-verification/status:
+    get:
+      summary: Get Domain Verification Status
+      tags:
+      - users
+      operationId: get-v1-user-domain-verification-status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  verification_requests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DomainVerificationRequest'
+                required:
+                - verification_requests
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get the status of all domain verification requests for the authenticated user, including pending, verified, and expired requests.
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/subscription:
+    get:
+      summary: Get Subscription Status
+      tags:
+      - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  amount:
+                    type: integer
+                  monthly_token:
+                    type: integer
+                  price_id:
+                    type: string
+                  recurrence:
+                    type: string
+                  from:
+                    type: string
+                  to:
+                    type: string
+                  card:
+                    type: string
+                  brand:
+                    type: string
+                  payment_mode:
+                    type: string
+                  cancel_at:
+                    type: string
+                  trial:
+                    type: string
+                required:
+                - status
+                - message
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-user-subscription
+      security:
+      - X-API-Key: []
+      description: Get user subscription status
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    patch:
+      summary: Update current subscription
+      tags:
+      - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - status
+                properties:
+                  message:
+                    type: string
+                  invoice:
+                    type: string
+                  status:
+                    type: string
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-user-subscription
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - price_id
+              properties:
+                price_id:
+                  type: string
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+components:
+  responses:
+    GetUserProfileResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              ai_status:
+                type: boolean
+              email:
+                type: string
+              name:
+                type: string
+              message:
+                type: string
+              cloud_scans:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+              team_name:
+                type: string
+              is_team_owner:
+                type: boolean
+              is_read_only:
+                type: boolean
+              team_owner_name:
+                type: string
+              trial_status:
+                type: string
+              role:
+                type: string
+              plan:
+                type: string
+              personal_account_plan:
+                type: string
+              applied_promo_code:
+                type: string
+              full_port_scan:
+                type: boolean
+              is_leaks_enabled:
+                type: boolean
+              workspaces:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserWorkspaces'
+              real_time_auto_scan:
+                type: boolean
+              growth_plan_availability:
+                type: object
+                properties:
+                  price_id:
+                    type: string
+                    description: Stripe price ID for growth plan
+                  is_available:
+                    type: boolean
+                    description: Whether growth plan is available for this user to buy
+                  amount:
+                    type: number
+                    description: Price amount in dollars
+                  recurrence_period:
+                    type: string
+                    description: Billing period (MONTHLY/YEARLY)
+              feature_flag:
+                type: object
+                properties:
+                  internal_scan:
+                    type: boolean
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+    DeleteUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+            - message
+    GetPromocodeDetailsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - promo_code
+            - allowed_plan
+            - valid_for_days
+            - base_domain_count
+            - scan_tokens
+            properties:
+              message:
+                type: string
+              promo_code:
+                type: string
+              allowed_plan:
+                type: array
+                items:
+                  type: string
+              valid_for_days:
+                type: integer
+              base_domain_count:
+                type: integer
+              scan_tokens:
+                type: integer
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    GetUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+    GetUserSetupStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
+            required:
+            - message
+            - onboarding_steps
+    PostApiKeyRotateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+  schemas:
+    DomainVerificationRequest:
+      title: DomainVerificationRequest
+      type: object
+      required:
+      - domain
+      - status
+      - created_at
+      - verification_attempts
+      properties:
+        domain:
+          type: string
+          description: The domain being verified
+        status:
+          type: string
+          enum:
+          - pending
+          - verified
+          - expired
+          - deleted
+          - failed
+          description: Current verification status
+        verification_string:
+          type: string
+          description: TXT record value to add to DNS (only present for pending requests)
+        created_at:
+          type: string
+          format: date-time
+          description: When the verification request was created
+        verification_attempts:
+          type: integer
+          description: Number of verification attempts made
+        last_attempt_at:
+          type: string
+          format: date-time
+          description: When the last verification attempt was made
+        verification_type:
+          $ref: '#/components/schemas/DomainVerificationType'
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
+    UserWorkspaces:
+      title: UserWorkspaces
+      type: object
+      required:
+      - name
+      - team_id
+      - active
+      - plan
+      - member_count
+      - role
+      - default
+      properties:
+        name:
+          type: string
+        team_id:
+          type: string
+        active:
+          type: boolean
+        plan:
+          type: string
+        member_count:
+          type: integer
+        role:
+          type: string
+        default:
+          type: boolean
+  requestBodies:
+    PostFeedbackRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback_text:
+                type: string
+            required:
+            - feedback_text
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

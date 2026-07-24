@@ -1,0 +1,643 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents domains API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: domains
+paths:
+  /v1/asset/domain/{domain_name}/filters:
+    parameters:
+    - schema:
+        type: string
+      name: domain_name
+      in: path
+      required: true
+    get:
+      summary: Group assets by filters for an domain
+      tags:
+      - domains
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEnumerateFiltersResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-domain-domain-name-filters
+      parameters:
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: The number of items to skip before starting to collect the result set
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: The numbers of items to return
+      - in: query
+        name: host
+        schema:
+          type: string
+      - in: query
+        name: port
+        schema:
+          type: string
+      - in: query
+        name: ip
+        schema:
+          type: string
+      - in: query
+        name: cname
+        schema:
+          type: string
+      - in: query
+        name: technologies
+        schema:
+          type: string
+      - in: query
+        name: status_code
+        schema:
+          type: string
+      - in: query
+        name: content_length
+        schema:
+          type: string
+      - in: query
+        name: domain
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: title
+        schema:
+          type: string
+      - in: query
+        name: webserver
+        schema:
+          type: string
+      - in: query
+        name: labels
+        schema:
+          type: string
+      - in: query
+        name: favicon
+        schema:
+          type: string
+      - schema:
+          $ref: '#/components/schemas/EnumerateFilterTypes'
+        in: query
+        name: group_by
+        description: Group by type. e.g. - host, port, favicon.
+        required: true
+      - schema:
+          type: string
+          enum:
+          - cname
+          - content_length
+          - favicon
+          - host
+          - ip
+          - port
+          - status_code
+          - technologies
+          - title
+          - webserver
+          - labels
+        in: query
+        name: sort_asc
+        description: supported sort fields
+      - schema:
+          type: string
+          enum:
+          - cname
+          - content_length
+          - favicon
+          - host
+          - ip
+          - port
+          - status_code
+          - technologies
+          - title
+          - webserver
+          - labels
+        in: query
+        name: sort_desc
+        description: supported sort fields
+      - schema:
+          $ref: '#/components/schemas/TimeRangeQueryParameter'
+          default: all_time
+        in: query
+        name: time
+        description: time filter to select
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: start_date
+        description: time filter start date
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: end_date
+        description: time filter end date
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      - schema:
+          type: boolean
+        in: query
+        name: is_screenshot
+  /v1/asset/domain/{domain_name}:
+    parameters:
+    - schema:
+        type: string
+      name: domain_name
+      in: path
+      required: true
+    get:
+      summary: Get Enumeration Domain Contents
+      tags:
+      - domains
+      responses:
+        '200':
+          $ref: '#/components/responses/GetEnumerateIdContents'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-domain-domain_name-contents
+      parameters:
+      - schema:
+          type: integer
+          default: 0
+        in: query
+        name: offset
+        description: The number of items to skip before starting to collect the result set
+      - schema:
+          type: integer
+          default: 100
+        in: query
+        name: limit
+        description: The numbers of items to return
+      - schema:
+          type: boolean
+        in: query
+        name: is_tech
+        description: Return records that have technologies
+      - schema:
+          type: boolean
+        in: query
+        name: is_favicon
+        description: Return the records that have favicon
+      - schema:
+          type: string
+        name: search
+        in: query
+        description: Search on the content name
+      - schema:
+          type: string
+        in: query
+        name: labels
+        description: Filter by comma separated labels, e.g-> labels=p1,p2
+      - schema:
+          type: boolean
+        in: query
+        name: is_new
+        description: Filter by new content
+      - schema:
+          type: string
+        in: query
+        name: host
+        description: Filter by comma separated hosts, e.g-> host=p1,p2
+      - schema:
+          type: string
+        in: query
+        name: port
+        description: Filter by comma separated ports, e.g-> port=p1,p2
+      - schema:
+          type: string
+        in: query
+        name: status_code
+        description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+      - schema:
+          type: string
+        in: query
+        name: title
+        description: Filter by comma separated titles, e.g-> title=p1,p2
+      - schema:
+          type: string
+        in: query
+        name: content_length
+        description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+      - schema:
+          type: string
+        in: query
+        name: cname
+        description: cname to filter
+      - schema:
+          type: string
+        in: query
+        name: technologies
+        description: technologies to filter
+      - schema:
+          type: string
+        in: query
+        name: ip
+        description: ips to filter
+      - schema:
+          type: string
+        in: query
+        name: sort_asc
+        description: comma separated ascending sorting e.g sort_asc=created_at,name
+      - schema:
+          type: string
+        in: query
+        name: sort_desc
+        description: comma separated descending sorting e.g sort_desc=created_at,name
+      - schema:
+          type: boolean
+        in: query
+        name: is_screenshot
+        description: asset with screenshots
+      - schema:
+          $ref: '#/components/schemas/TimeRangeQueryParameter'
+          default: all_time
+        in: query
+        name: time
+        description: time filter to select
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: start_date
+        description: time filter start date
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: end_date
+        description: time filter end date
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      - schema:
+          type: string
+        in: query
+        name: custom_filter
+        description: custom query to filter. double encode the query string.
+      - schema:
+          type: string
+        in: query
+        name: favicon
+        description: Filter by comma separated favicons, e.g-> favicon=p1,p2
+      security:
+      - X-API-Key: []
+      description: Get enumeration content by domain_name
+components:
+  schemas:
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+    EnumerateFilterTypes:
+      title: EnumerateFilterTypes
+      type: string
+      enum:
+      - host
+      - port
+      - ip
+      - cname
+      - technologies
+      - status_code
+      - content_length
+      - title
+      - webserver
+      - favicon
+      - domain
+      - labels
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    EnumerationContent:
+      title: EnumerationContent
+      type: object
+      required:
+      - enumeration_id
+      - name
+      - created_at
+      - id
+      - is_new
+      properties:
+        enumeration_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        id:
+          type: integer
+          format: int64
+        labels:
+          type: array
+          items:
+            type: string
+        cname:
+          type: array
+          items:
+            type: string
+        host:
+          type: string
+        port:
+          type: integer
+        ip:
+          type: array
+          items:
+            type: string
+        status_code:
+          type: integer
+        content_length:
+          type: integer
+        vulnerabilities:
+          type: integer
+          format: int64
+        title:
+          type: string
+        technologies:
+          type: array
+          items:
+            type: string
+        webserver:
+          type: string
+        method:
+          type: string
+        is_new:
+          type: boolean
+        type:
+          type: string
+        asset_hash:
+          type: string
+        technology_details:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EnumerationContentTechnologyDetails'
+        screenshot_path:
+          type: string
+        favicon:
+          type: string
+        favicon_body:
+          type: string
+        cdn_name:
+          type: string
+        chain_status_codes:
+          type: array
+          items:
+            type: string
+        domain_name:
+          type: string
+        redirect_location:
+          type: string
+        asn:
+          as_number:
+            type: string
+          as_country:
+            type: string
+          as_name:
+            type: string
+          as_range:
+            type: array
+            items:
+              type: string
+          type: object
+          properties:
+            as_country:
+              type: string
+            as_name:
+              type: string
+            as_number:
+              type: string
+            as_range:
+              type: array
+              items:
+                type: string
+        tls_serial_number:
+          type: string
+        tls_subject_org:
+          type: string
+        tls_issuer_org:
+          type: string
+        tls_expired:
+          type: boolean
+        tls_not_before:
+          type: string
+          format: date-time
+        tls_self_signed:
+          type: boolean
+        tls_mismatched:
+          type: boolean
+        tls_revoked:
+          type: boolean
+        tls_untrusted:
+          type: boolean
+        tls_subject_cn:
+          type: string
+        tls_subject_an:
+          type: array
+          items:
+            type: string
+        body:
+          type: string
+        tls_not_after:
+          type: string
+          format: date-time
+        enumeration_name:
+          type: string
+        extended_metadata:
+          type: object
+        source_type:
+          type: string
+        source:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationSourceValue'
+        is_internal:
+          type: boolean
+    EnumerateFiltersItem:
+      title: EnumerateFiltersItem
+      type: object
+      required:
+      - value
+      - count
+      properties:
+        labels:
+          type: string
+        value:
+          type: string
+        port:
+          type: integer
+        technologies:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        website:
+          type: string
+        cpe:
+          type: string
+        icon:
+          type: string
+        favicon_body:
+          type: string
+        count:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    GetEnumerateIdContents:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - message
+            - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationContent'
+    GetEnumerateFiltersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateFiltersItem'
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

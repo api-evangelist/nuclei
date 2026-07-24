@@ -1,0 +1,513 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents scan API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: scan
+paths:
+  /v1/scans/vulns/exposures/metrics:
+    get:
+      summary: Get scan vuln exposure metrics
+      tags:
+      - scan
+      parameters:
+      - in: query
+        name: interval
+        schema:
+          type: string
+          enum:
+          - monthly
+          default: monthly
+        required: true
+        description: The time interval for the metrics
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          $ref: '#/components/responses/ScanExposureMetricsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-vulns-exposures-metrics
+      security:
+      - X-API-Key: []
+  /v1/scans/vulns/regression/metrics:
+    get:
+      summary: Get scan vuln regression metrics
+      tags:
+      - scan
+      parameters:
+      - in: query
+        name: interval
+        schema:
+          type: string
+          enum:
+          - monthly
+          default: monthly
+        required: true
+        description: The time interval for the metrics
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          $ref: '#/components/responses/ScanRegressionRemediationMetricsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-vulns-regression-metrics
+      security:
+      - X-API-Key: []
+  /v1/scans/vulns/remediation/metrics:
+    get:
+      summary: Get scan vuln remediation metrics
+      tags:
+      - scan
+      parameters:
+      - in: query
+        name: interval
+        schema:
+          type: string
+          enum:
+          - monthly
+          default: monthly
+        required: true
+        description: The time interval for the metrics
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          $ref: '#/components/responses/ScanRegressionRemediationMetricsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-vulns-remediation-metrics
+      security:
+      - X-API-Key: []
+  /v1/scans/validate:
+    post:
+      summary: Validate scan token before starting scan
+      tags:
+      - scan
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unique_asset_to_scan:
+                    type: integer
+                    format: int64
+                  total_asset_to_scan:
+                    type: integer
+                    format: int64
+                required:
+                - unique_asset_to_scan
+                - total_asset_to_scan
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targets:
+                  type: array
+                  items:
+                    type: string
+                enumeration_ids:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnumerationIDTypes'
+                asset_filters:
+                  $ref: '#/components/schemas/AssetFilters'
+      operationId: post-v1-scans-validate
+      security:
+      - X-API-Key: []
+  /v1/scans/remediation-efficiency:
+    get:
+      summary: Get remediation efficiency stats
+      tags:
+      - scan
+      responses:
+        '200':
+          $ref: '#/components/responses/GetRemediationEfficiencyResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-remediation-efficiency
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+components:
+  schemas:
+    EnumerationIDTypes:
+      title: EnumerationIDTypes
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    AssetFilters:
+      title: AssetFilters
+      type: object
+      additionalProperties: false
+      properties:
+        is_tech:
+          type: boolean
+          description: Return records that have technologies
+        is_favicon:
+          type: boolean
+          description: Return the records that have favicon
+        is_new:
+          type: boolean
+          description: Filter by new content
+        labels:
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        host:
+          type: string
+          description: Filter by comma separated hosts, e.g-> host=p1,p2
+        port:
+          type: string
+          description: Filter by comma separated ports, e.g-> port=p1,p2
+        status_code:
+          type: string
+          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+        content_length:
+          type: string
+          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+        title:
+          type: string
+          description: Filter by comma separated titles, e.g-> title=p1,p2
+        domain:
+          type: array
+          description: Filter by comma separated domain names, e.g-> domain=domain1.com,domain2.com
+          items:
+            type: string
+        cname:
+          type: string
+          description: Filter by comma separated cnames, e.g-> cname=p1,p2
+        technologies:
+          type: string
+          description: Filter by comma separated technologies, e.g-> technologies=p1,p2
+        ip:
+          type: string
+          description: Filter by comma separated ips, e.g-> ip=p1,p2
+        is_screenshot:
+          type: boolean
+          description: Return the records with screenshots
+        time:
+          $ref: '#/components/schemas/TimeRangeQueryParameter'
+          description: Filter by time range
+        start_date:
+          type: string
+          format: date
+          description: Filter by start date
+        end_date:
+          type: string
+          format: date
+          description: Filter by end date
+        custom_filter:
+          type: string
+          description: Filter by custom filter. Double encode the query string.
+        search:
+          type: string
+          description: Search on the content name
+        enumeration_ids:
+          type: array
+          items:
+            type: string
+          description: Filter by enumeration ids
+        only_dns:
+          type: boolean
+          description: Query only dns FQDN records
+        only_ip:
+          type: boolean
+          description: Query only dns IP records
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
+    ScanExposuresTimeSeries:
+      title: ScanExposuresTimeSeries
+      type: object
+      required:
+      - date
+      - open_vulnerability
+      - fixed_vulnerability
+      - new_vulnerability
+      properties:
+        date:
+          type: string
+          format: date
+        open_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+        fixed_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+        new_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+    RemediationEfficiencyData:
+      title: RemediationEfficiencyData
+      type: object
+      required:
+      - vulnerability_severity
+      - average_time_to_remediate
+      - target_time_to_remediate
+      - remediation_trend
+      - timely_remediated_count
+      - total_vulnerabilities
+      properties:
+        vulnerability_severity:
+          type: string
+        average_time_to_remediate:
+          type: integer
+        target_time_to_remediate:
+          type: integer
+        remediation_trend:
+          type: integer
+        timely_remediated_count:
+          type: integer
+        total_vulnerabilities:
+          type: integer
+    VulnMetricSeverityBreakdown:
+      title: VulnMetricSeverityBreakdown
+      type: object
+      required:
+      - total_count
+      - severity_breakdown
+      - total_fixed
+      properties:
+        total_fixed:
+          type: integer
+        total_count:
+          type: integer
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        status_breakdown:
+          $ref: '#/components/schemas/StatusBreakdown'
+    StatusBreakdown:
+      title: StatusBreakdown
+      type: object
+      properties:
+        open:
+          type: integer
+        fixed:
+          type: integer
+        false_positive:
+          type: integer
+        duplicate:
+          type: integer
+        fix_in_progress:
+          type: integer
+        accepted_risk:
+          type: integer
+        triaged:
+          type: integer
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        critical:
+          type: integer
+        high:
+          type: integer
+        medium:
+          type: integer
+        low:
+          type: integer
+        info:
+          type: integer
+        unknown:
+          type: integer
+    ScanRegressionRemediationTimeSeries:
+      title: ScanRegressionRemediationTimeSeries
+      type: object
+      required:
+      - date
+      - data
+      properties:
+        date:
+          type: string
+          format: date
+        avg_remediation_time:
+          type: string
+        data:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+  responses:
+    GetRemediationEfficiencyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - remediation_efficiency
+            - remediation_state
+            - data
+            properties:
+              remediation_efficiency:
+                type: integer
+              remediation_state:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RemediationEfficiencyData'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    ScanRegressionRemediationMetricsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              regression_rate:
+                type: integer
+              avg_remediation_time:
+                type: string
+              regression_state:
+                type: string
+              total_fixed:
+                type: integer
+              total_count:
+                type: integer
+              severity_breakdown:
+                $ref: '#/components/schemas/SeverityBreakdown'
+              status_breakdown:
+                $ref: '#/components/schemas/StatusBreakdown'
+              time_series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanRegressionRemediationTimeSeries'
+    ScanExposureMetricsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              new_vulnerability:
+                type: integer
+              open_vulnerability:
+                type: integer
+              fixed_vulnerability:
+                type: integer
+              time_series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanExposuresTimeSeries'
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

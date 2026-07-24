@@ -1,0 +1,237 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents tasks API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: tasks
+paths:
+  /v1/tasks/{task_id}/chunk:
+    parameters:
+    - schema:
+        type: string
+      name: task_id
+      in: path
+      required: true
+    - schema:
+        type: boolean
+      in: query
+      name: done
+    get:
+      summary: Get Task Chunk
+      tags:
+      - tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskChunkResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-task-chunk
+      description: Get details of a task by Scan ID or Enumeration ID
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/tasks/{task_id}/chunk/{chunk_id}:
+    parameters:
+    - schema:
+        type: string
+      name: task_id
+      in: path
+      required: true
+    - schema:
+        type: string
+      name: chunk_id
+      in: path
+      required: true
+    get:
+      summary: Get task chunk details
+      tags:
+      - tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskChunkResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-task-chunk-details
+      description: Get details of a task chunk by scan ID or Enumeration ID and chunk ID
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    post:
+      summary: Update a task chunk status
+      tags:
+      - tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                required:
+                - ok
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '499':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-task-chunk-status
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      - schema:
+          type: string
+          enum:
+          - ack
+          - nack
+          - in_progress
+        in: query
+        name: status
+        required: true
+        description: Status of the chunk elaboration
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    TaskChunkResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskChunk'
+  schemas:
+    TaskChunk:
+      title: TaskChunk
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        scan_id:
+          type: string
+        template_request_count:
+          type: integer
+        public_templates:
+          type: array
+          items:
+            type: string
+        private_templates:
+          type: array
+          items:
+            type: string
+        user_id:
+          type: integer
+          format: int64
+        chunk_id:
+          type: string
+        scan_configuration:
+          type: string
+          format: byte
+        public_workflows:
+          type: array
+          items:
+            type: string
+        private_workflows:
+          type: array
+          items:
+            type: string
+        workflows_urls:
+          type: array
+          items:
+            type: string
+        enrichment_id:
+          type: string
+        enumeration_configuration:
+          type: string
+          format: byte
+        status:
+          type: string
+          enum:
+          - pending
+          - completed
+          - failed
+          - skipped
+          - in_progress
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

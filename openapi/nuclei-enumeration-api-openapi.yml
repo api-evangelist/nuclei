@@ -1,0 +1,216 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents enumeration API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: enumeration
+paths:
+  /v1/asset/enumerate/{enumerate_id}/categories:
+    parameters:
+    - schema:
+        type: string
+      in: header
+      description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      name: X-Team-Id
+    - schema:
+        type: string
+      name: enumerate_id
+      in: path
+      required: true
+    - schema:
+        type: string
+        enum:
+        - last_day
+        - last_week
+        - last_month
+        - last_3_months
+        - last_6_months
+        - last_12_months
+        - all_time
+        default: all_time
+      in: query
+      name: time
+      description: time filter to select
+    - schema:
+        type: string
+        format: date
+      in: query
+      name: start_date
+      description: time filter start date
+    - schema:
+        type: string
+        format: date
+      in: query
+      name: end_date
+      description: time filter end date
+    - schema:
+        type: boolean
+      in: query
+      name: show_hosts
+    - schema:
+        type: array
+        items:
+          type: string
+      in: query
+      name: domain
+    get:
+      summary: Get categories for specific enumeration
+      tags:
+      - enumeration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - asset_categories
+                properties:
+                  asset_categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssetCategory'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-enumerate-enumerate-id-categories
+      security:
+      - X-API-Key: []
+      parameters: []
+  /v1/asset/enumerate/categories:
+    parameters:
+    - schema:
+        type: string
+      in: header
+      description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      name: X-Team-Id
+    - schema:
+        type: string
+        enum:
+        - last_day
+        - last_week
+        - last_month
+        - last_3_months
+        - last_6_months
+        - last_12_months
+        - all_time
+        default: all_time
+      in: query
+      name: time
+      description: time filter to select
+    - schema:
+        type: string
+        format: date
+      in: query
+      name: start_date
+      description: time filter start date
+    - schema:
+        type: string
+        format: date
+      in: query
+      name: end_date
+      description: time filter end date
+    - schema:
+        type: boolean
+      in: query
+      name: show_hosts
+    - schema:
+        type: array
+        items:
+          type: string
+      in: query
+      name: domain
+    get:
+      summary: Get categories for all enumerations
+      tags:
+      - enumeration
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - asset_categories
+                properties:
+                  asset_categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AssetCategory'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-asset-enumerate-categories
+      security:
+      - X-API-Key: []
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+  schemas:
+    AssetCategory:
+      title: AssetCategory
+      type: object
+      required:
+      - name
+      - total_assets
+      - technologies
+      properties:
+        name:
+          type: string
+        total_assets:
+          type: integer
+        technologies:
+          type: object
+          additionalProperties:
+            type: integer
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

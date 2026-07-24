@@ -1,0 +1,443 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents deprecated API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: deprecated
+paths:
+  /v1/leaks/domain:
+    get:
+      summary: Get employee/corporate leaks for verified domains (DEPRECATED)
+      deprecated: true
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
+
+        '
+      tags:
+      - deprecated
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaksEntity'
+                  total_leaks:
+                    type: number
+                  filtered:
+                    type: boolean
+                  search_query:
+                    type: string
+                  total_pages:
+                    type: number
+                  current_page:
+                    type: number
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-leaks-domain
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: search
+        description: Search query to filter results across all fields
+      - schema:
+          type: number
+        in: query
+        name: limit
+        description: Number of results per page for pagination
+      - schema:
+          type: number
+        in: query
+        name: page_number
+        description: Page number for pagination (starts from 1)
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: start_date
+        description: time filter start date
+      - schema:
+          type: string
+          default: all_time
+          enum:
+          - all_time
+          - current_month
+          - last_month
+          - last_3_months
+          - last_6_months
+          - last_12_months
+        in: query
+        name: time_range
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: end_date
+        description: time filter end date
+      - schema:
+          type: string
+          enum:
+          - url
+          - username
+          - log_date
+          - country
+          - device_ip
+          - host_username
+          - hostname
+          - os
+          - hardware_id
+          - malware_path
+        in: query
+        name: sort_by
+        description: supported sort fields
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+        in: query
+        name: sort_order
+        description: supported sort order (asc or desc)
+      - schema:
+          type: string
+          enum:
+          - fixed
+          - open
+        in: query
+        name: status
+        description: supported status (fixed or open)
+  /v1/leaks/email:
+    get:
+      summary: Get personal email leaks for authenticated user (DEPRECATED)
+      deprecated: true
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
+
+        '
+      tags:
+      - deprecated
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaksEntity'
+                  total_leaks:
+                    type: number
+                  total_pages:
+                    type: number
+                  current_page:
+                    type: number
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-leaks-email
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: search
+        description: Search query to filter results across all fields
+      - schema:
+          type: number
+        in: query
+        name: limit
+        description: Number of results per page for pagination
+      - schema:
+          type: number
+        in: query
+        name: page_number
+        description: Page number for pagination (starts from 1)
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: start_date
+        description: time filter start date
+      - schema:
+          type: string
+          default: all_time
+          enum:
+          - all_time
+          - current_month
+          - last_month
+          - last_3_months
+          - last_6_months
+          - last_12_months
+        in: query
+        name: time_range
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: end_date
+        description: time filter end date
+      - schema:
+          type: string
+          enum:
+          - url
+          - username
+          - log_date
+          - country
+          - device_ip
+          - host_username
+          - hostname
+          - os
+          - hardware_id
+          - malware_path
+        in: query
+        name: sort_by
+        description: supported sort fields
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+        in: query
+        name: sort_order
+        description: supported sort order (asc or desc)
+      - schema:
+          type: string
+          enum:
+          - fixed
+          - open
+        in: query
+        name: status
+        description: supported status (fixed or open)
+  /v1/leaks/domain/customers:
+    get:
+      summary: Get customer leaks for verified domains (DEPRECATED)
+      deprecated: true
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
+
+        '
+      tags:
+      - deprecated
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaksEntity'
+                  total_leaks:
+                    type: number
+                  total_pages:
+                    type: number
+                  current_page:
+                    type: number
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-leaks-domain-customers
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: search
+        description: Search query to filter results across all fields
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: Number of results per page for pagination
+      - schema:
+          type: integer
+        in: query
+        name: page_number
+        description: Page number for pagination (starts from 1)
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: start_date
+        description: time filter start date
+      - schema:
+          type: string
+          default: all_time
+          enum:
+          - all_time
+          - current_month
+          - last_month
+          - last_3_months
+          - last_6_months
+          - last_12_months
+        in: query
+        name: time_range
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: end_date
+        description: time filter end date
+      - schema:
+          type: string
+          enum:
+          - url
+          - username
+          - log_date
+          - country
+          - device_ip
+          - host_username
+          - hostname
+          - os
+          - hardware_id
+          - malware_path
+        in: query
+        name: sort_by
+        description: supported sort fields
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+        in: query
+        name: sort_order
+        description: supported sort order (asc or desc)
+      - schema:
+          type: string
+          enum:
+          - fixed
+          - open
+        in: query
+        name: status
+        description: supported status (fixed or open)
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+  schemas:
+    LeaksEntity:
+      title: LeaksEntity
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        device_ip:
+          type: string
+        host_username:
+          type: string
+        os:
+          type: string
+        malware_path:
+          type: string
+        country:
+          type: string
+        log_date:
+          type: string
+        hardware_id:
+          type: string
+        hostname:
+          type: string
+        status:
+          $ref: '#/components/schemas/LeaksEntityStatus'
+        domain:
+          type: string
+          description: Domain this leak is associated with - used for filtering
+        email_domain:
+          type: string
+          description: Domain extracted from email addresses
+    LeaksEntityStatus:
+      title: LeaksEntityStatus
+      enum:
+      - fixed
+      - open
+      - NA
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

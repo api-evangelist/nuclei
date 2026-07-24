@@ -1,0 +1,772 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents Template API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: Template
+paths:
+  /v2/template/user/upload:
+    post:
+      summary: Upload Templates
+      tags:
+      - Template
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - insert_errors
+                - total_files
+                - not_templates
+                - inserted
+                - invalid_templates
+                properties:
+                  insert_errors:
+                    type: integer
+                  total_files:
+                    type: integer
+                  not_templates:
+                    type: integer
+                  inserted:
+                    type: integer
+                  invalid_templates:
+                    type: integer
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TemplateData'
+                  validation_errors:
+                    type: array
+                    description: Detailed validation issues detected before upload
+                    items:
+                      $ref: '#/components/schemas/TemplateValidationError'
+                  workflow_rejections:
+                    type: array
+                    description: Templates rejected because workflow files are not supported
+                    items:
+                      $ref: '#/components/schemas/TemplateWorkflowRejection'
+                  trace_id:
+                    type: string
+                    description: Trace identifier that can be shared with support for debugging
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/MessageResponse'
+      operationId: post-v2-template-user-upload
+      description: Upload Private/User Templates (Max 10,000)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - templates
+              properties:
+                templates:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UploadTemplate'
+    patch:
+      summary: Bulk Update User Template
+      tags:
+      - Template
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success_count
+                - failure_count
+                - successful_items
+                - failed_items
+                properties:
+                  success_count:
+                    type: integer
+                  failure_count:
+                    type: integer
+                  successful_items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TemplateFileMetadata'
+                  failed_items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FailedTemplateFileMetadataUpdate'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/MessageResponse'
+      operationId: patch-v2-template-user-upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - templates
+              properties:
+                templates:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PatchTemplateFileMetadata'
+      description: Bulk Updat Private/User Templates (Max 10,000)
+  /v1/template/share/{template_id}:
+    parameters:
+    - schema:
+        type: string
+      name: template_id
+      in: path
+      required: true
+      description: unique template ID
+    patch:
+      summary: Update Shared Template
+      tags:
+      - Template
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSharedTemplateResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-template-share-template_id
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ttl:
+                  type: string
+                share_type:
+                  type: string
+                users:
+                  type: array
+                  items:
+                    type: integer
+                emails:
+                  type: array
+                  items:
+                    type: string
+                organizations:
+                  type: array
+                  items:
+                    type: string
+    delete:
+      summary: Unshare/Delete template
+      tags:
+      - Template
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-template-share-template_id
+  /v2/template:
+    get:
+      summary: Your GET endpoint
+      tags:
+      - Template
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TemplateData'
+                  total:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v2-template
+      description: Get user templates
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+      - in: query
+        name: scope
+        schema:
+          type: string
+      - schema:
+          type: integer
+        in: query
+        name: limit
+      - schema:
+          type: integer
+        in: query
+        name: offset
+      - schema:
+          type: array
+          items:
+            type: string
+        description: List of fields to return(comma separated)
+        in: query
+        name: fields
+      - schema:
+          type: string
+        in: query
+        name: sort_desc
+      - schema:
+          type: string
+        in: query
+        name: sort_asc
+      - schema:
+          type: array
+          items:
+            type: string
+          uniqueItems: false
+          minItems: 0
+        in: query
+        name: template-ids
+        allowEmptyValue: false
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: id
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: exclude-id
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: tags
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: include-tags
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: exclude-tags
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: severity
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: exclude-severity
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: type
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: exclude-type
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: templates
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: exclude-templates
+      - schema:
+          type: string
+        in: query
+        name: profile_name
+      - schema:
+          type: boolean
+        in: query
+        name: is_new
+      - schema:
+          type: boolean
+        in: query
+        name: is_early
+      - schema:
+          type: boolean
+        in: query
+        name: is_github
+      - schema:
+          type: boolean
+        in: query
+        name: is_draft
+  /v1/template/leaderboard/{name}:
+    parameters:
+    - schema:
+        type: string
+      name: name
+      in: path
+      required: true
+    get:
+      summary: Get Leaderboard ID Details
+      tags:
+      - Template
+      responses:
+        '200':
+          description: Shared Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of results
+                  facets:
+                    type: object
+                    description: The search facets
+                    additionalProperties:
+                      $ref: '#/components/schemas/Facets'
+                  results:
+                    type: array
+                    description: The search results
+                    items:
+                      $ref: '#/components/schemas/TemplateData'
+                  total:
+                    type: integer
+                    description: The total number of results
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-template-leaderboard-id
+      description: Get public templates leaderboard ID details
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: fields
+        description: List of fields to return(comma separated)
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: The numbers of items to return
+      - schema:
+          type: integer
+        in: query
+        name: offset
+        description: The numbers of items to skip
+components:
+  schemas:
+    Facets:
+      title: Facets
+      type: object
+      properties:
+        buckets:
+          type: object
+          additionalProperties:
+            type: integer
+        missing:
+          type: integer
+        others:
+          type: integer
+        total:
+          type: integer
+    AIMeta:
+      type: object
+      properties:
+        model_used:
+          description: The AI model used to generate the template
+          type: string
+        is_prompt_by_human:
+          description: Whether the prompt was written by a human
+          type: boolean
+        is_template_by_human:
+          description: Whether the template was written by a human
+          type: boolean
+        prompt:
+          description: The prompt used to generate the template
+          type: string
+    TemplateValidationError:
+      title: TemplateValidationError
+      type: object
+      required:
+      - filename
+      - message
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+        detail:
+          type: string
+        line:
+          type: integer
+          description: Line number reported by the validator (if available)
+        column:
+          type: integer
+          description: Column number reported by the validator (if available)
+        issue_code:
+          type: string
+          description: Optional validator issue identifier
+    TemplateData:
+      description: Template Document or object
+      type: object
+      properties:
+        uri:
+          type: string
+          description: The URI of the template (could be a path or a ksuid)
+        id:
+          type: string
+          description: The ID of the template
+        name:
+          type: string
+          description: The name of the template
+        author:
+          type: array
+          description: The authors of the template
+          items:
+            type: string
+        tags:
+          type: array
+          description: The tags of the template
+          items:
+            type: string
+        severity:
+          type: string
+          description: The severity of the template
+        type:
+          type: string
+          description: The type of the template
+        dir:
+          type: string
+        ref:
+          type: string
+        vendor:
+          type: string
+          description: The vendor of the template
+        product:
+          type: string
+          description: The product of the template
+        classification:
+          $ref: '#/components/schemas/Classification'
+          description: Classification of template including additional metadata like cve-id, cwe-id etc
+        metadata:
+          type: object
+        digest:
+          type: string
+          description: The digest of the template
+        created_at:
+          type: string
+          format: date-time
+          description: The time when template was created
+        updated_at:
+          type: string
+          format: date-time
+          description: The time when template was updated
+        release_tag:
+          type: string
+          description: The release tag of the template (contains tag when the file was first released)
+        is_early:
+          type: boolean
+          description: True if template is in early access
+        raw:
+          type: string
+          description: The raw unparsed template
+        template_id:
+          type: string
+        description:
+          type: string
+        filename:
+          type: string
+        impact:
+          type: string
+        ai_meta:
+          $ref: '#/components/schemas/AIMeta'
+        references:
+          type: array
+          items:
+            type: string
+        template_type:
+          enum:
+          - public
+          - user
+          - shared
+        is_draft:
+          type: boolean
+        is_github:
+          type: boolean
+        is_new:
+          type: boolean
+        is_pdteam:
+          description: Is the template from pdteam
+          type: boolean
+        remediation:
+          type: string
+    SharedTemplateMetaData:
+      title: SharedTemplateMetaData
+      type: object
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+        organizations:
+          type: array
+          items:
+            type: string
+        share_type:
+          type: string
+        template_id:
+          type: string
+        users_email:
+          type: array
+          items:
+            type: string
+    Classification:
+      description: Classification of template including additional metadata like cve-id, cwe-id etc
+      type: object
+      properties:
+        cve-id:
+          type: array
+          items:
+            type: string
+          description: CVE IDs for the template
+        cwe-id:
+          type: array
+          items:
+            type: string
+          description: CWE IDs for the template
+        cvss-metrics:
+          type: string
+          description: CVSS Metrics for the template
+        cvss-score:
+          type: number
+          format: float
+          description: CVSS Score for the template
+        epss-score:
+          type: number
+          format: float
+          description: EPSS Score for the template
+        epss-percentile:
+          type: number
+          format: float
+          description: EPSS Percentile for the template
+        cpe:
+          type: string
+          description: CPE for the template
+    FailedTemplateFileMetadataUpdate:
+      title: FailedTemplateFileMetadataUpdate
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      - error
+      properties:
+        dir:
+          type: string
+          description: Directory of the template
+        filename:
+          type: string
+          description: Name of the template
+        template_id:
+          type: string
+          description: Template ID
+        error:
+          type: string
+          description: Error message
+    UploadTemplate:
+      title: UploadTemplate
+      type: object
+      properties:
+        ai_meta:
+          $ref: '#/components/schemas/AIMeta'
+        dir:
+          type: string
+        filename:
+          type: string
+        template:
+          type: string
+    TemplateWorkflowRejection:
+      title: TemplateWorkflowRejection
+      type: object
+      required:
+      - filename
+      - reason
+      properties:
+        filename:
+          type: string
+        reason:
+          type: string
+        hint:
+          type: string
+          description: Suggested action to resolve the rejection
+    TemplateFileMetadata:
+      title: TemplateFileMetadata
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      - uri
+      properties:
+        dir:
+          type: string
+          description: 'Directory of the template
+
+            '
+        filename:
+          type: string
+          description: 'Name of the template
+
+            '
+        template_id:
+          type: string
+          description: Template ID
+        uri:
+          type: string
+          description: URI of the template
+      description: Template File Metadata
+    PatchTemplateFileMetadata:
+      title: PatchTemplateFileMetadata
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      properties:
+        dir:
+          type: string
+        filename:
+          type: string
+        template_id:
+          type: string
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    UpdateSharedTemplateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - result
+            properties:
+              message:
+                type: string
+              result:
+                $ref: '#/components/schemas/SharedTemplateMetaData'
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

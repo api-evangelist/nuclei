@@ -1,0 +1,2808 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents internal API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: internal
+paths:
+  /v1/admin/user/search:
+    get:
+      summary: Search user by name or email
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-user-search
+      x-internal: true
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: q
+        description: name or email filter
+      - schema:
+          type: string
+          enum:
+          - TRIAL
+          - ENT_TRIAL
+          - PRO
+          - ENT
+          - FREE
+          - VERIFIED_FREE
+          - GROWTH
+        in: query
+        name: plan
+        description: plan filter
+      - schema:
+          type: integer
+        in: query
+        name: offset
+        description: offset for pagination
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: limit for pagination
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/admin/user/billing_assets:
+    get:
+      summary: Get billing assets for a user
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-user-billing-assets
+      x-internal: true
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: email
+        description: email of the user
+        required: true
+  /v1/admin/user/audit_logs:
+    get:
+      summary: Get audit logs for a user
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-user-audit-logs
+      x-internal: true
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: email
+        description: email of the user
+      - schema:
+          type: integer
+          format: int64
+        in: query
+        name: user_id
+        description: user id of the user
+      - schema:
+          type: integer
+        in: query
+        name: offset
+        description: offset for pagination
+      - schema:
+          type: string
+        in: query
+        name: path_name
+        description: path name filter
+      - schema:
+          type: string
+        in: query
+        name: status_code
+        description: status code filter comma separated e.g status_code=200,404
+      - schema:
+          type: string
+        in: query
+        name: status_code_not
+        description: status code not filter comma separated e.g status_code_not=200,404
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: limit for pagination
+  /v1/admin/team/change_owner:
+    parameters:
+    - in: header
+      name: X-Team-ID
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - internal
+      summary: change owner for a team (New owner will take control of the existing owner's subscription)
+      operationId: post-v1-admin-team-change_owner
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - new_owner_email
+              properties:
+                new_owner_email:
+                  type: string
+      x-internal: true
+  /v1/admin/scan/token:
+    parameters: []
+    post:
+      tags:
+      - internal
+      summary: Set Scan token for user
+      operationId: post-v1-admin-scan-token
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - extra_token
+              - email
+              properties:
+                base_token:
+                  type: number
+                base_domain_count:
+                  type: integer
+                extra_token:
+                  type: number
+                email:
+                  type: string
+                  description: Comma separated emails
+                validity_months:
+                  type: integer
+                  minimum: 0
+                  maximum: 12
+                expire_at:
+                  type: string
+                  format: date-time
+      x-internal: true
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - create
+          - update
+        in: query
+        name: method
+        description: '''create'' or ''update'' mode'
+        required: true
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    patch:
+      tags:
+      - internal
+      summary: Update Scan token for user
+      operationId: patch-v1-admin-scan-token
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                base_domain_count:
+                  type: integer
+                base_count:
+                  type: integer
+                extra_token:
+                  type: number
+                email:
+                  type: string
+                  description: Comma separated emails
+                is_enforced_limit:
+                  type: boolean
+                tag:
+                  type: string
+                  enum:
+                  - TRIAL
+                  - ENT_TRIAL
+                  - PRO
+                  - ENT
+                  - FREE
+                  - VERIFIED_FREE
+                  - GROWTH
+                  description: user tag eg - TRIAL
+                expire_at:
+                  type: string
+                  format: date-time
+      x-internal: true
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+    get:
+      summary: Get Token Usage (admin)
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetScansTokenResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-scan-token
+      description: Get token usage for given user
+      parameters:
+      - schema:
+          type: integer
+        in: query
+        name: user_id
+        description: user id to get scan token usage for
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: email
+        description: email to get scan token usage for
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+  /v1/user/onboarding_status:
+    get:
+      summary: Get User Setup Statistics
+      tags:
+      - internal
+      operationId: get-v1-user-setup-stats
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserSetupStatsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get user setup statistics
+  /v1/user/billing_assets:
+    get:
+      summary: Get Billing Assets details
+      tags:
+      - internal
+      operationId: get-v1-user-billing-assets
+      responses:
+        '200':
+          $ref: '#/components/responses/GetBillingAssetsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get billing assets details
+  /v1/admin/user/profile:
+    patch:
+      summary: Patch User Profile
+      operationId: patch-v1-admin-user-profile
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/PatchUserProfileResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/PatchUserProfile'
+      security:
+      - X-API-Key: []
+      description: (ADMIN) Patch a user profile
+      parameters: []
+  /v1/admin/user/delete:
+    parameters: []
+    post:
+      summary: Admin delete user
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-admin-user-delete
+      security:
+      - X-API-Key: []
+      x-internal: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                otp:
+                  type: integer
+                email:
+                  type: string
+  /v1/admin/users:
+    post:
+      summary: Create New User
+      operationId: post-v1-admin-users
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/PostCreateUserResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ai_status:
+                  type: boolean
+                scan_status:
+                  type: boolean
+                static_scan:
+                  type: boolean
+                neo_ai:
+                  type: boolean
+                early_template:
+                  type: boolean
+                create_auth_user:
+                  type: boolean
+                tag:
+                  type: string
+                  enum:
+                  - TRIAL
+                  - ENT_TRIAL
+                  - PRO
+                  - ENT
+                  - FREE
+                  - VERIFIED_FREE
+                  - GROWTH
+                email:
+                  type: string
+                invite_email:
+                  type: boolean
+              required:
+              - email
+      description: (ADMIN) Create a new user
+  /v1/user/team:
+    get:
+      summary: Get Team
+      operationId: get-v1-user-team
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTeamResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Get a team metadata
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    post:
+      summary: Create Workspace
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  team_id:
+                    type: string
+                required:
+                - message
+                - team_id
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-user-team
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTeamRequest'
+      security:
+      - X-API-Key: []
+      description: 'Create a new team '
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    patch:
+      summary: Update Team
+      operationId: patch-v1-user-team
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateTeamResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTeamRequest'
+      description: Update a existing team
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    delete:
+      summary: Delete Team
+      tags:
+      - internal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team_id:
+                  type: string
+              required:
+              - team_id
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-user-team
+      security:
+      - X-API-Key: []
+      description: Delete team (require 0 members)
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/team/member:
+    get:
+      summary: Get Team Members
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTeamMembersResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-user-team-member
+      security:
+      - X-API-Key: []
+      description: Get team member list
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    post:
+      summary: Add Team Member
+      operationId: post-v1-user-team-member
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AddTeamMemberRequest'
+      description: Invite a new team member
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    delete:
+      summary: Delete Team Member
+      operationId: delete-v1-user-team-member
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteTeamMemberRequest'
+      description: Delete a team member using member email
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    patch:
+      summary: Update Team Member
+      operationId: patch-v1-user-team-member
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/PatchTeamMemberRequest'
+      description: Accept team invite
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/user/team/member/accept:
+    patch:
+      summary: Update Team Member
+      operationId: patch-v1-user-team-member-accept
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/InviteTeamMemberRequest'
+      description: Accept team invite
+      parameters: []
+  /v1/user/team/default-members:
+    get:
+      summary: Get Default Team Members
+      operationId: get-v1-user-team-default-members
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/GetDefaultTeamMembersResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Retrieve the list of configured default team members
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+        required: true
+    post:
+      summary: Set Default Team Members
+      operationId: post-v1-user-team-default-members
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/SetDefaultTeamMembersRequest'
+      description: Set (replace) the list of default team members
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+        required: true
+    delete:
+      summary: Delete Default Team Members
+      operationId: delete-v1-user-team-default-members
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteDefaultTeamMemberRequest'
+      description: Delete default team members (specific or all)
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+        required: true
+  /v1/admin/team/member:
+    post:
+      summary: Add Team Member (Admin)
+      operationId: post-v1-admin-team-member
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AdminAddTeamMemberRequest'
+      description: (ADMIN) Invite a new team member
+  /v1/payment/stripe/checkout_session:
+    parameters: []
+    post:
+      summary: Create Subscription Checkout
+      operationId: post-v1-payment-stripe-checkout_session
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  payment_url:
+                    type: string
+                required:
+                - message
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price_id:
+                  type: string
+              required:
+              - price_id
+      description: Create a new payment checkout
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/integration/{name}:
+    parameters:
+    - schema:
+        type: string
+      name: name
+      in: path
+      required: true
+    get:
+      summary: Get Integration
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  key:
+                    type: string
+                  connection_id:
+                    type: string
+                  integration_id:
+                    type: string
+                  fetching_status:
+                    type: boolean
+                required:
+                - status
+                - message
+                - key
+                - connection_id
+                - integration_id
+                - fetching_status
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-integration
+      security:
+      - X-API-Key: []
+      description: Get integration list
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    post:
+      summary: Create Integration
+      operationId: post-v1-integration
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  key:
+                    type: string
+                  connection_id:
+                    type: string
+                  integration_id:
+                    type: string
+                  fetching_status:
+                    type: boolean
+                required:
+                - status
+                - key
+                - connection_id
+                - integration_id
+                - fetching_status
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      description: Add Integration
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    patch:
+      summary: Verify Integration
+      operationId: patch-v1-integration
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                connection_id:
+                  type: string
+              required:
+              - connection_id
+      description: Verify connection_id
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+    delete:
+      summary: Delete Integration
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-integration
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                connection_id:
+                  type: string
+              required:
+              - connection_id
+      description: Deleted integration
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/integration/{name}/all:
+    parameters:
+    - schema:
+        type: string
+      name: name
+      in: path
+      required: true
+    get:
+      summary: Get All Integrations
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IntegrationListItems'
+                required:
+                - data
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-integration-name-all
+      security:
+      - X-API-Key: []
+      description: Get integration list
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/template/contribute:
+    parameters: []
+    post:
+      summary: Contribute to Public Templates
+      operationId: post-v1-template-contribute
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pr:
+                    type: string
+                required:
+                - pr
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      security:
+      - X-API-Key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateContributeRequest'
+      description: Contribute template to nuclei-templates
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/integration/{name}/profile:
+    parameters:
+    - schema:
+        type: string
+      name: name
+      in: path
+      required: true
+    get:
+      summary: Get Integration User Profile
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  login:
+                    type: string
+                required:
+                - name
+                - email
+                - login
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-integration-name-profile
+      x-internal: false
+      security:
+      - X-API-Key: []
+      description: Get user integration profile data
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/template/leaderboard:
+    get:
+      summary: Get Leaderboard
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+                  count:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContributorSummary'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-template-leaderboard
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: category
+        description: Category Template Category (e.g cve,dast,other etc)
+      - schema:
+          type: string
+        in: query
+        name: severity
+        description: Severity Template Severity (e.g critical,high,medium,low,info,unknown)
+      - schema:
+          type: string
+        in: query
+        name: type
+        description: Type Template protocol type (e.g http,dns,headless)
+      - schema:
+          type: string
+          format: date
+        in: query
+        description: CreatedAtGte Start date to get contributors for (e.g 2024-01-01)
+        name: created_at_gte
+      - schema:
+          type: integer
+        in: query
+        description: Limit The numbers of items to return
+        name: limit
+      - schema:
+          type: integer
+        in: query
+        description: Offset The numbers of items to skip
+        name: offset
+      - schema:
+          type: string
+          format: date
+        in: query
+        name: created_at_lte
+        description: CreatedAtLte End date to get contributors for (e.g 2024-01-01)
+      - schema:
+          type: string
+        in: query
+        description: SortAsc Sort results in ascending order (CSV field names)
+        name: sort_asc
+      - schema:
+          type: string
+        in: query
+        description: SortDesc Sort results in descending order (CSV field names)
+        name: sort_desc
+      description: Get public templates leaderboard list
+  /v1/payment/price_list:
+    get:
+      summary: Get price list
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/PriceListResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-payment-price_list
+      x-internal: true
+      security:
+      - X-API-Key: []
+      parameters:
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+  /v1/admin/team:
+    parameters:
+    - in: header
+      name: X-Team-ID
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: Admin API to update team details
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-admin-team
+      requestBody:
+        $ref: '#/components/requestBodies/PatchTeamAdmin'
+      security:
+      - X-API-Key: []
+      description: Admin API to update team details
+  /v1/admin/usage:
+    post:
+      summary: Set Usage Limit
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-admin-usage
+      requestBody:
+        $ref: '#/components/requestBodies/AdminSetUsageLimit'
+      parameters: []
+    get:
+      summary: Get User API service Usage
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/UsageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-usage
+      requestBody:
+        $ref: '#/components/requestBodies/AdminUsageRequest'
+      parameters: []
+  /v1/admin/automations:
+    get:
+      summary: Get Automations List
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/AdminAutomationsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-automations
+      parameters:
+      - schema:
+          type: integer
+        in: query
+        name: offset
+      - schema:
+          type: integer
+        in: query
+        name: limit
+      - schema:
+          type: integer
+        in: query
+        name: user_id
+      - schema:
+          type: string
+        in: query
+        name: event
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: enumeration_id
+    delete:
+      summary: Delete User Automation
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-admin-automations
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: event
+        required: true
+        description: 'event string '
+      - schema:
+          type: integer
+        in: query
+        name: user_id
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: enumeration_id
+        description: enumeration-id for event
+    patch:
+      summary: Update Automation (Admin)
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                status:
+                  type: string
+                scan_data:
+                  $ref: '#/components/schemas/AutomationScanData'
+                validate_scan_data:
+                  type: boolean
+                  default: true
+      operationId: update-v1-admin-automations
+      parameters:
+      - schema:
+          type: integer
+        in: query
+        name: user_id
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: event
+        required: true
+  /v1/admin/automations/alert:
+    post:
+      summary: Admin Automations alert
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-admin-automations-alert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - template_id
+              properties:
+                template_id:
+                  type: string
+  /v1/admin/aurora_proxy:
+    post:
+      summary: Proxy requests to Aurora service
+      tags:
+      - internal
+      x-internal: true
+      operationId: post-v1-admin-aurora-proxy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - method
+              - url_with_params
+              properties:
+                method:
+                  type: string
+                  description: HTTP method for the Aurora request
+                  enum:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                url_with_params:
+                  type: string
+                  description: URL path with query parameters for the Aurora endpoint
+                request_body:
+                  type: object
+                  description: Request body to pass to the Aurora service (optional)
+      responses:
+        '200':
+          description: Success - returns Aurora service response
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/admin/growth-plan/user-mapping:
+    post:
+      summary: Create or update growth plan user mapping
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-admin-growth-plan-user-mapping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - stripe_price_id
+              properties:
+                email:
+                  type: string
+                  description: Email of the user
+                stripe_price_id:
+                  type: string
+                  description: Stripe price ID for the growth plan
+                predefined_count:
+                  type: integer
+                  format: int64
+                  description: Optional predefined scan token count for the user
+    delete:
+      summary: Delete growth plan user mapping
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: delete-v1-admin-growth-plan-user-mapping
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: email
+        required: true
+        description: Email of the user to delete growth plan mapping
+    get:
+      summary: Get growth plan user mapping for a specific email
+      tags:
+      - internal
+      responses:
+        '200':
+          description: Successfully retrieved growth plan user mapping
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_available:
+                    type: boolean
+                    description: Whether growth plan is available for this user
+                  stripe_price_id:
+                    type: string
+                    description: Stripe price ID if growth plan is available
+                required:
+                - is_available
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-growth-plan-user-mapping
+      parameters:
+      - name: email
+        in: query
+        description: Email of the user to get growth plan mapping
+        required: true
+        schema:
+          type: string
+  /v1/admin/stripe/prices:
+    get:
+      summary: Get all Stripe prices for a product
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prices:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StripePriceItem'
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '403':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-stripe-prices
+      x-internal: true
+      security:
+      - X-API-Key: []
+      parameters:
+      - name: stripe_product_id
+        in: query
+        description: Stripe product ID to fetch prices for
+        required: true
+        schema:
+          type: string
+  /v1/admin/team/usage-stats:
+    get:
+      summary: Get comprehensive team usage statistics
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-team-usage-stats
+      x-internal: true
+      security:
+      - X-API-Key: []
+      parameters:
+      - name: email
+        in: query
+        description: Email address of the team owner
+        required: true
+        schema:
+          type: string
+          format: email
+  /v1/admin/plan-limits:
+    get:
+      summary: Get all plan default limits
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plans:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PlanDefaultLimit'
+                  message:
+                    type: string
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-admin-plan-limits
+      x-internal: true
+      security:
+      - X-API-Key: []
+    patch:
+      summary: Update plan default limits
+      tags:
+      - internal
+      responses:
+        '200':
+          $ref: '#/components/responses/MessageResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: patch-v1-admin-plan-limits
+      x-internal: true
+      security:
+      - X-API-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - plan
+              - asset_limit
+              - domain_limit
+              properties:
+                plan:
+                  type: string
+                  enum:
+                  - ENT
+                  - ENT_TRIAL
+                  - PRO
+                  - GROWTH
+                  - TRIAL
+                  - FREE
+                  - VERIFIED_FREE
+                asset_limit:
+                  type: integer
+                  format: int64
+                  minimum: 0
+                domain_limit:
+                  type: integer
+                  format: int64
+                  minimum: 0
+  /v1/admin/report/export/{export_id}/status:
+    parameters:
+    - schema:
+        type: string
+      name: export_id
+      in: path
+      required: true
+    put:
+      summary: Update Export Status
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: put-v1-report-export-export_id-status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user_id
+              properties:
+                status:
+                  enum:
+                  - failed
+                  - finished
+                export_url:
+                  type: string
+                error_reason:
+                  type: string
+                user_id:
+                  type: number
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: X-Api-Key
+        required: true
+  /v1/admin/report/{report_type}:
+    parameters:
+    - schema:
+        type: string
+        enum:
+        - executive_summary
+        - security_posture
+      name: report_type
+      in: path
+      required: true
+    post:
+      summary: Generate Report for Team (Admin)
+      tags:
+      - internal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_id:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: post-v1-admin-report-report_type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - teamID
+              - userEmail
+              properties:
+                teamID:
+                  type: string
+                  description: The team ID to generate report for
+                userEmail:
+                  type: string
+                  format: email
+                  description: The user email to associate with the export
+      x-internal: true
+components:
+  schemas:
+    IntegrationListItems:
+      title: GithubTemplateListItem
+      type: object
+      properties:
+        connection_id:
+          type: string
+        integration_id:
+          type: string
+        status:
+          type: string
+        identifier:
+          type: string
+        org_name:
+          type: string
+        account_type:
+          type: string
+        handle:
+          type: string
+      required:
+      - connection_id
+      - integration_id
+      - status
+      - identifier
+      - org_name
+      - account_type
+      - handle
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
+    TeamMemberItem:
+      title: TeamMemberItem
+      type: object
+      properties:
+        email:
+          type: string
+        status:
+          type: string
+        role:
+          type: string
+          description: Team member role. Values are OWNER, ADMIN, MEMBER, VIEWER, GUEST.
+        invited_at:
+          type: string
+        accepted_at:
+          type: string
+        profile_image:
+          type: string
+        last_sign_in:
+          type: string
+      required:
+      - email
+      - status
+      - role
+    StripePriceItem:
+      title: StripePriceItem
+      type: object
+      required:
+      - price_id
+      - price
+      - name
+      properties:
+        price_id:
+          type: string
+          description: Stripe price ID
+        price:
+          type: number
+          description: Price amount in dollars
+        name:
+          type: string
+          description: Price display name
+        currency:
+          type: string
+          description: Currency code (e.g., USD)
+        interval:
+          type: string
+          description: Billing interval (month, year, etc.)
+        product_id:
+          type: string
+          description: Associated Stripe product ID
+    PlanDefaultLimit:
+      title: PlanDefaultLimit
+      type: object
+      required:
+      - plan
+      - asset_limit
+      - domain_limit
+      properties:
+        plan:
+          type: string
+          enum:
+          - ENT
+          - ENT_TRIAL
+          - PRO
+          - GROWTH
+          - TRIAL
+          - FREE
+          - VERIFIED_FREE
+          description: Plan type
+        asset_limit:
+          type: integer
+          format: int64
+          description: Default asset limit for the plan
+        domain_limit:
+          type: integer
+          format: int64
+          description: Default domain limit for the plan
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+    ContributorSummary:
+      title: ContributorSummary
+      type: object
+      properties:
+        category_breakdown:
+          type: object
+          properties:
+            cloud:
+              type: integer
+            cve:
+              type: integer
+            dast:
+              type: integer
+            kev:
+              type: integer
+            other:
+              type: integer
+        contributor:
+          type: string
+        score:
+          type: integer
+        socials:
+          type: object
+        total_templates:
+          type: integer
+    WorkspaceItem:
+      title: TeamMemberItem
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+        member_count:
+          type: integer
+        owner_email:
+          type: string
+      required:
+      - id
+      - name
+      - created_at
+      - member_count
+      - owner_email
+    PriceListItem:
+      title: PriceListItem
+      type: object
+      required:
+      - price_id
+      - amount
+      - recurrence
+      - monthly_token
+      properties:
+        price_id:
+          type: string
+        amount:
+          type: integer
+        monthly_token:
+          type: integer
+        recurrence:
+          type: string
+    EnumerationIds:
+      title: EnumerationIds
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    AdminAutomationsItem:
+      title: AdminAutomationsItem
+      type: object
+      required:
+      - name
+      - status
+      - created_at
+      - updated_at
+      - user_id
+      - scan_data
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: integer
+        scan_data:
+          $ref: '#/components/schemas/AutomationScanData'
+    AutomationScanData:
+      title: AutomationScanData
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        templates:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        alerting_config_ids:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            type: string
+        reporting_config_ids:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        exclude_targets:
+          type: array
+          items:
+            type: string
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIds'
+        disable_global_alert_config:
+          type: boolean
+        disable_global_report_config:
+          type: boolean
+        disable_global_scan_config:
+          type: boolean
+        socks5_proxy:
+          type: string
+        agent_id:
+          type: string
+        agent_tags:
+          type: array
+          items:
+            type: string
+        agent_networks:
+          type: array
+          items:
+            type: string
+        agent_auto_discover:
+          type: boolean
+        agent_behavior:
+          type: string
+          enum:
+          - distribute
+          - mirror
+          default: distribute
+        scan_id:
+          type: string
+        update_existing_scan:
+          type: boolean
+        scan_all_assets:
+          type: boolean
+  requestBodies:
+    SetDefaultTeamMembersRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                      enum:
+                      - ADMIN
+                      - MEMBER
+                      - VIEWER
+                      - GUEST
+                  required:
+                  - email
+                  - role
+            required:
+            - members
+    InviteTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              invite_code:
+                type: string
+            required:
+            - invite_code
+    CreateContributeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              template:
+                type: string
+              anonymous:
+                type: boolean
+            required:
+            - template
+            - anonymous
+    AdminUsageRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - email
+            - range
+            properties:
+              email:
+                type: string
+                format: email
+              range:
+                $ref: '#/components/schemas/UsageRangeEnum'
+              startDate:
+                type: string
+              endDate:
+                type: string
+    CreateTeamRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+            - name
+    PatchTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              role:
+                type: string
+                description: Team member role. Valid values are ADMIN, MEMBER, VIEWER, GUEST.
+            required:
+            - email
+    AdminAddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              owner_email:
+                type: string
+              member_email:
+                type: string
+            required:
+            - owner_email
+            - member_email
+    DeleteTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+            - email
+    AddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+            - email
+    AdminSetUsageLimit:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - email
+            properties:
+              email:
+                type: string
+                format: email
+              chaos_allowed_requests:
+                type: number
+              cvemap_allowed_requests:
+                type: number
+              asnmap_allpwed_requests:
+                type: number
+    PatchUserProfile:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - email
+            properties:
+              email:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+              max_team:
+                type: integer
+              read_only:
+                type: boolean
+              audit_log:
+                type: boolean
+              cloud_region:
+                type: string
+              full_port_scan:
+                type: boolean
+              is_leaks_enabled:
+                type: boolean
+              feature_flag:
+                type: object
+                properties:
+                  internal_scan:
+                    type: boolean
+    DeleteDefaultTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Email of specific member to remove. Omit to remove all
+    PatchTeamAdmin:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - max_members
+            properties:
+              max_members:
+                type: integer
+  responses:
+    PatchUserProfileResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+            required:
+            - message
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    UsageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              cvemap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              chaos:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              asnmap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+    GetTeamMembersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              max_team_members:
+                type: integer
+              members:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMemberItem'
+            required:
+            - message
+            - members
+            - max_team_members
+    PostCreateUserResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+              user_id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+              invite_url:
+                type: string
+              password:
+                type: string
+            required:
+            - message
+    UpdateTeamResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              message:
+                type: string
+            required:
+            - message
+    GetTeamResponse:
+      description: Get the workspace details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              workspaces:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceItem'
+              message:
+                type: string
+              name:
+                type: string
+            required:
+            - message
+    GetUserSetupStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
+            required:
+            - message
+            - onboarding_steps
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+    GetScansTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - scan_tokens
+            - used_scan_token
+            - remaining_scan_token
+            - is_scannable
+            - start_date
+            - end_date
+            - subscription_type
+            - base_domain_count
+            - remaining_domain_count
+            properties:
+              scan_tokens:
+                type: integer
+                format: int64
+              used_scan_token:
+                type: integer
+                format: int64
+              remaining_scan_token:
+                type: integer
+                format: int64
+              base_domain_count:
+                type: integer
+                format: int64
+              remaining_domain_count:
+                type: integer
+                format: int64
+              is_scannable:
+                type: boolean
+              start_date:
+                type: string
+                format: date-time
+              end_date:
+                type: string
+                format: date-time
+              expire_date:
+                type: string
+                format: date-time
+              verified_domain:
+                type: array
+                items:
+                  type: string
+              old_plan:
+                type: string
+              old_plan_expired_at:
+                type: string
+                format: date-time
+              is_enforced_limit:
+                type: boolean
+              subscription_type:
+                enum:
+                - TRIAL
+                - ENT_TRIAL
+                - PRO
+                - ENT
+                - FREE
+                - VERIFIED_FREE
+                - GROWTH
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    AdminAutomationsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - automations
+            properties:
+              message:
+                type: string
+              automations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminAutomationsItem'
+    GetDefaultTeamMembersResponse:
+      description: Default team members response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                  required:
+                  - email
+                  - role
+            required:
+            - message
+            - members
+    PriceListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - list
+            - message
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceListItem'
+              message:
+                type: string
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents elog API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: elog
+paths:
+  /v1/scans/{scan_id}/error_log:
+    parameters:
+    - schema:
+        type: string
+      name: scan_id
+      in: path
+      required: true
+    get:
+      summary: Get elogs of given scan id
+      tags:
+      - elog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - logs
+                - next_page_token
+                properties:
+                  logs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScanLogResp'
+                  next_page_token:
+                    type: string
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-scans-id-elog
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: host
+        description: target to search in log
+      - schema:
+          type: string
+        in: query
+        name: template
+        description: template to search in log
+      - schema:
+          type: string
+        in: query
+        name: matched
+        description: status to search in log
+      - schema:
+          type: string
+          format: date-time
+        in: query
+        name: time
+        description: time to filter the logs
+      - schema:
+          type: string
+        in: query
+        name: search
+        description: string to search in error, target and template
+      - schema:
+          type: string
+        in: query
+        name: error
+        description: error to search in log
+      - schema:
+          type: string
+        in: query
+        name: next_page_token
+        description: next page token
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      - schema:
+          type: string
+        in: query
+        name: template_severity
+        description: severity to search in log
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+  schemas:
+    ScanLogResp:
+      title: ScanLogResp
+      type: object
+      required:
+      - target
+      - template_id
+      - matched
+      - timestamp
+      properties:
+        target:
+          type: string
+        template_id:
+          type: string
+        matched:
+          type: boolean
+        error:
+          type: string
+        timestamp:
+          type: string
+        severity:
+          type: string
+        event:
+          type: string
+        vuln_hash:
+          type: string
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

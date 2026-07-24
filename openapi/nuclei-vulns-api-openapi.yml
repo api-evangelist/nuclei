@@ -1,0 +1,333 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents Vulns API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: Vulns
+paths:
+  /v1/vulns/coverage:
+    get:
+      summary: Get Vulnerability Template Coverage Statistics
+      tags:
+      - Vulns
+      operationId: get-v1-vulns-coverage
+      description: Get template coverage statistics for vulnerabilities. Supports all search query filters to calculate coverage for specific subsets (e.g., by product, severity, etc.)
+      parameters:
+      - in: query
+        name: q
+        required: false
+        schema:
+          type: string
+        description: SearchQL query to filter vulnerabilities (e.g., "severity:critical", "affected_products.product:wordpress")
+      - in: query
+        name: term_facets
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        description: List of term facets to apply
+      - in: query
+        name: range_facets
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        description: List of range facets to apply
+      responses:
+        '200':
+          description: Coverage statistics response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - cves
+                - kevs
+                - pocs
+                - fts_query
+                - filter_description
+                properties:
+                  cves:
+                    type: object
+                    properties:
+                      coverage:
+                        $ref: '#/components/schemas/CoverageStats'
+                  kevs:
+                    type: object
+                    properties:
+                      cisa:
+                        type: object
+                        properties:
+                          all:
+                            type: object
+                            properties:
+                              coverage:
+                                $ref: '#/components/schemas/CoverageStats'
+                          with_public_poc:
+                            type: object
+                            properties:
+                              coverage:
+                                $ref: '#/components/schemas/CoverageStats'
+                          due_date_breakdown:
+                            type: object
+                            properties:
+                              overdue:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              next_7_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              next_30_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              after_30_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                      vulncheck:
+                        type: object
+                        properties:
+                          all:
+                            type: object
+                            properties:
+                              coverage:
+                                $ref: '#/components/schemas/CoverageStats'
+                          with_public_poc:
+                            type: object
+                            properties:
+                              coverage:
+                                $ref: '#/components/schemas/CoverageStats'
+                          due_date_breakdown:
+                            type: object
+                            properties:
+                              overdue:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              next_7_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              next_30_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                              after_30_days:
+                                type: object
+                                properties:
+                                  coverage:
+                                    $ref: '#/components/schemas/CoverageStats'
+                  pocs:
+                    type: object
+                    properties:
+                      coverage:
+                        $ref: '#/components/schemas/CoverageStats'
+                  fts_query:
+                    type: string
+                    description: The SearchQL query string used to calculate coverage (before adding the is_template filter)
+                    example: is_remote:true AND (cvss_metrics:"pr:n" OR cvss_metrics:"au:n") AND NOT vuln_status:rejected
+                  filter_description:
+                    type: string
+                    description: Human-readable description of the filters applied to calculate coverage statistics
+                    example: 'Default filter: remotely exploitable vulnerabilities with no authentication required, excluding rejected/unconfirmed statuses and hardware/OS/consumer categories'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v1/scans/vulns/score/metrics:
+    get:
+      summary: Get Vuln Score Metrics
+      tags:
+      - Vulns
+      parameters:
+      - in: query
+        name: interval
+        schema:
+          type: string
+          enum:
+          - monthly
+          default: monthly
+        description: The time interval for the metrics
+      - schema:
+          type: string
+        in: header
+        description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
+        name: X-Team-Id
+      responses:
+        '200':
+          $ref: '#/components/responses/VulnScoreMetricsResponse'
+        '400':
+          $ref: '#/components/responses/MessageResponse'
+        '401':
+          $ref: '#/components/responses/MessageResponse'
+        '404':
+          $ref: '#/components/responses/MessageResponse'
+        '500':
+          $ref: '#/components/responses/MessageResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-v1-scans-vulns-score-metrics
+components:
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    VulnScoreMetricsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - security_score
+            - security_state
+            - open_vulnerability
+            - total_scanned_assets
+            - total_affected_assets
+            - time_series
+            properties:
+              security_score:
+                type: number
+                format: double
+              security_state:
+                type: string
+              open_vulnerability:
+                $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
+              total_scanned_assets:
+                type: integer
+              total_affected_assets:
+                type: integer
+              time_series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VulnScoreMetricsTimeSeries'
+  schemas:
+    VulnScoreMetricsTimeSeries:
+      title: VulnScoreMetricsTimeSeries
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        security_score:
+          type: number
+          format: double
+        open_vulnerability:
+          $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
+        total_scanned_assets:
+          type: integer
+        total_affected_assets:
+          type: integer
+      description: ''
+    CoverageStats:
+      title: CoverageStats
+      description: Coverage statistics showing template availability
+      type: object
+      required:
+      - percentage
+      - total
+      - covered
+      properties:
+        percentage:
+          type: number
+          format: float
+          description: Coverage percentage
+        total:
+          type: integer
+          description: Total number of items (CVEs, KEVs, or POCs)
+        covered:
+          type: integer
+          description: Number of items with templates
+        remaining:
+          type: integer
+          description: Number of items without templates (total - covered)
+    OpenVulnerabilityScoreMetrics:
+      title: OpenVulnerabilityScoreMetrics
+      type: object
+      properties:
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        total_cve:
+          type: integer
+        total_kev:
+          type: integer
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        critical:
+          type: integer
+        high:
+          type: integer
+        medium:
+          type: integer
+        low:
+          type: integer
+        info:
+          type: integer
+        unknown:
+          type: integer
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false

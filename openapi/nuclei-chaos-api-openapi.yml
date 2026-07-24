@@ -1,0 +1,531 @@
+openapi: 3.1.0
+info:
+  title: PDCP agents chaos API
+  version: '1.0'
+  summary: ProjectDiscovery Cloud Platform
+  description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
+servers:
+- url: https://api.projectdiscovery.io
+  description: Production
+- url: https://api.dev.projectdiscovery.io
+  description: Development
+- url: http://localhost:8085
+  description: Localhost
+security:
+- X-API-Key: []
+tags:
+- name: chaos
+paths:
+  /v1/domain/search:
+    get:
+      summary: Domain & Organization Name Search
+      tags:
+      - chaos
+      responses:
+        '200':
+          $ref: '#/components/responses/DomainSearchResults'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: domain-search
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: query
+        description: Search query for domain or organization name
+        required: true
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: Number of results to return
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: fields
+        description: Fields to include in response (CSV)
+      - schema:
+          type: string
+          enum:
+          - all
+          - domains
+          - orgs
+        in: query
+        name: scope
+        description: Scope of search
+  /v1/domain/associated:
+    parameters: []
+    get:
+      summary: Get Associated Domains
+      description: Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship.
+      tags:
+      - chaos
+      responses:
+        '200':
+          $ref: '#/components/responses/AssociatedDomainsResults'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: associated-domains
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: domain
+        description: Domain name to fetch associated domains. If omitted, returns associated domains for all your verified domains.
+      - schema:
+          type: string
+        in: query
+        name: source
+        description: Comma-separated source filter (acquisition_history, certificate_history, whois_history)
+      - schema:
+          type: boolean
+        in: query
+        name: active
+        description: Filter by liveness (true=alive, false=unreachable)
+      - schema:
+          type: string
+          enum:
+          - active
+          - domain
+          - source
+          - subdomain_count
+          - update_date
+        in: query
+        name: sort
+        description: Sort results
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: Maximum results per page (pagination). If omitted, returns all.
+      - schema:
+          type: integer
+        in: query
+        name: page
+        description: Page number (pagination, starts at 1)
+      - schema:
+          type: boolean
+        in: query
+        name: raw
+        description: If true, returns plain text list (one domain per line)
+      - schema:
+          type: string
+        in: header
+        name: X-Team-Id
+  /v1/organization/search:
+    get:
+      summary: Get Organization by Domain
+      tags:
+      - chaos
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationSearchResults'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: organization-search
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: domain
+        description: Domain name to search and retrieve associated organization information
+        required: true
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: Number of results to return
+      - schema:
+          type: integer
+        in: query
+        name: offset
+        description: Pagination Offset
+components:
+  schemas:
+    RootDomainInfo:
+      title: RootDomainInfo
+      additionalProperties: false
+      description: Root Domain Information
+      properties:
+        domain:
+          description: The root domain name
+          type: string
+        image_url:
+          description: URL to domain's image
+          type: string
+        name:
+          description: The domain name
+          type: string
+        organization_slug:
+          description: Slug identifier of the associated organization
+          type: string
+        total_subdomains:
+          description: The total number of subdomains
+          type: integer
+      type: object
+    AssociatedDomainsResultSet:
+      title: AssociatedDomainsResultSet
+      type: object
+      required:
+      - domain
+      - results
+      - sources
+      properties:
+        domain:
+          description: Queried domain
+          type: string
+        results:
+          description: List of associated domains
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociatedDomainResult'
+        sources:
+          description: List of sources used in the query
+          type: array
+          items:
+            type: string
+        sources_count:
+          description: Count of results per source
+          type: object
+          additionalProperties:
+            type: integer
+        unique_count:
+          description: Unique associated domains count
+          type: integer
+        limit:
+          description: Maximum results per page when paginated
+          type: integer
+        page:
+          description: Current page when paginated
+          type: integer
+        total_count:
+          description: Total associated domains when paginated
+          type: integer
+        total_pages:
+          description: Total pages when paginated
+          type: integer
+    DomainSearchItem:
+      title: DomainSearchItem
+      type: object
+      required:
+      - name
+      - type
+      - search_score
+      properties:
+        domain:
+          $ref: '#/components/schemas/RootDomainInfo'
+        name:
+          description: The display name for autocomplete
+          type: string
+        organization:
+          $ref: '#/components/schemas/OrganizationInfo'
+        search_score:
+          description: The search score of the result
+          type: number
+        type:
+          description: Indicates whether this is an organization or domain result
+          enum:
+          - organization
+          - domain
+          type: string
+    AssociatedDomainResult:
+      title: AssociatedDomainResult
+      type: object
+      required:
+      - domain
+      - sources
+      properties:
+        domain:
+          description: Associated domain name
+          type: string
+        evidence:
+          $ref: '#/components/schemas/AssociatedDomainEvidence'
+        sources:
+          description: Sources that reported the association
+          type: array
+          items:
+            type: string
+    OrganizationFullInfo:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationInfo'
+      - properties:
+          aliases:
+            description: List of organization aliases
+            items:
+              type: string
+            type: array
+          category_groups:
+            description: Macro level category groups (e.g. AI instead of generative_ai)
+            items:
+              type: string
+            type: array
+          created_at:
+            description: Timestamp when the organization record was created
+            format: date-time
+            type: string
+          description:
+            description: Full description of the organization
+            type: string
+          founded_on.value:
+            description: Organization founding date (YYYY-MM-DD)
+            type: string
+          rank:
+            description: Organization's rank
+            type: integer
+          subsidaries:
+            description: List of all subsidiary organizations
+            items:
+              $ref: '#/components/schemas/OrganizationInfo'
+            type: array
+          updated_at:
+            description: Timestamp when the organization record was last updated
+            format: date-time
+            type: string
+        type: object
+    OrganizationInfo:
+      title: OrganizationInfo
+      description: Organization Information
+      properties:
+        acquirer_slug:
+          description: Slug of acquiring organization if applicable
+          type: string
+        contact_email:
+          description: Contact email address
+          type: string
+        domain:
+          description: Primary domain of the organization
+          type: string
+        image_url:
+          description: URL to organization's image
+          type: string
+        industries:
+          description: Industries of the organization
+          items:
+            type: string
+          type: array
+        legal_name:
+          description: Legal name of the organization
+          type: string
+        linkedin:
+          description: LinkedIn profile URL
+          type: string
+        name:
+          description: The organization name
+          type: string
+        num_employees_enum:
+          description: Employee count range category
+          type: string
+        org_status:
+          description: Status of the organization
+          type: string
+        short_description:
+          description: Brief description of the organization
+          type: string
+        slug:
+          description: URL-friendly identifier
+          type: string
+        subsidary_domains:
+          description: List of subsidiary domains
+          items:
+            type: string
+          type: array
+        total_subdomains:
+          description: Total number of subdomains
+          type: integer
+        total_subsidaries:
+          description: Total number of subsidiaries
+          type: integer
+        total_subsidary_domains:
+          description: Total number of subsidiary domains
+          type: integer
+        total_subsidary_subdomains:
+          description: Total number of subdomains across all subsidiary domains
+          type: integer
+        twitter:
+          description: Twitter profile URL
+          type: string
+      type: object
+    AssociatedDomainEvidence:
+      title: AssociatedDomainEvidence
+      type: object
+      properties:
+        acquired_company:
+          description: Acquired company name
+          type: string
+        acquired_date:
+          description: Acquisition date
+          type: string
+        acquirer_name:
+          description: Acquirer organization name
+          type: string
+        active:
+          description: Whether the domain is reachable
+          type: boolean
+        as_name:
+          description: Autonomous system name
+          type: string
+        as_number:
+          description: Autonomous system number
+          type: integer
+        cert_common_name:
+          description: Certificate common name
+          type: string
+        cert_expiry_date:
+          description: Certificate expiry date
+          type: string
+        cert_issued_date:
+          description: Certificate issued date
+          type: string
+        cert_issuer:
+          description: Certificate issuer
+          type: string
+        cert_org_name:
+          description: Certificate organization name
+          type: string
+        cert_serial:
+          description: Certificate serial number
+          type: string
+        crunchbase_url:
+          description: Crunchbase URL
+          type: string
+        expiry_date:
+          description: Domain expiry date
+          type: string
+        location:
+          description: Geographic location
+          type: string
+        orgname:
+          description: WHOIS organization name
+          type: string
+        probe:
+          description: Probe information
+          type: string
+        registrant_org:
+          description: Registrant organization
+          type: string
+        registrar:
+          description: Registrar name
+          type: string
+        registration_date:
+          description: Domain registration date
+          type: string
+        search_identifier:
+          description: Search identifier
+          type: string
+        status_code:
+          description: HTTP status code
+          type: integer
+        subdomain_count:
+          description: Number of discovered subdomains
+          type: integer
+        title:
+          description: HTTP title
+          type: string
+        update_date:
+          description: Last update date
+          type: string
+        whois_server:
+          description: WHOIS server
+          type: string
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    AssociatedDomainsResults:
+      description: Associated domains response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssociatedDomainsResultSet'
+        text/plain:
+          schema:
+            type: string
+            description: Plain text list of domains when raw=true
+    DomainSearchResults:
+      description: Domain Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DomainSearchItem'
+              total:
+                type: integer
+    OrganizationSearchResults:
+      description: Organization Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationFullInfo'
+              total:
+                type: integer
+  securitySchemes:
+    X-API-Key:
+      name: X-API-Key
+      type: apiKey
+      in: header
+x-internal: false
