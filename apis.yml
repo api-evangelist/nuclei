@@ -6,7 +6,20 @@ description: >-
   scanning, CI/CD integration, and ships with thousands of community-contributed templates. The ProjectDiscovery Cloud
   Platform exposes a REST API for managing templates, scans, vulnerabilities, leaks, asset discovery, exports, and more.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nuclei.png
 tags:
   - Security Testing
   - Testing
@@ -18,42 +31,511 @@ created: '2026-03-25'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: nuclei:nuclei
-    name: Nuclei
-    description: >-
-      Nuclei is an open source vulnerability scanner from ProjectDiscovery that uses YAML-based templates to find
-      security issues in APIs, web apps, and infrastructure.
-    humanURL: https://nuclei.projectdiscovery.io
-    tags:
-      - Security Testing
-      - Testing
-      - Vulnerability Scanner
-    properties:
-      - type: Documentation
-        url: https://docs.projectdiscovery.io/tools/nuclei/overview
-      - type: GitHubRepository
-        url: https://github.com/projectdiscovery/nuclei
-  - aid: nuclei:projectdiscovery-cloud-api
-    name: ProjectDiscovery Cloud Platform API
-    description: >-
-      REST API for the ProjectDiscovery Cloud Platform (PDCP) covering Nuclei templates, scans, vulnerabilities, leaks,
-      asset discovery, configurations, exports, audit logs, and utilities. Authentication uses API keys passed via the
-      X-Api-Key header.
-    humanURL: https://docs.projectdiscovery.io/api-reference/introduction
-    baseURL: https://api.projectdiscovery.io
-    tags:
-      - Security Testing
-      - Vulnerability Scanner
-      - Templates
-      - Scans
-      - Cloud
-    properties:
-      - type: Documentation
-        url: https://docs.projectdiscovery.io/api-reference/introduction
-      - type: Portal
-        url: https://cloud.projectdiscovery.io/
-      - type: OpenAPI
-        url: openapi/nuclei-openapi.yml
+- aid: nuclei:nuclei
+  name: Nuclei
+  description: >-
+    Nuclei is an open source vulnerability scanner from ProjectDiscovery that uses YAML-based templates
+    to find security issues in APIs, web apps, and infrastructure.
+  humanURL: https://nuclei.projectdiscovery.io
+  tags:
+  - Security Testing
+  - Testing
+  - Vulnerability Scanner
+  properties:
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/tools/nuclei/overview
+  - type: GitHubRepository
+    url: https://github.com/projectdiscovery/nuclei
+- aid: nuclei:nuclei-agents-api
+  name: Nuclei agents API
+  description: The agents API from Nuclei — 4 operation(s) for agents.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - agents
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-asset-api
+  name: Nuclei Asset API
+  description: The Asset API from Nuclei — 12 operation(s) for asset.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Asset
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-asset-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-assets-api
+  name: Nuclei assets API
+  description: The assets API from Nuclei — 9 operation(s) for assets.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - assets
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-automations-api
+  name: Nuclei automations API
+  description: The automations API from Nuclei — 2 operation(s) for automations.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - automations
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-automations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-billing-api
+  name: Nuclei billing API
+  description: The billing API from Nuclei — 1 operation(s) for billing.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - billing
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-billing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-chaos-api
+  name: Nuclei chaos API
+  description: The chaos API from Nuclei — 3 operation(s) for chaos.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - chaos
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-chaos-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-configurations-api
+  name: Nuclei configurations API
+  description: The configurations API from Nuclei — 7 operation(s) for configurations.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-configurations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-deprecated-api
+  name: Nuclei deprecated API
+  description: The deprecated API from Nuclei — 3 operation(s) for deprecated.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - deprecated
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-deprecated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-domains-api
+  name: Nuclei domains API
+  description: The domains API from Nuclei — 2 operation(s) for domains.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - domains
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-domains-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-elog-api
+  name: Nuclei elog API
+  description: The elog API from Nuclei — 1 operation(s) for elog.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - elog
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-elog-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-enumeration-api
+  name: Nuclei enumeration API
+  description: The enumeration API from Nuclei — 2 operation(s) for enumeration.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - enumeration
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-enumeration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-enumerations-api
+  name: Nuclei enumerations API
+  description: The enumerations API from Nuclei — 20 operation(s) for enumerations.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - enumerations
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-enumerations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-export-api
+  name: Nuclei export API
+  description: The export API from Nuclei — 4 operation(s) for export.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - export
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-export-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-history-api
+  name: Nuclei history API
+  description: The history API from Nuclei — 1 operation(s) for history.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - history
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-history-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-internal-api
+  name: Nuclei internal API
+  description: The internal API from Nuclei — 33 operation(s) for internal.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - internal
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-internal-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-leaks-api
+  name: Nuclei Leaks API
+  description: The Leaks API from Nuclei — 5 operation(s) for leaks.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Leaks
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-leaks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-oauth-api
+  name: Nuclei oauth API
+  description: The oauth API from Nuclei — 5 operation(s) for oauth.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-payment-api
+  name: Nuclei Payment API
+  description: The Payment API from Nuclei — 1 operation(s) for payment.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-payment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-results-api
+  name: Nuclei results API
+  description: The results API from Nuclei — 7 operation(s) for results.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - results
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-results-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-retests-api
+  name: Nuclei retests API
+  description: The retests API from Nuclei — 2 operation(s) for retests.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - retests
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-retests-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-scan-api
+  name: Nuclei scan API
+  description: The scan API from Nuclei — 5 operation(s) for scan.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - scan
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-scan-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-scan-log-api
+  name: Nuclei scan_log API
+  description: The scan_log API from Nuclei — 3 operation(s) for scan_log.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - scan_log
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-scan-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-scans-api
+  name: Nuclei Scans API
+  description: The Scans API from Nuclei — 24 operation(s) for scans.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Scans
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-stats-api
+  name: Nuclei stats API
+  description: The stats API from Nuclei — 1 operation(s) for stats.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - stats
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-stats-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-tasks-api
+  name: Nuclei tasks API
+  description: The tasks API from Nuclei — 2 operation(s) for tasks.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-team-api
+  name: Nuclei Team API
+  description: The Team API from Nuclei — 2 operation(s) for team.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-team-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-template-api
+  name: Nuclei Template API
+  description: The Template API from Nuclei — 4 operation(s) for template.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Template
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-template-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-template-v2-api
+  name: Nuclei template/v2 API
+  description: The template/v2 API from Nuclei — 1 operation(s) for template/v2.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - template/v2
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-template-v2-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-templates-api
+  name: Nuclei templates API
+  description: The templates API from Nuclei — 12 operation(s) for templates.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - templates
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-usage-api
+  name: Nuclei usage API
+  description: The usage API from Nuclei — 1 operation(s) for usage.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - usage
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-usage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-user-api
+  name: Nuclei User API
+  description: The User API from Nuclei — 3 operation(s) for user.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-users-api
+  name: Nuclei users API
+  description: The users API from Nuclei — 12 operation(s) for users.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-vuln-api
+  name: Nuclei vuln API
+  description: The vuln API from Nuclei — 1 operation(s) for vuln.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - vuln
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-vuln-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-vulnerability-api
+  name: Nuclei Vulnerability API
+  description: The Vulnerability API from Nuclei — 9 operation(s) for vulnerability.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Vulnerability
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-vulnerability-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-vulns-api
+  name: Nuclei Vulns API
+  description: The Vulns API from Nuclei — 2 operation(s) for vulns.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - Vulns
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-vulns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
 common:
   - type: AgenticAccess
     url: agentic-access/nuclei-agentic-access.yml
