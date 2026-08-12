@@ -537,6 +537,13 @@ apis:
   - type: Portal
     url: https://cloud.projectdiscovery.io/
 common:
+  - type: CodeOfConduct
+    url: https://github.com/projectdiscovery/.github/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/projectdiscovery/nuclei/blob/dev/CONTRIBUTING.md
+  - type: License
+    name: MIT
+    url: https://github.com/projectdiscovery/nuclei/blob/dev/LICENSE
   - type: AgenticAccess
     url: agentic-access/nuclei-agentic-access.yml
   - type: TrustCenter
