@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents oauth API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oauth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get OAuth URL for the service provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/integration/oauth/:name/generate-url",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get OAuth URL for the service provider"
+        },
+        {
+          "info": {
+            "name": "Exchange code for access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/integration/oauth/:name/exchange-token",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Exchange code for access token"
+        },
+        {
+          "info": {
+            "name": "Get OAuth status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/integration/oauth/:name/status",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of integration (neuron for AI/automation, config for regular configurations)"
+              },
+              {
+                "name": "integration_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the config integration (required for config type integrations)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get OAuth status"
+        },
+        {
+          "info": {
+            "name": "Revoke OAuth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/integration/oauth/:name/revoke",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "integration_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the config integration to revoke (for config type integrations)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revoke OAuth token"
+        },
+        {
+          "info": {
+            "name": "List OAuth integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/integration/oauth/:name/list",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "OAuth provider name (jira, linear, github)"
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of integrations to list"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List OAuth integrations"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

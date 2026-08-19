@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents chaos API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "chaos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Domain & Organization Name Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/domain/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query for domain or organization name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in response (CSV)"
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope of search"
+              }
+            ]
+          },
+          "docs": "Domain & Organization Name Search"
+        },
+        {
+          "info": {
+            "name": "Get Associated Domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/domain/associated",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name to fetch associated domains. If omitted, returns associated domains for all your verified domains."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated source filter (acquisition_history, certificate_history, whois_history)"
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Filter by liveness (true=alive, false=unreachable)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page (pagination). If omitted, returns all."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (pagination, starts at 1)"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns plain text list (one domain per line)"
+              }
+            ]
+          },
+          "docs": "Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship."
+        },
+        {
+          "info": {
+            "name": "Get Organization by Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/organization/search",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain name to search and retrieve associated organization information"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination Offset"
+              }
+            ]
+          },
+          "docs": "Get Organization by Domain"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

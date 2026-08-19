@@ -1,0 +1,337 @@
+{
+  "item": [
+    {
+      "id": "a4e6814f-1058-4a72-8144-2899ba8459f5",
+      "name": "history",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2eed2636-dfb4-43e0-976b-47b28f9b83f4",
+          "name": "Get scan log stats of given scan id",
+          "request": {
+            "name": "Get scan log stats of given scan id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "scans",
+                "vulns",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vuln_hash",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "vuln_hash",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "history_limit",
+                  "value": "5",
+                  "description": "Specifies the maximum number of revisions to be returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e2df4da-a302-44d6-ac66-8eb37c7b95e4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "history_limit",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"history_count\": 8753,\n    \"history\": [\n      {\n        \"severity\": \"string\",\n        \"target\": \"string\",\n        \"template_id\": \"string\",\n        \"matched\": true,\n        \"timestamp\": \"2012-01-16T20:06:45.694Z\",\n        \"vuln_hash\": \"string\",\n        \"event\": \"string\"\n      },\n      {\n        \"severity\": \"string\",\n        \"target\": \"string\",\n        \"template_id\": \"string\",\n        \"matched\": true,\n        \"timestamp\": \"1988-09-12T18:04:19.826Z\",\n        \"vuln_hash\": \"string\",\n        \"event\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d2079c8-60c7-4712-ade9-5556cefa9fa3",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "history_limit",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 9829\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c81c5cc4-515b-4096-a382-0e4b8aaafb27",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "history_limit",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 9829\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a8b9a52-cf75-4336-a871-ba0afa952455",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vuln_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "history_limit",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 9829\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectdiscovery.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a21ed75f-0181-4828-bfcd-c6c1b704622e",
+    "name": "PDCP agents history API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan",
+      "type": "text/plain"
+    }
+  }
+}

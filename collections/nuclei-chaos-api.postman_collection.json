@@ -1,0 +1,1397 @@
+{
+  "item": [
+    {
+      "id": "e0a024e5-a65a-4509-9267-030b54d2fd75",
+      "name": "chaos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ab6af9b-e9be-46f8-b730-fa7707206a9b",
+          "name": "Domain & Organization Name Search",
+          "request": {
+            "name": "Domain & Organization Name Search",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "domain",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query for domain or organization name"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to include in response (CSV)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to include in response (CSV)"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Scope of search"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c2c935b-566b-4d15-a028-7f6432d8e5d9",
+              "name": "Domain Search Results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3678,\n  \"results\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"organization\",\n      \"search_score\": 9232.385871104747,\n      \"domain\": {\n        \"domain\": \"string\",\n        \"image_url\": \"string\",\n        \"name\": \"string\",\n        \"organization_slug\": \"string\",\n        \"total_subdomains\": 4564\n      },\n      \"organization\": {\n        \"acquirer_slug\": \"string\",\n        \"contact_email\": \"string\",\n        \"domain\": \"string\",\n        \"image_url\": \"string\",\n        \"industries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"legal_name\": \"string\",\n        \"linkedin\": \"string\",\n        \"name\": \"string\",\n        \"num_employees_enum\": \"string\",\n        \"org_status\": \"string\",\n        \"short_description\": \"string\",\n        \"slug\": \"string\",\n        \"subsidary_domains\": [\n          \"string\",\n          \"string\"\n        ],\n        \"total_subdomains\": 4229,\n        \"total_subsidaries\": 7469,\n        \"total_subsidary_domains\": 898,\n        \"total_subsidary_subdomains\": 1884,\n        \"twitter\": \"string\"\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"organization\",\n      \"search_score\": 9294.15145376254,\n      \"domain\": {\n        \"domain\": \"string\",\n        \"image_url\": \"string\",\n        \"name\": \"string\",\n        \"organization_slug\": \"string\",\n        \"total_subdomains\": 4226\n      },\n      \"organization\": {\n        \"acquirer_slug\": \"string\",\n        \"contact_email\": \"string\",\n        \"domain\": \"string\",\n        \"image_url\": \"string\",\n        \"industries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"legal_name\": \"string\",\n        \"linkedin\": \"string\",\n        \"name\": \"string\",\n        \"num_employees_enum\": \"string\",\n        \"org_status\": \"string\",\n        \"short_description\": \"string\",\n        \"slug\": \"string\",\n        \"subsidary_domains\": [\n          \"string\",\n          \"string\"\n        ],\n        \"total_subdomains\": 5191,\n        \"total_subsidaries\": 4481,\n        \"total_subsidary_domains\": 9540,\n        \"total_subsidary_subdomains\": 9543,\n        \"twitter\": \"string\"\n      }\n    }\n  ],\n  \"total\": 3254\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bc5f9f5-46af-4474-b5e3-3a455c486992",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "950538a5-daa8-4dfa-bbc7-abc9413f155a",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3ffa4ce-974b-4c25-a2b4-6fb6d8cc6c78",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "385c924d-0d2f-4b61-9966-9977431bdab2",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "931ec252-23bc-4c0d-9b65-c4de43048498",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5b6c997-f769-40ec-a58e-652c4780847f",
+          "name": "Get Associated Domains",
+          "request": {
+            "name": "Get Associated Domains",
+            "description": {
+              "content": "Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "domain",
+                "associated"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Domain name to fetch associated domains. If omitted, returns associated domains for all your verified domains."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Comma-separated source filter (acquisition_history, certificate_history, whois_history)"
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>",
+                  "description": "Filter by liveness (true=alive, false=unreachable)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum results per page (pagination). If omitted, returns all."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number (pagination, starts at 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<boolean>",
+                  "description": "If true, returns plain text list (one domain per line)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Team-Id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc58ab97-1a93-47c0-beb4-7308ed63c790",
+              "name": "Associated domains response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "associated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"string\",\n  \"results\": [\n    {\n      \"domain\": \"string\",\n      \"sources\": [\n        \"string\",\n        \"string\"\n      ],\n      \"evidence\": {\n        \"acquired_company\": \"string\",\n        \"acquired_date\": \"string\",\n        \"acquirer_name\": \"string\",\n        \"active\": true,\n        \"as_name\": \"string\",\n        \"as_number\": 910,\n        \"cert_common_name\": \"string\",\n        \"cert_expiry_date\": \"string\",\n        \"cert_issued_date\": \"string\",\n        \"cert_issuer\": \"string\",\n        \"cert_org_name\": \"string\",\n        \"cert_serial\": \"string\",\n        \"crunchbase_url\": \"string\",\n        \"expiry_date\": \"string\",\n        \"location\": \"string\",\n        \"orgname\": \"string\",\n        \"probe\": \"string\",\n        \"registrant_org\": \"string\",\n        \"registrar\": \"string\",\n        \"registration_date\": \"string\",\n        \"search_identifier\": \"string\",\n        \"status_code\": 9335,\n        \"subdomain_count\": 267,\n        \"title\": \"string\",\n        \"update_date\": \"string\",\n        \"whois_server\": \"string\"\n      }\n    },\n    {\n      \"domain\": \"string\",\n      \"sources\": [\n        \"string\",\n        \"string\"\n      ],\n      \"evidence\": {\n        \"acquired_company\": \"string\",\n        \"acquired_date\": \"string\",\n        \"acquirer_name\": \"string\",\n        \"active\": true,\n        \"as_name\": \"string\",\n        \"as_number\": 8219,\n        \"cert_common_name\": \"string\",\n        \"cert_expiry_date\": \"string\",\n        \"cert_issued_date\": \"string\",\n        \"cert_issuer\": \"string\",\n        \"cert_org_name\": \"string\",\n        \"cert_serial\": \"string\",\n        \"crunchbase_url\": \"string\",\n        \"expiry_date\": \"string\",\n        \"location\": \"string\",\n        \"orgname\": \"string\",\n        \"probe\": \"string\",\n        \"registrant_org\": \"string\",\n        \"registrar\": \"string\",\n        \"registration_date\": \"string\",\n        \"search_identifier\": \"string\",\n        \"status_code\": 1533,\n        \"subdomain_count\": 9725,\n        \"title\": \"string\",\n        \"update_date\": \"string\",\n        \"whois_server\": \"string\"\n      }\n    }\n  ],\n  \"sources\": [\n    \"string\",\n    \"string\"\n  ],\n  \"sources_count\": {\n    \"key_0\": 5362,\n    \"key_1\": 2821\n  },\n  \"unique_count\": 1870,\n  \"limit\": 5490,\n  \"page\": 2251,\n  \"total_count\": 3298,\n  \"total_pages\": 4634\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "894bd9b4-3c82-45e0-b182-638f7ee49268",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "associated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e2010ac-fadd-471d-bc4e-762b7e48e80d",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "associated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10ae947b-2148-42ab-98ca-b0b26f168079",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "associated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59f5f090-f2ca-4770-abae-63bef93ad24b",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "domain",
+                    "associated"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62bf3c9e-b867-4a0c-a2a8-bb90f0b9627f",
+          "name": "Get Organization by Domain",
+          "request": {
+            "name": "Get Organization by Domain",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "organization",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) Domain name to search and retrieve associated organization information"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination Offset"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5752af13-9459-497f-867b-0f6d82bf7a2d",
+              "name": "Organization Search Results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2329,\n  \"results\": [\n    {\n      \"acquirer_slug\": \"string\",\n      \"contact_email\": \"string\",\n      \"domain\": \"string\",\n      \"image_url\": \"string\",\n      \"industries\": [\n        \"string\",\n        \"string\"\n      ],\n      \"legal_name\": \"string\",\n      \"linkedin\": \"string\",\n      \"name\": \"string\",\n      \"num_employees_enum\": \"string\",\n      \"org_status\": \"string\",\n      \"short_description\": \"string\",\n      \"slug\": \"string\",\n      \"subsidary_domains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"total_subdomains\": 6950,\n      \"total_subsidaries\": 2317,\n      \"total_subsidary_domains\": 9453,\n      \"total_subsidary_subdomains\": 1653,\n      \"twitter\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"category_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"1984-11-02T14:41:43.549Z\",\n      \"description\": \"string\",\n      \"founded_on.value\": \"string\",\n      \"rank\": 578,\n      \"subsidaries\": [\n        {\n          \"acquirer_slug\": \"string\",\n          \"contact_email\": \"string\",\n          \"domain\": \"string\",\n          \"image_url\": \"string\",\n          \"industries\": [\n            \"string\",\n            \"string\"\n          ],\n          \"legal_name\": \"string\",\n          \"linkedin\": \"string\",\n          \"name\": \"string\",\n          \"num_employees_enum\": \"string\",\n          \"org_status\": \"string\",\n          \"short_description\": \"string\",\n          \"slug\": \"string\",\n          \"subsidary_domains\": [\n            \"string\",\n            \"string\"\n          ],\n          \"total_subdomains\": 8031,\n          \"total_subsidaries\": 5447,\n          \"total_subsidary_domains\": 9195,\n          \"total_subsidary_subdomains\": 5251,\n          \"twitter\": \"string\"\n        },\n        {\n          \"acquirer_slug\": \"string\",\n          \"contact_email\": \"string\",\n          \"domain\": \"string\",\n          \"image_url\": \"string\",\n          \"industries\": [\n            \"string\",\n            \"string\"\n          ],\n          \"legal_name\": \"string\",\n          \"linkedin\": \"string\",\n          \"name\": \"string\",\n          \"num_employees_enum\": \"string\",\n          \"org_status\": \"string\",\n          \"short_description\": \"string\",\n          \"slug\": \"string\",\n          \"subsidary_domains\": [\n            \"string\",\n            \"string\"\n          ],\n          \"total_subdomains\": 9719,\n          \"total_subsidaries\": 4849,\n          \"total_subsidary_domains\": 6195,\n          \"total_subsidary_subdomains\": 7652,\n          \"twitter\": \"string\"\n        }\n      ],\n      \"updated_at\": \"1977-02-28T02:13:56.390Z\"\n    },\n    {\n      \"acquirer_slug\": \"string\",\n      \"contact_email\": \"string\",\n      \"domain\": \"string\",\n      \"image_url\": \"string\",\n      \"industries\": [\n        \"string\",\n        \"string\"\n      ],\n      \"legal_name\": \"string\",\n      \"linkedin\": \"string\",\n      \"name\": \"string\",\n      \"num_employees_enum\": \"string\",\n      \"org_status\": \"string\",\n      \"short_description\": \"string\",\n      \"slug\": \"string\",\n      \"subsidary_domains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"total_subdomains\": 3056,\n      \"total_subsidaries\": 1921,\n      \"total_subsidary_domains\": 6345,\n      \"total_subsidary_subdomains\": 7418,\n      \"twitter\": \"string\",\n      \"aliases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"category_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"created_at\": \"2024-11-26T01:04:55.449Z\",\n      \"description\": \"string\",\n      \"founded_on.value\": \"string\",\n      \"rank\": 988,\n      \"subsidaries\": [\n        {\n          \"acquirer_slug\": \"string\",\n          \"contact_email\": \"string\",\n          \"domain\": \"string\",\n          \"image_url\": \"string\",\n          \"industries\": [\n            \"string\",\n            \"string\"\n          ],\n          \"legal_name\": \"string\",\n          \"linkedin\": \"string\",\n          \"name\": \"string\",\n          \"num_employees_enum\": \"string\",\n          \"org_status\": \"string\",\n          \"short_description\": \"string\",\n          \"slug\": \"string\",\n          \"subsidary_domains\": [\n            \"string\",\n            \"string\"\n          ],\n          \"total_subdomains\": 8877,\n          \"total_subsidaries\": 4492,\n          \"total_subsidary_domains\": 4044,\n          \"total_subsidary_subdomains\": 462,\n          \"twitter\": \"string\"\n        },\n        {\n          \"acquirer_slug\": \"string\",\n          \"contact_email\": \"string\",\n          \"domain\": \"string\",\n          \"image_url\": \"string\",\n          \"industries\": [\n            \"string\",\n            \"string\"\n          ],\n          \"legal_name\": \"string\",\n          \"linkedin\": \"string\",\n          \"name\": \"string\",\n          \"num_employees_enum\": \"string\",\n          \"org_status\": \"string\",\n          \"short_description\": \"string\",\n          \"slug\": \"string\",\n          \"subsidary_domains\": [\n            \"string\",\n            \"string\"\n          ],\n          \"total_subdomains\": 1306,\n          \"total_subsidaries\": 8546,\n          \"total_subsidary_domains\": 2968,\n          \"total_subsidary_subdomains\": 6330,\n          \"twitter\": \"string\"\n        }\n      ],\n      \"updated_at\": \"2016-10-19T16:19:42.320Z\"\n    }\n  ],\n  \"total\": 3610\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "327e9b0b-af0a-4e81-935f-adb14e7e81f4",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7355fb56-523a-4d1c-a1cd-c39b47f41b82",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50333fed-00ee-48ed-938d-d6c9b6d32c4a",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce1e1995-ee75-4bc4-b1e2-2e0bf4ecea8d",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9e165cb-7009-493e-b574-3bd3097bdae1",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organization",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 4781\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectdiscovery.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c84f09d1-2d54-4189-a4d8-09c3331316a6",
+    "name": "PDCP agents chaos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan",
+      "type": "text/plain"
+    }
+  }
+}

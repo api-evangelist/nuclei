@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents Vulns API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vulns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vulnerability Template Coverage Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/vulns/coverage",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "SearchQL query to filter vulnerabilities (e.g., \"severity:critical\", \"affected_products.product:wordpress\")"
+              },
+              {
+                "name": "term_facets",
+                "value": "",
+                "type": "query",
+                "description": "List of term facets to apply"
+              },
+              {
+                "name": "range_facets",
+                "value": "",
+                "type": "query",
+                "description": "List of range facets to apply"
+              }
+            ]
+          },
+          "docs": "Get template coverage statistics for vulnerabilities. Supports all search query filters to calculate coverage for specific subsets (e.g., by product, severity, etc.)"
+        },
+        {
+          "info": {
+            "name": "Get Vuln Score Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/vulns/score/metrics",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "The time interval for the metrics"
+              }
+            ]
+          },
+          "docs": "Get Vuln Score Metrics"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1386 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents internal API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "internal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search user by name or email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/user/search",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "name or email filter"
+              },
+              {
+                "name": "plan",
+                "value": "",
+                "type": "query",
+                "description": "plan filter"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "limit for pagination"
+              }
+            ]
+          },
+          "docs": "Search user by name or email"
+        },
+        {
+          "info": {
+            "name": "Get billing assets for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/user/billing_assets",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "email of the user"
+              }
+            ]
+          },
+          "docs": "Get billing assets for a user"
+        },
+        {
+          "info": {
+            "name": "Get audit logs for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/user/audit_logs",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "email of the user"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "user id of the user"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "offset for pagination"
+              },
+              {
+                "name": "path_name",
+                "value": "",
+                "type": "query",
+                "description": "path name filter"
+              },
+              {
+                "name": "status_code",
+                "value": "",
+                "type": "query",
+                "description": "status code filter comma separated e.g status_code=200,404"
+              },
+              {
+                "name": "status_code_not",
+                "value": "",
+                "type": "query",
+                "description": "status code not filter comma separated e.g status_code_not=200,404"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "limit for pagination"
+              }
+            ]
+          },
+          "docs": "Get audit logs for a user"
+        },
+        {
+          "info": {
+            "name": "change owner for a team (New owner will take control of the existing owner's subscription)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/team/change_owner",
+            "headers": [
+              {
+                "name": "X-Team-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "change owner for a team (New owner will take control of the existing owner's subscription)"
+        },
+        {
+          "info": {
+            "name": "Get Token Usage (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/scan/token",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "user id to get scan token usage for"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "email to get scan token usage for"
+              }
+            ]
+          },
+          "docs": "Get token usage for given user"
+        },
+        {
+          "info": {
+            "name": "Set Scan token for user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/scan/token",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "'create' or 'update' mode"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set Scan token for user"
+        },
+        {
+          "info": {
+            "name": "Update Scan token for user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/admin/scan/token",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Scan token for user"
+        },
+        {
+          "info": {
+            "name": "Get User Setup Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/user/onboarding_status",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get user setup statistics"
+        },
+        {
+          "info": {
+            "name": "Get Billing Assets details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/user/billing_assets",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get billing assets details"
+        },
+        {
+          "info": {
+            "name": "Patch User Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/admin/user/profile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(ADMIN) Patch a user profile"
+        },
+        {
+          "info": {
+            "name": "Admin delete user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/user/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Admin delete user"
+        },
+        {
+          "info": {
+            "name": "Create New User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(ADMIN) Create a new user"
+        },
+        {
+          "info": {
+            "name": "Get Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/user/team",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a team metadata"
+        },
+        {
+          "info": {
+            "name": "Create Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/user/team",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new team "
+        },
+        {
+          "info": {
+            "name": "Update Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/user/team",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a existing team"
+        },
+        {
+          "info": {
+            "name": "Delete Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/user/team",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete team (require 0 members)"
+        },
+        {
+          "info": {
+            "name": "Get Team Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/user/team/member",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get team member list"
+        },
+        {
+          "info": {
+            "name": "Add Team Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/user/team/member",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Invite a new team member"
+        },
+        {
+          "info": {
+            "name": "Update Team Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/user/team/member",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Accept team invite"
+        },
+        {
+          "info": {
+            "name": "Delete Team Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/user/team/member",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a team member using member email"
+        },
+        {
+          "info": {
+            "name": "Update Team Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/user/team/member/accept",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accept team invite"
+        },
+        {
+          "info": {
+            "name": "Get Default Team Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/user/team/default-members",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of configured default team members"
+        },
+        {
+          "info": {
+            "name": "Set Default Team Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/user/team/default-members",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set (replace) the list of default team members"
+        },
+        {
+          "info": {
+            "name": "Delete Default Team Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/user/team/default-members",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete default team members (specific or all)"
+        },
+        {
+          "info": {
+            "name": "Add Team Member (Admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/team/member",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(ADMIN) Invite a new team member"
+        },
+        {
+          "info": {
+            "name": "Create Subscription Checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/payment/stripe/checkout_session",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new payment checkout"
+        },
+        {
+          "info": {
+            "name": "Get Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get integration list"
+        },
+        {
+          "info": {
+            "name": "Create Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Integration"
+        },
+        {
+          "info": {
+            "name": "Verify Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Verify connection_id"
+        },
+        {
+          "info": {
+            "name": "Delete Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deleted integration"
+        },
+        {
+          "info": {
+            "name": "Get All Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name/all",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get integration list"
+        },
+        {
+          "info": {
+            "name": "Contribute to Public Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/template/contribute",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Contribute template to nuclei-templates"
+        },
+        {
+          "info": {
+            "name": "Get Integration User Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/integration/:name/profile",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get user integration profile data"
+        },
+        {
+          "info": {
+            "name": "Get Leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/template/leaderboard",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Category Template Category (e.g cve,dast,other etc)"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Severity Template Severity (e.g critical,high,medium,low,info,unknown)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type Template protocol type (e.g http,dns,headless)"
+              },
+              {
+                "name": "created_at_gte",
+                "value": "",
+                "type": "query",
+                "description": "CreatedAtGte Start date to get contributors for (e.g 2024-01-01)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit The numbers of items to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset The numbers of items to skip"
+              },
+              {
+                "name": "created_at_lte",
+                "value": "",
+                "type": "query",
+                "description": "CreatedAtLte End date to get contributors for (e.g 2024-01-01)"
+              },
+              {
+                "name": "sort_asc",
+                "value": "",
+                "type": "query",
+                "description": "SortAsc Sort results in ascending order (CSV field names)"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query",
+                "description": "SortDesc Sort results in descending order (CSV field names)"
+              }
+            ]
+          },
+          "docs": "Get public templates leaderboard list"
+        },
+        {
+          "info": {
+            "name": "Get price list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/payment/price_list",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get price list"
+        },
+        {
+          "info": {
+            "name": "Admin API to update team details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/admin/team",
+            "headers": [
+              {
+                "name": "X-Team-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Admin API to update team details"
+        },
+        {
+          "info": {
+            "name": "Get User API service Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get User API service Usage"
+        },
+        {
+          "info": {
+            "name": "Set Usage Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/usage",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set Usage Limit"
+        },
+        {
+          "info": {
+            "name": "Get Automations List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/automations",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enumeration_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Automations List"
+        },
+        {
+          "info": {
+            "name": "Update Automation (Admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/admin/automations",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Automation (Admin)"
+        },
+        {
+          "info": {
+            "name": "Delete User Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/admin/automations",
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "event string "
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "enumeration_id",
+                "value": "",
+                "type": "query",
+                "description": "enumeration-id for event"
+              }
+            ]
+          },
+          "docs": "Delete User Automation"
+        },
+        {
+          "info": {
+            "name": "Admin Automations alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/automations/alert",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Admin Automations alert"
+        },
+        {
+          "info": {
+            "name": "Proxy requests to Aurora service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/aurora_proxy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Proxy requests to Aurora service"
+        },
+        {
+          "info": {
+            "name": "Get growth plan user mapping for a specific email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/growth-plan/user-mapping",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email of the user to get growth plan mapping"
+              }
+            ]
+          },
+          "docs": "Get growth plan user mapping for a specific email"
+        },
+        {
+          "info": {
+            "name": "Create or update growth plan user mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/growth-plan/user-mapping",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update growth plan user mapping"
+        },
+        {
+          "info": {
+            "name": "Delete growth plan user mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/admin/growth-plan/user-mapping",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email of the user to delete growth plan mapping"
+              }
+            ]
+          },
+          "docs": "Delete growth plan user mapping"
+        },
+        {
+          "info": {
+            "name": "Get all Stripe prices for a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/stripe/prices",
+            "params": [
+              {
+                "name": "stripe_product_id",
+                "value": "",
+                "type": "query",
+                "description": "Stripe product ID to fetch prices for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all Stripe prices for a product"
+        },
+        {
+          "info": {
+            "name": "Get comprehensive team usage statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/team/usage-stats",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the team owner"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get comprehensive team usage statistics"
+        },
+        {
+          "info": {
+            "name": "Get all plan default limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/admin/plan-limits",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all plan default limits"
+        },
+        {
+          "info": {
+            "name": "Update plan default limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/admin/plan-limits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update plan default limits"
+        },
+        {
+          "info": {
+            "name": "Update Export Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.projectdiscovery.io/v1/admin/report/export/:export_id/status",
+            "headers": [
+              {
+                "name": "X-Api-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "export_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Export Status"
+        },
+        {
+          "info": {
+            "name": "Generate Report for Team (Admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/admin/report/:report_type",
+            "params": [
+              {
+                "name": "report_type",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate Report for Team (Admin)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

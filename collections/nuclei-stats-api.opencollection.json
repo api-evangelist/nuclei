@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents stats API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get scan log stats of given scan id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/:scan_id/scan_log/stats",
+            "params": [
+              {
+                "name": "scan_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rescan_count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "target to search in log"
+              },
+              {
+                "name": "template",
+                "value": "",
+                "type": "query",
+                "description": "template to search in log"
+              },
+              {
+                "name": "matched",
+                "value": "",
+                "type": "query",
+                "description": "status to search in log"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "time to filter the logs"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "string to search in error, target and template"
+              },
+              {
+                "name": "error",
+                "value": "",
+                "type": "query",
+                "description": "error to search in log"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get scan log stats of given scan id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents deprecated API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "deprecated",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get employee/corporate leaks for verified domains (DEPRECATED)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/leaks/domain",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query to filter results across all fields"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page for pagination"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (starts from 1)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter start date"
+              },
+              {
+                "name": "time_range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter end date"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "supported sort fields"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "supported sort order (asc or desc)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "supported status (fixed or open)"
+              }
+            ]
+          },
+          "docs": "**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Get personal email leaks for authenticated user (DEPRECATED)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/leaks/email",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query to filter results across all fields"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page for pagination"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (starts from 1)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter start date"
+              },
+              {
+                "name": "time_range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter end date"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "supported sort fields"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "supported sort order (asc or desc)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "supported status (fixed or open)"
+              }
+            ]
+          },
+          "docs": "**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Get customer leaks for verified domains (DEPRECATED)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/leaks/domain/customers",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query to filter results across all fields"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page for pagination"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (starts from 1)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter start date"
+              },
+              {
+                "name": "time_range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter end date"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "supported sort fields"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "supported sort order (asc or desc)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "supported status (fixed or open)"
+              }
+            ]
+          },
+          "docs": "**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

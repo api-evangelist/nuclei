@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents automations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/automations",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Automations"
+        },
+        {
+          "info": {
+            "name": "Create Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/automations",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Automation"
+        },
+        {
+          "info": {
+            "name": "Get Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/automations/:event",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Automation"
+        },
+        {
+          "info": {
+            "name": "Update Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/automations/:event",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Automation"
+        },
+        {
+          "info": {
+            "name": "Delete Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/automations/:event",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Automation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

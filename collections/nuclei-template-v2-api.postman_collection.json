@@ -1,0 +1,603 @@
+{
+  "item": [
+    {
+      "id": "90e88e46-e238-4563-8b6c-31dcf6eae75a",
+      "name": "template/v2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4a91ac05-7626-4040-a7f3-354f46a35159",
+          "name": "Search Templates",
+          "request": {
+            "name": "Search Templates",
+            "description": {
+              "content": "Search templates with filtering, sorting, and faceting capabilities",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "template",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "public_private",
+                  "description": "Scope of templates to search (public or private)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of results to skip for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Specific fields to return in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_asc",
+                  "value": "<string>",
+                  "description": "Field to sort results in ascending order"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_desc",
+                  "value": "<string>",
+                  "description": "Field to sort results in descending order"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "highlight",
+                  "value": "false",
+                  "description": "Whether to highlight search matches in results"
+                },
+                {
+                  "disabled": false,
+                  "key": "facet_size",
+                  "value": "5",
+                  "description": "Number of facets to return in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "X-Team-Id",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9031393b-21ed-4471-9eeb-bf2f6ce6ad1c",
+              "name": "Successful search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "public_private"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "false"
+                    },
+                    {
+                      "key": "facet_size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 7811.497691533376,\n        \"epss-score\": 2837.689112082139,\n        \"epss-percentile\": 7821.215052026889,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1984-03-14T08:16:45.878Z\",\n      \"updated_at\": \"2017-09-15T23:00:35.923Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": false,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": false,\n      \"is_new\": false,\n      \"is_pdteam\": false,\n      \"remediation\": \"string\"\n    },\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 8509.365290976126,\n        \"epss-score\": 583.1103247695324,\n        \"epss-percentile\": 8254.990338253658,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1996-10-05T08:37:39.689Z\",\n      \"updated_at\": \"1987-08-25T10:47:29.904Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": false,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": true,\n      \"is_new\": true,\n      \"is_pdteam\": false,\n      \"remediation\": \"string\"\n    }\n  ],\n  \"total\": 9066,\n  \"count\": 6492,\n  \"facets\": {\n    \"is_new\": {\n      \"buckets\": {\n        \"key_0\": 5514,\n        \"key_1\": 1790\n      },\n      \"missing\": 8974,\n      \"other\": 4210,\n      \"total\": 3338\n    },\n    \"creation_stats\": {\n      \"buckets\": {\n        \"key_0\": 7692,\n        \"key_1\": 6397\n      },\n      \"missing\": 3185,\n      \"other\": 562,\n      \"total\": 1970\n    },\n    \"author\": {\n      \"buckets\": {\n        \"key_0\": 7561,\n        \"key_1\": 9691\n      },\n      \"missing\": 3777,\n      \"other\": 7907,\n      \"total\": 6259\n    },\n    \"is_early\": {\n      \"buckets\": {\n        \"key_0\": 4181\n      },\n      \"missing\": 8834,\n      \"other\": 6488,\n      \"total\": 8574\n    },\n    \"dir\": {\n      \"buckets\": {\n        \"key_0\": 2554\n      },\n      \"missing\": 5051,\n      \"other\": 53,\n      \"total\": 3372\n    },\n    \"product\": {\n      \"buckets\": {\n        \"key_0\": 7040,\n        \"key_1\": 5623\n      },\n      \"missing\": 3371,\n      \"other\": 4548,\n      \"total\": 6071\n    },\n    \"severity\": {\n      \"buckets\": {\n        \"key_0\": 3088,\n        \"key_1\": 2558\n      },\n      \"missing\": 1865,\n      \"other\": 7744,\n      \"total\": 540\n    },\n    \"tags\": {\n      \"buckets\": {\n        \"key_0\": 3130\n      },\n      \"missing\": 6087,\n      \"other\": 2472,\n      \"total\": 7083\n    },\n    \"type\": {\n      \"buckets\": {\n        \"key_0\": 1616\n      },\n      \"missing\": 58,\n      \"other\": 7903,\n      \"total\": 6311\n    },\n    \"vendor\": {\n      \"buckets\": {\n        \"key_0\": 6341,\n        \"key_1\": 4386\n      },\n      \"missing\": 3320,\n      \"other\": 8959,\n      \"total\": 9356\n    }\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93e4b465-3be2-4451-8e5d-98bdc903ef6f",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "public_private"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "false"
+                    },
+                    {
+                      "key": "facet_size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "228813a5-4b09-4b87-928b-18c7954583ca",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "public_private"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "false"
+                    },
+                    {
+                      "key": "facet_size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4c2f7e7-811a-4297-af1b-6d77370a12b5",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "public_private"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "false"
+                    },
+                    {
+                      "key": "facet_size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c016d6b-5733-4d39-a3c4-3f58f086de9a",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "public_private"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "highlight",
+                      "value": "false"
+                    },
+                    {
+                      "key": "facet_size",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "X-Team-Id",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectdiscovery.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "741579ff-6cfc-416f-a5f7-9d8925bf5b08",
+    "name": "PDCP agents template/v2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan",
+      "type": "text/plain"
+    }
+  }
+}

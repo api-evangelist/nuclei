@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents scan API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "scan",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get scan vuln exposure metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/vulns/exposures/metrics",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "The time interval for the metrics"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get scan vuln exposure metrics"
+        },
+        {
+          "info": {
+            "name": "Get scan vuln regression metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/vulns/regression/metrics",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "The time interval for the metrics"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get scan vuln regression metrics"
+        },
+        {
+          "info": {
+            "name": "Get scan vuln remediation metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/vulns/remediation/metrics",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "The time interval for the metrics"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get scan vuln remediation metrics"
+        },
+        {
+          "info": {
+            "name": "Validate scan token before starting scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/scans/validate",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate scan token before starting scan"
+        },
+        {
+          "info": {
+            "name": "Get remediation efficiency stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/scans/remediation-efficiency",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get remediation efficiency stats"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,331 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents domains API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Group assets by filters for an domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/asset/domain/:domain_name/filters",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip before starting to collect the result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The numbers of items to return"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cname",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "technologies",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status_code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content_length",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "webserver",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "favicon",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Group by type. e.g. - host, port, favicon."
+              },
+              {
+                "name": "sort_asc",
+                "value": "",
+                "type": "query",
+                "description": "supported sort fields"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query",
+                "description": "supported sort fields"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "time filter to select"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter start date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter end date"
+              },
+              {
+                "name": "is_screenshot",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Group assets by filters for an domain"
+        },
+        {
+          "info": {
+            "name": "Get Enumeration Domain Contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/asset/domain/:domain_name",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domain_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to skip before starting to collect the result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The numbers of items to return"
+              },
+              {
+                "name": "is_tech",
+                "value": "",
+                "type": "query",
+                "description": "Return records that have technologies"
+              },
+              {
+                "name": "is_favicon",
+                "value": "",
+                "type": "query",
+                "description": "Return the records that have favicon"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search on the content name"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated labels, e.g-> labels=p1,p2"
+              },
+              {
+                "name": "is_new",
+                "value": "",
+                "type": "query",
+                "description": "Filter by new content"
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated hosts, e.g-> host=p1,p2"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated ports, e.g-> port=p1,p2"
+              },
+              {
+                "name": "status_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated status codes, e.g-> status_code=p1,p2"
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated titles, e.g-> title=p1,p2"
+              },
+              {
+                "name": "content_length",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated content lengths, e.g-> content_length=p1,p2"
+              },
+              {
+                "name": "cname",
+                "value": "",
+                "type": "query",
+                "description": "cname to filter"
+              },
+              {
+                "name": "technologies",
+                "value": "",
+                "type": "query",
+                "description": "technologies to filter"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "ips to filter"
+              },
+              {
+                "name": "sort_asc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated ascending sorting e.g sort_asc=created_at,name"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated descending sorting e.g sort_desc=created_at,name"
+              },
+              {
+                "name": "is_screenshot",
+                "value": "",
+                "type": "query",
+                "description": "asset with screenshots"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "time filter to select"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter start date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "time filter end date"
+              },
+              {
+                "name": "custom_filter",
+                "value": "",
+                "type": "query",
+                "description": "custom query to filter. double encode the query string."
+              },
+              {
+                "name": "favicon",
+                "value": "",
+                "type": "query",
+                "description": "Filter by comma separated favicons, e.g-> favicon=p1,p2"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get enumeration content by domain_name"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

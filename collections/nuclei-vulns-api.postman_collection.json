@@ -1,0 +1,844 @@
+{
+  "item": [
+    {
+      "id": "398b1d76-a7ac-4f8f-af84-73cac3a4b65f",
+      "name": "Vulns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be6304e4-73b5-4010-892f-4cf4d09410fc",
+          "name": "Get Vulnerability Template Coverage Statistics",
+          "request": {
+            "name": "Get Vulnerability Template Coverage Statistics",
+            "description": {
+              "content": "Get template coverage statistics for vulnerabilities. Supports all search query filters to calculate coverage for specific subsets (e.g., by product, severity, etc.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vulns",
+                "coverage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "SearchQL query to filter vulnerabilities (e.g., \"severity:critical\", \"affected_products.product:wordpress\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "term_facets",
+                  "value": "<string>",
+                  "description": "List of term facets to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "term_facets",
+                  "value": "<string>",
+                  "description": "List of term facets to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "range_facets",
+                  "value": "<string>",
+                  "description": "List of range facets to apply"
+                },
+                {
+                  "disabled": false,
+                  "key": "range_facets",
+                  "value": "<string>",
+                  "description": "List of range facets to apply"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ece4098f-0535-481b-967b-3ceb9c426965",
+              "name": "Coverage statistics response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vulns",
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cves\": {\n    \"coverage\": {\n      \"percentage\": 9756.264859824414,\n      \"total\": 5230,\n      \"covered\": 1513,\n      \"remaining\": 2795\n    }\n  },\n  \"kevs\": {\n    \"cisa\": {\n      \"all\": {\n        \"coverage\": {\n          \"percentage\": 3318.2913148127714,\n          \"total\": 3002,\n          \"covered\": 8047,\n          \"remaining\": 6656\n        }\n      },\n      \"with_public_poc\": {\n        \"coverage\": {\n          \"percentage\": 5968.604551208152,\n          \"total\": 1896,\n          \"covered\": 4522,\n          \"remaining\": 5449\n        }\n      },\n      \"due_date_breakdown\": {\n        \"overdue\": {\n          \"coverage\": {\n            \"percentage\": 3284.004794013684,\n            \"total\": 6501,\n            \"covered\": 7309,\n            \"remaining\": 7818\n          }\n        },\n        \"next_7_days\": {\n          \"coverage\": {\n            \"percentage\": 1473.2370716839082,\n            \"total\": 994,\n            \"covered\": 7898,\n            \"remaining\": 7545\n          }\n        },\n        \"next_30_days\": {\n          \"coverage\": {\n            \"percentage\": 5431.158056990049,\n            \"total\": 5474,\n            \"covered\": 6594,\n            \"remaining\": 9912\n          }\n        },\n        \"after_30_days\": {\n          \"coverage\": {\n            \"percentage\": 2611.2506765778985,\n            \"total\": 3900,\n            \"covered\": 9977,\n            \"remaining\": 4427\n          }\n        }\n      }\n    },\n    \"vulncheck\": {\n      \"all\": {\n        \"coverage\": {\n          \"percentage\": 6183.751785961516,\n          \"total\": 9416,\n          \"covered\": 9062,\n          \"remaining\": 3857\n        }\n      },\n      \"with_public_poc\": {\n        \"coverage\": {\n          \"percentage\": 6329.260436806604,\n          \"total\": 5456,\n          \"covered\": 6696,\n          \"remaining\": 5225\n        }\n      },\n      \"due_date_breakdown\": {\n        \"overdue\": {\n          \"coverage\": {\n            \"percentage\": 1213.4192187093718,\n            \"total\": 6256,\n            \"covered\": 2524,\n            \"remaining\": 4259\n          }\n        },\n        \"next_7_days\": {\n          \"coverage\": {\n            \"percentage\": 9368.697670366299,\n            \"total\": 5823,\n            \"covered\": 5954,\n            \"remaining\": 4169\n          }\n        },\n        \"next_30_days\": {\n          \"coverage\": {\n            \"percentage\": 4341.380983867183,\n            \"total\": 5046,\n            \"covered\": 3952,\n            \"remaining\": 2918\n          }\n        },\n        \"after_30_days\": {\n          \"coverage\": {\n            \"percentage\": 4441.020494474207,\n            \"total\": 59,\n            \"covered\": 5056,\n            \"remaining\": 623\n          }\n        }\n      }\n    }\n  },\n  \"pocs\": {\n    \"coverage\": {\n      \"percentage\": 3310.622540291519,\n      \"total\": 8527,\n      \"covered\": 1143,\n      \"remaining\": 382\n    }\n  },\n  \"fts_query\": \"is_remote:true AND (cvss_metrics:\\\"pr:n\\\" OR cvss_metrics:\\\"au:n\\\") AND NOT vuln_status:rejected\",\n  \"filter_description\": \"Default filter: remotely exploitable vulnerabilities with no authentication required, excluding rejected/unconfirmed statuses and hardware/OS/consumer categories\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "118da707-d278-453c-8d59-6e9311ee9985",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vulns",
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 1415\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8d3b2f3-9e86-49bc-b070-4e19917c7054",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vulns",
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 1415\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72de98c2-91f1-47d0-9bce-3e90378c58f1",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vulns",
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 1415\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b99f5f5a-c6c4-450a-a9a0-c720a8b7c9aa",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vulns",
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "range_facets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 1415\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e649f570-86b1-41b1-ba34-445136579701",
+          "name": "Get Vuln Score Metrics",
+          "request": {
+            "name": "Get Vuln Score Metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "scans",
+                "vulns",
+                "score",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "monthly",
+                  "description": "The time interval for the metrics"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                "key": "X-Team-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b9bee8a-da62-46ca-98fb-4db488c34943",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"security_score\": 9085.340343426948,\n  \"security_state\": \"string\",\n  \"open_vulnerability\": {\n    \"severity_breakdown\": {\n      \"critical\": 4327,\n      \"high\": 5890,\n      \"medium\": 4870,\n      \"low\": 7236,\n      \"info\": 4241,\n      \"unknown\": 2289\n    },\n    \"total_cve\": 6456,\n    \"total_kev\": 5372\n  },\n  \"total_scanned_assets\": 9869,\n  \"total_affected_assets\": 6403,\n  \"time_series\": [\n    {\n      \"date\": \"2001-12-26\",\n      \"security_score\": 1387.8788109822094,\n      \"open_vulnerability\": {\n        \"severity_breakdown\": {\n          \"critical\": 5072,\n          \"high\": 8705,\n          \"medium\": 1877,\n          \"low\": 9093,\n          \"info\": 82,\n          \"unknown\": 2169\n        },\n        \"total_cve\": 4862,\n        \"total_kev\": 5539\n      },\n      \"total_scanned_assets\": 6975,\n      \"total_affected_assets\": 4027\n    },\n    {\n      \"date\": \"1989-10-16\",\n      \"security_score\": 2549.2587251516507,\n      \"open_vulnerability\": {\n        \"severity_breakdown\": {\n          \"critical\": 9869,\n          \"high\": 8280,\n          \"medium\": 3201,\n          \"low\": 9808,\n          \"info\": 3426,\n          \"unknown\": 4309\n        },\n        \"total_cve\": 7373,\n        \"total_kev\": 6053\n      },\n      \"total_scanned_assets\": 5636,\n      \"total_affected_assets\": 4255\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b84af123-5c1f-4c88-b868-0f7a84bcb507",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3912ee99-f80a-4949-8383-47e64c73ff22",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09abcd9e-99ef-47f9-919f-ecbba1f98adc",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0282e03-e757-49cf-b2c1-a8f909e42737",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22c3708d-7388-4243-b375-674fa805cfe1",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "scans",
+                    "vulns",
+                    "score",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "monthly"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 1415\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectdiscovery.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "94c2d4c6-6156-464e-b06b-12f565d959a7",
+    "name": "PDCP agents Vulns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan",
+      "type": "text/plain"
+    }
+  }
+}

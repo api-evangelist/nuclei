@@ -1,0 +1,607 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDCP agents assets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Asset List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/assets",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "number of assets to skip"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of assets to fetch"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "search term for asset list"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get user asset list"
+        },
+        {
+          "info": {
+            "name": "Upload Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/assets",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name of asset"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Manually upload user assets (uploaded to manual enumeration)"
+        },
+        {
+          "info": {
+            "name": "Get Asset Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/assets/:asset_Id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_Id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get asset metadata"
+        },
+        {
+          "info": {
+            "name": "Update Asset Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/assets/:asset_Id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_Id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update asset metadata"
+        },
+        {
+          "info": {
+            "name": "Delete Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/assets/:asset_Id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_Id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete asset by ID"
+        },
+        {
+          "info": {
+            "name": "Get Asset Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/assets/:asset_id/contents",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get user asset content"
+        },
+        {
+          "info": {
+            "name": "Update Asset Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/assets/:asset_id/contents",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "update_type",
+                "value": "",
+                "type": "query",
+                "description": "use append or replace "
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update existing asset content"
+        },
+        {
+          "info": {
+            "name": "Get Asset Changelogs for a given asset_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id/changelogs",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "time filter to select"
+              },
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "comma separated event_type e.g. event_type=vul_status,vul_status_change"
+              },
+              {
+                "name": "sort_asc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated ascending sorting e.g sort_asc=created_at,severity"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated descending sorting e.g sort_desc=created_at,severity"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of results to get"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "number of results to skip"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get asset changelogs"
+        },
+        {
+          "info": {
+            "name": "Get Asset Changelogs for all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/asset/changelogs",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "time filter to select"
+              },
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "comma separated event_type e.g. event_type=vul_status,vul_status_change"
+              },
+              {
+                "name": "sort_asc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated ascending sorting e.g sort_asc=created_at,severity"
+              },
+              {
+                "name": "sort_desc",
+                "value": "",
+                "type": "query",
+                "description": "comma separated descending sorting e.g sort_desc=created_at,severity"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "limit the number of changelogs returned"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "offset the number of changelogs returned"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get asset changelogs"
+        },
+        {
+          "info": {
+            "name": "Get enumerated asset details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get enumerated asset details"
+        },
+        {
+          "info": {
+            "name": "Update asset details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update asset details"
+        },
+        {
+          "info": {
+            "name": "Delete enumerated asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete enumerated asset"
+        },
+        {
+          "info": {
+            "name": "Delete asset by filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/asset",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete asset by filters"
+        },
+        {
+          "info": {
+            "name": "Update Asset Labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/asset/labels",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "update_type",
+                "value": "",
+                "type": "query",
+                "description": "Append or Replace update_type"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Asset Labels"
+        },
+        {
+          "info": {
+            "name": "Add labels to an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id/labels",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add labels to an asset"
+        },
+        {
+          "info": {
+            "name": "Modify labels of an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id/labels",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "update_type",
+                "value": "",
+                "type": "query",
+                "description": "Append or Replace update_type"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify labels of an asset"
+        },
+        {
+          "info": {
+            "name": "Delete labels of an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.projectdiscovery.io/v1/asset/:asset_id/labels",
+            "headers": [
+              {
+                "name": "X-Team-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete labels of an asset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

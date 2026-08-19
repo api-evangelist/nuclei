@@ -1,0 +1,3386 @@
+{
+  "item": [
+    {
+      "id": "b35be469-8878-473f-88b9-84ce87fd3f2e",
+      "name": "Template",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67e98a80-c509-43f9-bb01-477dcf995e20",
+          "name": "Upload Templates",
+          "request": {
+            "name": "Upload Templates",
+            "description": {
+              "content": "Upload Private/User Templates (Max 10,000)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "template",
+                "user",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"<string>\",\n        \"is_prompt_by_human\": \"<boolean>\",\n        \"is_template_by_human\": \"<boolean>\",\n        \"prompt\": \"<string>\"\n      },\n      \"dir\": \"<string>\",\n      \"filename\": \"<string>\",\n      \"template\": \"<string>\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"<string>\",\n        \"is_prompt_by_human\": \"<boolean>\",\n        \"is_template_by_human\": \"<boolean>\",\n        \"prompt\": \"<string>\"\n      },\n      \"dir\": \"<string>\",\n      \"filename\": \"<string>\",\n      \"template\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bbea634e-a2f1-4794-93e3-93bdae8c9e95",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"insert_errors\": 7097,\n  \"total_files\": 9885,\n  \"not_templates\": 7267,\n  \"inserted\": 3668,\n  \"invalid_templates\": 9831,\n  \"templates\": [\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 9644.798632910059,\n        \"epss-score\": 8581.960287629227,\n        \"epss-percentile\": 4311.084632480237,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"2014-12-08T12:54:51.240Z\",\n      \"updated_at\": \"1972-02-07T03:27:09.129Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": true,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": false,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": false,\n      \"is_new\": true,\n      \"is_pdteam\": false,\n      \"remediation\": \"string\"\n    },\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 6523.353345101062,\n        \"epss-score\": 6104.537852724534,\n        \"epss-percentile\": 7350.036097040345,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1973-11-08T13:24:33.380Z\",\n      \"updated_at\": \"1997-05-05T21:07:57.995Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": true,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": false,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": false,\n      \"is_new\": true,\n      \"is_pdteam\": true,\n      \"remediation\": \"string\"\n    }\n  ],\n  \"validation_errors\": [\n    {\n      \"filename\": \"string\",\n      \"message\": \"string\",\n      \"detail\": \"string\",\n      \"line\": 4980,\n      \"column\": 4546,\n      \"issue_code\": \"string\"\n    },\n    {\n      \"filename\": \"string\",\n      \"message\": \"string\",\n      \"detail\": \"string\",\n      \"line\": 7897,\n      \"column\": 5783,\n      \"issue_code\": \"string\"\n    }\n  ],\n  \"workflow_rejections\": [\n    {\n      \"filename\": \"string\",\n      \"reason\": \"string\",\n      \"hint\": \"string\"\n    },\n    {\n      \"filename\": \"string\",\n      \"reason\": \"string\",\n      \"hint\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2819ba7-aaa0-4f41-8fea-e55c790942df",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78d1442f-83c8-4435-96a1-f8474288c8b4",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cea4400a-3699-41e1-bb73-e3e663ee3288",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58e95ea0-9a64-4f4a-a1a5-00ffb261c281",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71fbff19-45fe-468f-9a18-89af1bc64682",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    },\n    {\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08155378-9ca0-4203-803c-b28d3647f80d",
+          "name": "Bulk Update User Template",
+          "request": {
+            "name": "Bulk Update User Template",
+            "description": {
+              "content": "Bulk Updat Private/User Templates (Max 10,000)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "template",
+                "user",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"<string>\",\n      \"filename\": \"<string>\",\n      \"template_id\": \"<string>\"\n    },\n    {\n      \"dir\": \"<string>\",\n      \"filename\": \"<string>\",\n      \"template_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28ca8a3b-da74-4f35-87d3-0c2cf441a78c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success_count\": 6040,\n  \"failure_count\": 5993,\n  \"successful_items\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\",\n      \"uri\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\",\n      \"uri\": \"string\"\n    }\n  ],\n  \"failed_items\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb4971ba-f2fc-453d-b4e0-e8653a810bd7",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03b2a66f-b63d-4809-b273-52085bc60f4c",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddb8e133-cdee-48dc-b3e9-59e82935e5fd",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c70c711a-c4b3-476e-b279-d35f68e947da",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94c111c9-1055-4163-9214-b3522d16ca11",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template",
+                    "user",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"templates\": [\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    },\n    {\n      \"dir\": \"string\",\n      \"filename\": \"string\",\n      \"template_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3911dd05-32ba-46b6-9f3f-89374ad16eb8",
+          "name": "Update Shared Template",
+          "request": {
+            "name": "Update Shared Template",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "template",
+                "share",
+                ":template_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "template_id",
+                  "description": "(Required) unique template ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63639d0b-b141-45ab-9e0e-5078f61ea32f",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"result\": {\n    \"expires_at\": \"1978-11-11T23:15:07.505Z\",\n    \"organizations\": [\n      \"string\",\n      \"string\"\n    ],\n    \"share_type\": \"string\",\n    \"template_id\": \"string\",\n    \"users_email\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9a4e39b-f604-4166-8bae-4eab2985a52c",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7236d94-dece-49f2-a2d5-ebd206e70132",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1721430-4c23-456e-b793-d7291f489ab5",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4257254-8675-49cc-92b7-bcd6c0427824",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ttl\": \"<string>\",\n  \"share_type\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"organizations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7def854c-6f13-45e1-a1ca-a9c47102d8f2",
+          "name": "Unshare/Delete template",
+          "request": {
+            "name": "Unshare/Delete template",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "template",
+                "share",
+                ":template_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "template_id",
+                  "description": "(Required) unique template ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c2696e9-add2-4727-a82e-6cf3bcae97af",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4f03371-fd0e-4fb3-9b4b-fe51a68996a6",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "819143da-05fa-4c44-93ce-6cdb131ae93e",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "749b1ae5-5c74-489b-a278-53d4f1ce56f0",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eda0224b-8754-4c26-bda2-6c1d3425fa0e",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "share",
+                    ":template_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "template_id",
+                      "description": "(Required) unique template ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb333776-5dee-452b-8964-0c9ed4d32a11",
+          "name": "Your GET endpoint",
+          "request": {
+            "name": "Your GET endpoint",
+            "description": {
+              "content": "Get user templates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of fields to return(comma separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of fields to return(comma separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_desc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_asc",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "template-ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "template-ids",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include-tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include-tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-severity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-severity",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "templates",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "templates",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-templates",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude-templates",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "profile_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_new",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_early",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_github",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_draft",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                "key": "X-Team-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a11ec946-e846-4e32-87ae-a1e7396ae381",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 7778,\n  \"results\": [\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 632.0995178225952,\n        \"epss-score\": 4304.4328626790475,\n        \"epss-percentile\": 3023.586852773474,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1950-12-31T13:37:01.711Z\",\n      \"updated_at\": \"2019-08-15T13:59:13.897Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": true,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": true,\n      \"is_new\": false,\n      \"is_pdteam\": true,\n      \"remediation\": \"string\"\n    },\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 9543.739472372934,\n        \"epss-score\": 1400.7320923768573,\n        \"epss-percentile\": 1514.4261993906316,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1968-02-11T01:37:35.600Z\",\n      \"updated_at\": \"1960-02-04T00:22:18.204Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": false,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": false,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": false,\n      \"is_github\": true,\n      \"is_new\": false,\n      \"is_pdteam\": true,\n      \"remediation\": \"string\"\n    }\n  ],\n  \"total\": 2896\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "284b65fb-8f2b-45a6-b60e-96fe135cf37d",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f346b720-3859-40f1-ac59-4f4fcfb15a02",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a11ebbc-248a-4867-b25f-71ff359332f1",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "998f4dd7-c3f4-4408-9368-971cc04f2672",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5113cda8-2cdf-412c-8326-c08bcb42c5e7",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_asc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template-ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-severity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude-templates",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "profile_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_new",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_early",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_github",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "is_draft",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team",
+                    "key": "X-Team-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a30a393-ec08-4d2a-a828-534617b432e9",
+          "name": "Get Leaderboard ID Details",
+          "request": {
+            "name": "Get Leaderboard ID Details",
+            "description": {
+              "content": "Get public templates leaderboard ID details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "template",
+                "leaderboard",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of fields to return(comma separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of fields to return(comma separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The numbers of items to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "The numbers of items to skip"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2bb89079-083e-4218-9e64-4ce464d3e445",
+              "name": "Shared Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6429,\n  \"facets\": {\n    \"key_0\": {\n      \"buckets\": {\n        \"key_0\": 2891,\n        \"key_1\": 2531\n      },\n      \"missing\": 2806,\n      \"others\": 1025,\n      \"total\": 5381\n    }\n  },\n  \"results\": [\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 2091.2605773757973,\n        \"epss-score\": 1885.778286526114,\n        \"epss-percentile\": 1727.8908290439765,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"2024-03-26T11:05:51.613Z\",\n      \"updated_at\": \"1968-01-11T23:10:10.554Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": false,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": false,\n        \"is_template_by_human\": false,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": true,\n      \"is_github\": true,\n      \"is_new\": false,\n      \"is_pdteam\": true,\n      \"remediation\": \"string\"\n    },\n    {\n      \"uri\": \"string\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"author\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"severity\": \"string\",\n      \"type\": \"string\",\n      \"dir\": \"string\",\n      \"ref\": \"string\",\n      \"vendor\": \"string\",\n      \"product\": \"string\",\n      \"classification\": {\n        \"cve-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cwe-id\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cvss-metrics\": \"string\",\n        \"cvss-score\": 8077.4875958066605,\n        \"epss-score\": 6242.984542816862,\n        \"epss-percentile\": 9859.17218680724,\n        \"cpe\": \"string\"\n      },\n      \"metadata\": {},\n      \"digest\": \"string\",\n      \"created_at\": \"1953-05-29T07:13:50.823Z\",\n      \"updated_at\": \"2001-05-24T03:53:56.952Z\",\n      \"release_tag\": \"string\",\n      \"is_early\": false,\n      \"raw\": \"string\",\n      \"template_id\": \"string\",\n      \"description\": \"string\",\n      \"filename\": \"string\",\n      \"impact\": \"string\",\n      \"ai_meta\": {\n        \"model_used\": \"string\",\n        \"is_prompt_by_human\": true,\n        \"is_template_by_human\": true,\n        \"prompt\": \"string\"\n      },\n      \"references\": [\n        \"string\",\n        \"string\"\n      ],\n      \"template_type\": \"string\",\n      \"is_draft\": true,\n      \"is_github\": false,\n      \"is_new\": true,\n      \"is_pdteam\": true,\n      \"remediation\": \"string\"\n    }\n  ],\n  \"total\": 6500\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7929bf44-1561-4b57-a6f4-3f79dbbafa3e",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbe202b6-c206-4c0d-b7d4-fa2ebbc18a2b",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c291b91-a4db-4323-9722-8e7b9b10acb4",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77cb0999-0665-4331-95e5-c74795fead17",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20dbf625-0ec9-4423-81e4-787602b88d5b",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "template",
+                    "leaderboard",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"kind\": \"string\",\n  \"code\": \"string\",\n  \"error\": \"string\",\n  \"error_id\": \"string\",\n  \"param\": \"string\",\n  \"status\": 2744\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.projectdiscovery.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f1f170ae-eb27-431d-aaa6-e6be89aa6f5b",
+    "name": "PDCP agents Template API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan",
+      "type": "text/plain"
+    }
+  }
+}
