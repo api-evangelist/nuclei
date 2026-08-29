@@ -6,6 +6,19 @@ description: >-
   scanning, CI/CD integration, and ships with thousands of community-contributed templates. The ProjectDiscovery Cloud
   Platform exposes a REST API for managing templates, scans, vulnerabilities, leaks, asset discovery, exports, and more.
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: MIT
+  open_source: true
+  commercial: false
+  callable_host: true
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -580,6 +593,9 @@ apis:
   - type: Portal
     url: https://cloud.projectdiscovery.io/
 common:
+  - type: CapabilityMap
+    url: capabilities/nuclei-capability-edges.yml
+    name: Nuclei Business Capability Map
   - type: CodeOfConduct
     url: https://github.com/projectdiscovery/.github/blob/main/CODE_OF_CONDUCT.md
   - type: ContributionGuide
