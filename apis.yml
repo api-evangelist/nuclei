@@ -117,7 +117,7 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
-  - Automations
+  - automations
   tags_raw:
   - automations
   properties:
@@ -163,7 +163,7 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
-  - Configurations
+  - configurations
   tags_raw:
   - configurations
   properties:
@@ -179,7 +179,7 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
-  - Deprecated
+  - deprecated
   tags_raw:
   - deprecated
   properties:
