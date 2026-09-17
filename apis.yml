@@ -310,22 +310,6 @@ apis:
     url: https://docs.projectdiscovery.io/api-reference/introduction
   - type: Portal
     url: https://cloud.projectdiscovery.io/
-- aid: nuclei:nuclei-oauth-api
-  name: Nuclei oauth API
-  description: The oauth API from Nuclei — 5 operation(s) for oauth.
-  humanURL: https://nuclei.projectdiscovery.io
-  baseURL: https://api.projectdiscovery.io
-  tags:
-  - Authentication
-  tags_raw:
-  - oauth
-  properties:
-  - type: OpenAPI
-    url: openapi/nuclei-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.projectdiscovery.io/api-reference/introduction
-  - type: Portal
-    url: https://cloud.projectdiscovery.io/
 - aid: nuclei:nuclei-payment-api
   name: Nuclei Payment API
   description: The Payment API from Nuclei — 1 operation(s) for payment.
@@ -589,6 +573,20 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/nuclei-vulns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.projectdiscovery.io/api-reference/introduction
+  - type: Portal
+    url: https://cloud.projectdiscovery.io/
+- aid: nuclei:nuclei-oauth-api
+  name: Nuclei OAUTH API
+  description: The oauth API from Nuclei — 5 operation(s) for oauth.
+  humanURL: https://nuclei.projectdiscovery.io
+  baseURL: https://api.projectdiscovery.io
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/nuclei-oauth-api-openapi.yml
   - type: Documentation
     url: https://docs.projectdiscovery.io/api-reference/introduction
   - type: Portal
