@@ -118,7 +118,7 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
-  - Automations
+  - Automation
   tags_raw:
   - automations
   properties:
@@ -316,6 +316,8 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
+  - Payments
+  tags_raw:
   - Payment
   properties:
   - type: OpenAPI
@@ -451,6 +453,8 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
+  - Templates
+  tags_raw:
   - Template
   properties:
   - type: OpenAPI
@@ -583,6 +587,8 @@ apis:
   humanURL: https://nuclei.projectdiscovery.io
   baseURL: https://api.projectdiscovery.io
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
