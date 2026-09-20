@@ -1,0 +1,142 @@
+slug: nuclei
+provider: Nuclei
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 13
+edges:
+- tag: Scans
+  spec_file: nuclei-scans-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.92
+  evidence: '"Create Scan", "Rescan scan", "Get error statistics of given scan id", schemas "VulnStatusEnum",
+    "VulnerabilityResultsOld", "VulnIssueTrackerItem"'
+  reason: Operations run and manage vulnerability scans and track resulting vulns (including export to
+    issue trackers), which is squarely vulnerability scanning/remediation management.
+- tag: Vulnerability
+  spec_file: nuclei-vulnerability-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.9
+  evidence: '"Get Vulnerability by ID", "Get Vulnerabilities for Product", "Get Vulnerability Timeline",
+    schemas "Weakness", "KevInfo", "POC"'
+  reason: Provides vulnerability intelligence lookup (CVE/KEV, weaknesses, affected products), a core
+    input to vulnerability management.
+- tag: Vulns
+  spec_file: nuclei-vulns-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: '"Get Vulnerability Template Coverage Statistics", "Get Vuln Score Metrics", schema "OpenVulnerabilityScoreMetrics"'
+  reason: Metrics on open vulnerability scores, severity breakdown and detection coverage are vulnerability
+    management reporting.
+- tag: results
+  spec_file: nuclei-results-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: Get Scan Vulnerability; Get Vulnerability Changelogs; schema VulnerabilityResults
+  reason: Retrieval and analysis of vulnerability findings produced by scans, including status changelogs
+    and severity stats — core vulnerability management.
+- tag: retests
+  spec_file: nuclei-retests-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: Create Retest; Get Retest Vulnerability; schema VulnerabilityResults
+  reason: Requesting and tracking retests of specific vulnerabilities to verify remediation — remediation
+    verification within vulnerability management.
+- tag: scan
+  spec_file: nuclei-scan-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: Get scan vuln remediation metrics; Get remediation efficiency stats; schema VulnMetricSeverityBreakdown
+  reason: Exposure, regression and remediation metrics over scan findings — measurement and remediation
+    tracking of vulnerabilities.
+- tag: vuln
+  spec_file: nuclei-vuln-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.85
+  evidence: GET /v1/scans/vulns/history; schemas VulnerabilityHistory, VulnerabilityHistoryDetail
+  reason: Explicit vulnerability history over scans — plainly vulnerability management (findings tracking)
+    for a vulnerability scanner platform.
+- tag: templates
+  spec_file: nuclei-templates-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.8
+  evidence: POST /v1/template "Create Template", POST /v1/template/ai "Generate AI Template", schemas
+    TemplateData, Classification
+  reason: Full lifecycle management of Nuclei detection templates — the artefacts that define security
+    checks used to find vulnerabilities — which is core vulnerability management tooling.
+- tag: Asset
+  spec_file: nuclei-asset-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: GET /v1/asset/enumerate/misconfiguration List Misconfiguration Findings; GET /v1/asset/enumerate/domains
+    Get list of unique domains discovered; POST /v1/asset/policy Create asset policy
+  reason: External attack-surface enumeration with misconfiguration findings and scan policies from a
+    vulnerability scanner vendor. Clearly cybersecurity; sub-capability read as vulnerability/exposure
+    discovery and remediation rather than SOC incident response, though asset-inventory framing adds some
+    ambiguity.
+- tag: Template
+  spec_file: nuclei-template-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: '"Upload Templates", "Update Shared Template", schemas "NucleiTemplate"-style "TemplateValidationError",
+    "Classification"'
+  reason: Templates here are the YAML vulnerability-detection rules that drive scanning, so managing them
+    is detection-content stewardship within vulnerability management; some ambiguity as the surface is
+    largely file upload/sharing mechanics.
+- tag: configurations
+  spec_file: nuclei-configurations-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: '"Get excluded templates", "Add custom severity mapping", "Get Configs List" with schema "CustomSeverityMapping"'
+  reason: Configures scan scope, template exclusions and severity mappings for vulnerability scanning;
+    supports vulnerability management though the surface is configuration CRUD.
+- tag: enumerations
+  spec_file: nuclei-enumerations-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: Create Enumeration; Rescan Enumeration; Create an asset group; schema EnumerationLaunchConfig
+  reason: Lifecycle management of asset enumerations (create, schedule, stop, rescan, group, export) —
+    attack-surface asset discovery driving security scanning, sitting under Cybersecurity Management and
+    most closely under Vulnerability Management.
+- tag: scan_log
+  spec_file: nuclei-scan-log-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: GET /v1/scans/{scan_id}/scan_log — "Get scan log of given scan id"; schema ScanLogResp
+  reason: The logs belong to Nuclei vulnerability scans; retrieving/exporting scan logs supports the vulnerability
+    scanning and remediation workflow rather than generic IT logging. Confidence tempered because log
+    retrieval is partly operational plumbing.
