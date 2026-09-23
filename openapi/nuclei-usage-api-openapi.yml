@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents usage API
+  title: PDCP Usage API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,14 +14,14 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: usage
+- name: Usage
 paths:
   /v1/user/usage:
     parameters: []
     get:
       summary: Get API Services Usage
       tags:
-      - usage
+      - Usage
       responses:
         '200':
           $ref: '#/components/responses/UsageResponse'
@@ -45,29 +45,6 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  schemas:
-    ServiceUsageItem:
-      title: ServiceUsageLimitItem
-      type: object
-      required:
-      - used
-      - remaining
-      - total
-      properties:
-        used:
-          type: integer
-        remaining:
-          type: integer
-        total:
-          type: integer
-    UsageRangeEnum:
-      title: UsageRangeEnum
-      type: string
-      enum:
-      - daily
-      - weekly
-      - monthly
-      - custom
   responses:
     ErrorResponse:
       description: Example response
@@ -135,6 +112,29 @@ components:
                 type: string
               endDate:
                 type: string
+  schemas:
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

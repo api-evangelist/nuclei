@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents Vulns API
+  title: PDCP Vulns API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -219,17 +219,6 @@ components:
                 type: string
               status:
                 type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
     VulnScoreMetricsResponse:
       description: Example response
       content:
@@ -259,24 +248,18 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/VulnScoreMetricsTimeSeries'
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
   schemas:
-    VulnScoreMetricsTimeSeries:
-      title: VulnScoreMetricsTimeSeries
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        security_score:
-          type: number
-          format: double
-        open_vulnerability:
-          $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
-        total_scanned_assets:
-          type: integer
-        total_affected_assets:
-          type: integer
-      description: ''
     CoverageStats:
       title: CoverageStats
       description: Coverage statistics showing template availability
@@ -299,16 +282,23 @@ components:
         remaining:
           type: integer
           description: Number of items without templates (total - covered)
-    OpenVulnerabilityScoreMetrics:
-      title: OpenVulnerabilityScoreMetrics
+    VulnScoreMetricsTimeSeries:
+      title: VulnScoreMetricsTimeSeries
       type: object
       properties:
-        severity_breakdown:
-          $ref: '#/components/schemas/SeverityBreakdown'
-        total_cve:
+        date:
+          type: string
+          format: date
+        security_score:
+          type: number
+          format: double
+        open_vulnerability:
+          $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
+        total_scanned_assets:
           type: integer
-        total_kev:
+        total_affected_assets:
           type: integer
+      description: ''
     SeverityBreakdown:
       title: SeverityBreakdown
       type: object
@@ -324,6 +314,16 @@ components:
         info:
           type: integer
         unknown:
+          type: integer
+    OpenVulnerabilityScoreMetrics:
+      title: OpenVulnerabilityScoreMetrics
+      type: object
+      properties:
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        total_cve:
+          type: integer
+        total_kev:
           type: integer
   securitySchemes:
     X-API-Key:

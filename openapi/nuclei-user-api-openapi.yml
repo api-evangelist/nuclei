@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents User API
+  title: PDCP User API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -218,7 +218,6 @@ paths:
         $ref: '#/components/requestBodies/CreateTeamRequest'
       security:
       - X-API-Key: []
-      description: Migrate Personal workspace data to a new team
 components:
   schemas:
     DomainVerificationType:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents assets API
+  title: PDCP Assets API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,13 +14,13 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: assets
+- name: Assets
 paths:
   /v1/assets:
     get:
       summary: Get Asset List
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/GetAssetsListResponse'
@@ -58,7 +58,7 @@ paths:
     post:
       summary: Upload Asset
       tags:
-      - assets
+      - Assets
       operationId: post-v1-assets
       responses:
         '200':
@@ -104,7 +104,7 @@ paths:
     get:
       summary: Get Asset Metadata
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/GetUserAssetResponse'
@@ -127,7 +127,7 @@ paths:
     delete:
       summary: Delete Asset
       tags:
-      - assets
+      - Assets
       operationId: delete-v1-assets-asset_Id
       responses:
         '200':
@@ -150,7 +150,7 @@ paths:
     patch:
       summary: Update Asset Metadata
       tags:
-      - assets
+      - Assets
       operationId: patch-v1-assets-asset_Id
       responses:
         '200':
@@ -191,7 +191,7 @@ paths:
     get:
       summary: Get Asset Content
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           description: OK
@@ -219,7 +219,7 @@ paths:
     patch:
       summary: Update Asset Content
       tags:
-      - assets
+      - Assets
       operationId: patch-v1-assets-asset_id-contents
       responses:
         '200':
@@ -269,7 +269,7 @@ paths:
     get:
       summary: Get Asset Changelogs for a given asset_id
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/GetAssetChangelogsResponse'
@@ -334,7 +334,7 @@ paths:
     get:
       summary: Get Asset Changelogs for all assets
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/GetAssetChangelogsResponse'
@@ -406,7 +406,7 @@ paths:
     get:
       summary: Get enumerated asset details
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/GetAssetResponse'
@@ -430,7 +430,7 @@ paths:
     delete:
       summary: Delete enumerated asset
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -452,7 +452,7 @@ paths:
     patch:
       summary: Update asset details
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -477,7 +477,7 @@ paths:
     delete:
       summary: Delete asset by filters
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/AssetCountResponse'
@@ -494,7 +494,6 @@ paths:
       operationId: delete-v1-asset
       security:
       - X-API-Key: []
-      description: Delete asset by filters
       parameters:
       - schema:
           type: string
@@ -507,7 +506,7 @@ paths:
     patch:
       summary: Update Asset Labels
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/AssetCountResponse'
@@ -551,7 +550,7 @@ paths:
     post:
       summary: Add labels to an asset
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -577,7 +576,7 @@ paths:
     patch:
       summary: Modify labels of an asset
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -608,7 +607,7 @@ paths:
     delete:
       summary: Delete labels of an asset
       tags:
-      - assets
+      - Assets
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -630,301 +629,98 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  requestBodies:
-    UpdateEnumeratedAssetRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              labels:
-                type: array
-                items:
-                  type: string
-              name:
-                type: string
-    DeleteAssetsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - filters
-            properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
-    AssetIdLabelsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - labels
-            properties:
-              labels:
-                type: array
-                items:
-                  type: string
-    UpdateAssetRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-            required:
-            - name
-    UpdateAssetLabelsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - filters
-            - labels
-            properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
-              labels:
-                type: array
-                items:
-                  type: string
-  responses:
-    PatchAssetContentResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              update_status:
-                type: string
-            required:
-            - message
-    DeleteAssetResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    AssetCountResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - asset_count
-            - async
-            properties:
-              message:
-                type: string
-              asset_count:
-                type: integer
-              async:
-                type: boolean
-                description: Whether the operation is running asynchronously
-    GetAssetChangelogsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  type: object
-                  $ref: '#/components/schemas/AssetChangelogs'
-    GetAssetResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - id
-            - enumeration_id
-            - name
-            - created_at
-            - updated_at
-            properties:
-              id:
-                type: integer
-                format: int64
-              enumeration_id:
-                type: string
-              name:
-                type: string
-              created_at:
-                type: string
-                format: date-time
-              updated_at:
-                type: string
-                format: date-time
-              status_code:
-                type: integer
-              technologies:
-                type: array
-                items:
-                  type: string
-              webserver:
-                type: string
-              request:
-                type: string
-              response:
-                type: string
-              cname:
-                type: array
-                items:
-                  type: string
-              labels:
-                type: array
-                items:
-                  type: string
-              ip:
-                type: string
-              content_length:
-                type: integer
-              title:
-                type: string
-              host:
-                type: string
-              port:
-                type: integer
-              technology_details:
-                type: string
-                format: json
-              is_new:
-                type: boolean
-              body:
-                type: string
-              cloud_name:
-                type: string
-              cdn_name:
-                type: string
-              waf_name:
-                type: string
-              source_type:
-                type: string
-              extended_metadata:
-                type: object
-                additionalProperties: {}
-    GetUserAssetResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              asset_count:
-                type: integer
-              asset_id:
-                type: string
-              uploaded_at:
-                type: string
-              name:
-                type: string
-            required:
-            - message
-    GetAssetsListResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AssetListItem'
-            required:
-            - message
-            - data
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    UploadAssetResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              upload_status:
-                type: string
-              asset_id:
-                type: string
-              uploaded_at:
-                type: string
-              name:
-                type: string
-            required:
-            - message
   schemas:
+    AssetChangelogs:
+      type: object
+      required:
+      - id
+      - enumeration_id
+      - name
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+          format: int64
+        enumeration_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        status_code:
+          type: integer
+        technologies:
+          type: array
+          items:
+            type: string
+        webserver:
+          type: string
+        request:
+          type: string
+        response:
+          type: string
+        cname:
+          type: array
+          items:
+            type: string
+        labels:
+          type: array
+          items:
+            type: string
+        ip:
+          type: string
+        content_length:
+          type: integer
+        title:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        technology_details:
+          type: string
+          format: json
+        is_new:
+          type: boolean
+        body:
+          type: string
+        change_event:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityChangelogsEvent'
+    VulnerabilityChangelogsEvent:
+      title: VulnerabilityChangelogsEvent
+      type: object
+      properties:
+        name:
+          description: The name of the event
+          type: string
+        from:
+          description: The from value of the event
+        to:
+          description: The to value of the event
+    AssetListItem:
+      title: AssetListItem
+      type: object
+      properties:
+        asset_count:
+          type: integer
+        asset_id:
+          type: string
+        uploaded_at:
+          type: string
+        name:
+          type: string
+      required:
+      - asset_count
+      - asset_id
+      - uploaded_at
+      - name
     AssetFilters:
       title: AssetFilters
       type: object
@@ -1013,97 +809,300 @@ components:
       - last_6_months
       - last_12_months
       - all_time
-    AssetListItem:
-      title: AssetListItem
-      type: object
-      properties:
-        asset_count:
-          type: integer
-        asset_id:
-          type: string
-        uploaded_at:
-          type: string
-        name:
-          type: string
-      required:
-      - asset_count
-      - asset_id
-      - uploaded_at
-      - name
-    AssetChangelogs:
-      type: object
-      required:
-      - id
-      - enumeration_id
-      - name
-      - created_at
-      - updated_at
-      properties:
-        id:
-          type: integer
-          format: int64
-        enumeration_id:
-          type: string
-        name:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        status_code:
-          type: integer
-        technologies:
-          type: array
-          items:
-            type: string
-        webserver:
-          type: string
-        request:
-          type: string
-        response:
-          type: string
-        cname:
-          type: array
-          items:
-            type: string
-        labels:
-          type: array
-          items:
-            type: string
-        ip:
-          type: string
-        content_length:
-          type: integer
-        title:
-          type: string
-        host:
-          type: string
-        port:
-          type: integer
-        technology_details:
-          type: string
-          format: json
-        is_new:
-          type: boolean
-        body:
-          type: string
-        change_event:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityChangelogsEvent'
-    VulnerabilityChangelogsEvent:
-      title: VulnerabilityChangelogsEvent
-      type: object
-      properties:
-        name:
-          description: The name of the event
-          type: string
-        from:
-          description: The from value of the event
-        to:
-          description: The to value of the event
+  requestBodies:
+    AssetIdLabelsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - labels
+            properties:
+              labels:
+                type: array
+                items:
+                  type: string
+    UpdateAssetLabelsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - filters
+            - labels
+            properties:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+              labels:
+                type: array
+                items:
+                  type: string
+    UpdateAssetRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+            - name
+    UpdateEnumeratedAssetRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              labels:
+                type: array
+                items:
+                  type: string
+              name:
+                type: string
+    DeleteAssetsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - filters
+            properties:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+  responses:
+    UploadAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              upload_status:
+                type: string
+              asset_id:
+                type: string
+              uploaded_at:
+                type: string
+              name:
+                type: string
+            required:
+            - message
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    GetUserAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              asset_count:
+                type: integer
+              asset_id:
+                type: string
+              uploaded_at:
+                type: string
+              name:
+                type: string
+            required:
+            - message
+    GetAssetChangelogsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/AssetChangelogs'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    GetAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - enumeration_id
+            - name
+            - created_at
+            - updated_at
+            properties:
+              id:
+                type: integer
+                format: int64
+              enumeration_id:
+                type: string
+              name:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
+              status_code:
+                type: integer
+              technologies:
+                type: array
+                items:
+                  type: string
+              webserver:
+                type: string
+              request:
+                type: string
+              response:
+                type: string
+              cname:
+                type: array
+                items:
+                  type: string
+              labels:
+                type: array
+                items:
+                  type: string
+              ip:
+                type: string
+              content_length:
+                type: integer
+              title:
+                type: string
+              host:
+                type: string
+              port:
+                type: integer
+              technology_details:
+                type: string
+                format: json
+              is_new:
+                type: boolean
+              body:
+                type: string
+              cloud_name:
+                type: string
+              cdn_name:
+                type: string
+              waf_name:
+                type: string
+              source_type:
+                type: string
+              extended_metadata:
+                type: object
+                additionalProperties: {}
+    AssetCountResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - asset_count
+            - async
+            properties:
+              message:
+                type: string
+              asset_count:
+                type: integer
+              async:
+                type: boolean
+                description: Whether the operation is running asynchronously
+    PatchAssetContentResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              update_status:
+                type: string
+            required:
+            - message
+    GetAssetsListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetListItem'
+            required:
+            - message
+            - data
+    DeleteAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+            - message
   securitySchemes:
     X-API-Key:
       name: X-API-Key

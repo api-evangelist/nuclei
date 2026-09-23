@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents chaos API
+  title: PDCP Chaos API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,13 +14,13 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: chaos
+- name: Chaos
 paths:
   /v1/domain/search:
     get:
       summary: Domain & Organization Name Search
       tags:
-      - chaos
+      - Chaos
       responses:
         '200':
           $ref: '#/components/responses/DomainSearchResults'
@@ -69,7 +69,7 @@ paths:
       summary: Get Associated Domains
       description: Discover domains related to a given domain through acquisition history, certificate transparency logs, and WHOIS records. Returns associated domains with evidence of their relationship.
       tags:
-      - chaos
+      - Chaos
       responses:
         '200':
           $ref: '#/components/responses/AssociatedDomainsResults'
@@ -132,7 +132,7 @@ paths:
     get:
       summary: Get Organization by Domain
       tags:
-      - chaos
+      - Chaos
       responses:
         '200':
           $ref: '#/components/responses/OrganizationSearchResults'
@@ -165,28 +165,185 @@ paths:
         name: offset
         description: Pagination Offset
 components:
+  responses:
+    AssociatedDomainsResults:
+      description: Associated domains response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssociatedDomainsResultSet'
+        text/plain:
+          schema:
+            type: string
+            description: Plain text list of domains when raw=true
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    DomainSearchResults:
+      description: Domain Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DomainSearchItem'
+              total:
+                type: integer
+    OrganizationSearchResults:
+      description: Organization Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationFullInfo'
+              total:
+                type: integer
   schemas:
-    RootDomainInfo:
-      title: RootDomainInfo
-      additionalProperties: false
-      description: Root Domain Information
+    AssociatedDomainEvidence:
+      title: AssociatedDomainEvidence
+      type: object
+      properties:
+        acquired_company:
+          description: Acquired company name
+          type: string
+        acquired_date:
+          description: Acquisition date
+          type: string
+        acquirer_name:
+          description: Acquirer organization name
+          type: string
+        active:
+          description: Whether the domain is reachable
+          type: boolean
+        as_name:
+          description: Autonomous system name
+          type: string
+        as_number:
+          description: Autonomous system number
+          type: integer
+        cert_common_name:
+          description: Certificate common name
+          type: string
+        cert_expiry_date:
+          description: Certificate expiry date
+          type: string
+        cert_issued_date:
+          description: Certificate issued date
+          type: string
+        cert_issuer:
+          description: Certificate issuer
+          type: string
+        cert_org_name:
+          description: Certificate organization name
+          type: string
+        cert_serial:
+          description: Certificate serial number
+          type: string
+        crunchbase_url:
+          description: Crunchbase URL
+          type: string
+        expiry_date:
+          description: Domain expiry date
+          type: string
+        location:
+          description: Geographic location
+          type: string
+        orgname:
+          description: WHOIS organization name
+          type: string
+        probe:
+          description: Probe information
+          type: string
+        registrant_org:
+          description: Registrant organization
+          type: string
+        registrar:
+          description: Registrar name
+          type: string
+        registration_date:
+          description: Domain registration date
+          type: string
+        search_identifier:
+          description: Search identifier
+          type: string
+        status_code:
+          description: HTTP status code
+          type: integer
+        subdomain_count:
+          description: Number of discovered subdomains
+          type: integer
+        title:
+          description: HTTP title
+          type: string
+        update_date:
+          description: Last update date
+          type: string
+        whois_server:
+          description: WHOIS server
+          type: string
+    DomainSearchItem:
+      title: DomainSearchItem
+      type: object
+      required:
+      - name
+      - type
+      - search_score
       properties:
         domain:
-          description: The root domain name
-          type: string
-        image_url:
-          description: URL to domain's image
-          type: string
+          $ref: '#/components/schemas/RootDomainInfo'
         name:
-          description: The domain name
+          description: The display name for autocomplete
           type: string
-        organization_slug:
-          description: Slug identifier of the associated organization
+        organization:
+          $ref: '#/components/schemas/OrganizationInfo'
+        search_score:
+          description: The search score of the result
+          type: number
+        type:
+          description: Indicates whether this is an organization or domain result
+          enum:
+          - organization
+          - domain
           type: string
-        total_subdomains:
-          description: The total number of subdomains
-          type: integer
-      type: object
     AssociatedDomainsResultSet:
       title: AssociatedDomainsResultSet
       type: object
@@ -228,30 +385,6 @@ components:
         total_pages:
           description: Total pages when paginated
           type: integer
-    DomainSearchItem:
-      title: DomainSearchItem
-      type: object
-      required:
-      - name
-      - type
-      - search_score
-      properties:
-        domain:
-          $ref: '#/components/schemas/RootDomainInfo'
-        name:
-          description: The display name for autocomplete
-          type: string
-        organization:
-          $ref: '#/components/schemas/OrganizationInfo'
-        search_score:
-          description: The search score of the result
-          type: number
-        type:
-          description: Indicates whether this is an organization or domain result
-          enum:
-          - organization
-          - domain
-          type: string
     AssociatedDomainResult:
       title: AssociatedDomainResult
       type: object
@@ -269,6 +402,27 @@ components:
           type: array
           items:
             type: string
+    RootDomainInfo:
+      title: RootDomainInfo
+      additionalProperties: false
+      description: Root Domain Information
+      properties:
+        domain:
+          description: The root domain name
+          type: string
+        image_url:
+          description: URL to domain's image
+          type: string
+        name:
+          description: The domain name
+          type: string
+        organization_slug:
+          description: Slug identifier of the associated organization
+          type: string
+        total_subdomains:
+          description: The total number of subdomains
+          type: integer
+      type: object
     OrganizationFullInfo:
       allOf:
       - $ref: '#/components/schemas/OrganizationInfo'
@@ -369,160 +523,6 @@ components:
           description: Twitter profile URL
           type: string
       type: object
-    AssociatedDomainEvidence:
-      title: AssociatedDomainEvidence
-      type: object
-      properties:
-        acquired_company:
-          description: Acquired company name
-          type: string
-        acquired_date:
-          description: Acquisition date
-          type: string
-        acquirer_name:
-          description: Acquirer organization name
-          type: string
-        active:
-          description: Whether the domain is reachable
-          type: boolean
-        as_name:
-          description: Autonomous system name
-          type: string
-        as_number:
-          description: Autonomous system number
-          type: integer
-        cert_common_name:
-          description: Certificate common name
-          type: string
-        cert_expiry_date:
-          description: Certificate expiry date
-          type: string
-        cert_issued_date:
-          description: Certificate issued date
-          type: string
-        cert_issuer:
-          description: Certificate issuer
-          type: string
-        cert_org_name:
-          description: Certificate organization name
-          type: string
-        cert_serial:
-          description: Certificate serial number
-          type: string
-        crunchbase_url:
-          description: Crunchbase URL
-          type: string
-        expiry_date:
-          description: Domain expiry date
-          type: string
-        location:
-          description: Geographic location
-          type: string
-        orgname:
-          description: WHOIS organization name
-          type: string
-        probe:
-          description: Probe information
-          type: string
-        registrant_org:
-          description: Registrant organization
-          type: string
-        registrar:
-          description: Registrar name
-          type: string
-        registration_date:
-          description: Domain registration date
-          type: string
-        search_identifier:
-          description: Search identifier
-          type: string
-        status_code:
-          description: HTTP status code
-          type: integer
-        subdomain_count:
-          description: Number of discovered subdomains
-          type: integer
-        title:
-          description: HTTP title
-          type: string
-        update_date:
-          description: Last update date
-          type: string
-        whois_server:
-          description: WHOIS server
-          type: string
-  responses:
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    AssociatedDomainsResults:
-      description: Associated domains response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AssociatedDomainsResultSet'
-        text/plain:
-          schema:
-            type: string
-            description: Plain text list of domains when raw=true
-    DomainSearchResults:
-      description: Domain Search Results
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - count
-            - results
-            - total
-            properties:
-              count:
-                type: integer
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DomainSearchItem'
-              total:
-                type: integer
-    OrganizationSearchResults:
-      description: Organization Search Results
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - count
-            - results
-            - total
-            properties:
-              count:
-                type: integer
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OrganizationFullInfo'
-              total:
-                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

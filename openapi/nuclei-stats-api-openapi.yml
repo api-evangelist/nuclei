@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents stats API
+  title: PDCP Stats API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,7 +14,7 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: stats
+- name: Stats
 paths:
   /v1/scans/{scan_id}/scan_log/stats:
     parameters:
@@ -26,7 +26,7 @@ paths:
     get:
       summary: Get scan log stats of given scan id
       tags:
-      - stats
+      - Stats
       responses:
         '200':
           description: OK

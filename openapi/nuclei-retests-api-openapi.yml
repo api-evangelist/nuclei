@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents retests API
+  title: PDCP Retests API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -114,19 +114,17 @@ paths:
         name: X-Team-Id
 components:
   schemas:
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
+    EnumerationSourceValue:
       type: object
+      required:
+      - source
+      - metadata
       properties:
-        description:
+        source:
           type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
+        metadata:
+          type: object
+          additionalProperties:
             type: string
     VulnerabilityEvent:
       title: VulnerabilityEvent
@@ -235,18 +233,14 @@ components:
               $ref: '#/components/schemas/VulnIssueTrackerItem'
         port:
           type: string
-    EnumerationSourceValue:
+    VulnIssueTrackerItem:
+      title: VulnIssueTrackerItem
       type: object
-      required:
-      - source
-      - metadata
       properties:
-        source:
+        id:
           type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
+        url:
+          type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -458,35 +452,21 @@ components:
           type: array
           items:
             type: string
-    VulnIssueTrackerItem:
-      title: VulnIssueTrackerItem
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
       type: object
       properties:
-        id:
+        description:
           type: string
-        url:
+        website:
           type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
   responses:
-    GetRetestResultsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VulnerabilityResults'
-            required:
-            - message
-            - results
-        application/xml:
-          schema:
-            type: object
-            properties: {}
     ErrorResponse:
       description: Example response
       content:
@@ -524,6 +504,26 @@ components:
             required:
             - message
             - results
+    GetRetestResultsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VulnerabilityResults'
+            required:
+            - message
+            - results
+        application/xml:
+          schema:
+            type: object
+            properties: {}
     PostRetestTemplateResponse:
       description: Example response
       content:

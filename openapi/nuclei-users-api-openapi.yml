@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents users API
+  title: PDCP Users API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,13 +14,13 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: users
+- name: Users
 paths:
   /v1/user/feedback:
     post:
       summary: Create Feedback
       tags:
-      - users
+      - Users
       operationId: post-v1-user-feedback
       responses:
         '200':
@@ -56,7 +56,7 @@ paths:
     post:
       summary: Email user deletion verification code
       tags:
-      - users
+      - Users
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -82,7 +82,7 @@ paths:
     get:
       summary: Get User Profile
       tags:
-      - users
+      - Users
       responses:
         '200':
           $ref: '#/components/responses/GetUserProfileResponse'
@@ -105,7 +105,7 @@ paths:
     delete:
       summary: Delete user from system along with all data
       tags:
-      - users
+      - Users
       requestBody:
         content:
           application/json:
@@ -140,7 +140,7 @@ paths:
     get:
       summary: Get API Key
       tags:
-      - users
+      - Users
       responses:
         '200':
           $ref: '#/components/responses/GetUserAPIKeyResponse'
@@ -161,7 +161,7 @@ paths:
     post:
       summary: Create API Key
       tags:
-      - users
+      - Users
       operationId: post-v1-user-apikey
       responses:
         '200':
@@ -182,7 +182,7 @@ paths:
     delete:
       summary: Delete API Key
       tags:
-      - users
+      - Users
       operationId: delete-v1-user-apikey
       responses:
         '200':
@@ -204,7 +204,7 @@ paths:
     get:
       summary: Get User Setup Statistics
       tags:
-      - users
+      - Users
       operationId: get-v1-user-setup-stats
       responses:
         '200':
@@ -224,7 +224,7 @@ paths:
     get:
       summary: Get Billing Assets details
       tags:
-      - users
+      - Users
       operationId: get-v1-user-billing-assets
       responses:
         '200':
@@ -244,7 +244,7 @@ paths:
     get:
       summary: Get Promocode Details
       tags:
-      - users
+      - Users
       operationId: get-v1-user-promocode
       responses:
         '200':
@@ -270,7 +270,7 @@ paths:
     post:
       summary: Apply Promocode
       tags:
-      - users
+      - Users
       responses:
         '200':
           $ref: '#/components/responses/MessageResponse'
@@ -302,7 +302,7 @@ paths:
     post:
       summary: Rotate API Key
       tags:
-      - users
+      - Users
       operationId: post-v1-user-apikey-rotate
       responses:
         '200':
@@ -324,7 +324,7 @@ paths:
     post:
       summary: Request Domain Verification
       tags:
-      - users
+      - Users
       operationId: post-v1-user-domain-verification-request
       responses:
         '200':
@@ -381,7 +381,7 @@ paths:
     post:
       summary: Confirm Domain Verification
       tags:
-      - users
+      - Users
       operationId: post-v1-user-domain-verification-confirm
       responses:
         '200':
@@ -450,7 +450,7 @@ paths:
     get:
       summary: Get Domain Verification Status
       tags:
-      - users
+      - Users
       operationId: get-v1-user-domain-verification-status
       responses:
         '200':
@@ -485,7 +485,7 @@ paths:
     get:
       summary: Get Subscription Status
       tags:
-      - users
+      - Users
       responses:
         '200':
           description: OK
@@ -542,7 +542,7 @@ paths:
     patch:
       summary: Update current subscription
       tags:
-      - users
+      - Users
       responses:
         '200':
           description: OK
@@ -589,6 +589,111 @@ paths:
         name: X-Team-Id
 components:
   responses:
+    PostApiKeyRotateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    DeleteUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+            - message
+    GetUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
     GetUserProfileResponse:
       description: Example response
       content:
@@ -662,49 +767,6 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
-    GetBillingAssetsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              total_asset:
-                type: integer
-              total_unique_asset:
-                type: integer
-              total_billing_asset:
-                type: integer
-              total_unique_billing_asset:
-                type: integer
-              total_asset_group:
-                type: integer
-              asset_groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    total_unique_asset:
-                      type: integer
-                    total_asset:
-                      type: integer
-                    total_billing_asset:
-                      type: integer
-                    total_unique_billing_asset:
-                      type: integer
-    DeleteUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
     GetPromocodeDetailsResponse:
       description: Example response
       content:
@@ -733,54 +795,6 @@ components:
                 type: integer
               scan_tokens:
                 type: integer
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              api_key:
-                type: string
-            required:
-            - message
-            - api_key
     GetUserSetupStatsResponse:
       description: Example response
       content:
@@ -814,20 +828,17 @@ components:
             required:
             - message
             - onboarding_steps
-    PostApiKeyRotateResponse:
-      description: Example response
+  requestBodies:
+    PostFeedbackRequest:
       content:
         application/json:
           schema:
             type: object
             properties:
-              message:
-                type: string
-              api_key:
+              feedback_text:
                 type: string
             required:
-            - message
-            - api_key
+            - feedback_text
   schemas:
     DomainVerificationRequest:
       title: DomainVerificationRequest
@@ -899,17 +910,6 @@ components:
           type: string
         default:
           type: boolean
-  requestBodies:
-    PostFeedbackRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              feedback_text:
-                type: string
-            required:
-            - feedback_text
   securitySchemes:
     X-API-Key:
       name: X-API-Key

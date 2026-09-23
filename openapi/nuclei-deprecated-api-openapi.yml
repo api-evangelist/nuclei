@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents deprecated API
+  title: PDCP Deprecated API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,17 +14,15 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: deprecated
+- name: Deprecated
 paths:
   /v1/leaks/domain:
     get:
       summary: Get employee/corporate leaks for verified domains (DEPRECATED)
       deprecated: true
-      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
-
-        '
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.'
       tags:
-      - deprecated
+      - Deprecated
       responses:
         '200':
           description: OK
@@ -136,11 +134,9 @@ paths:
     get:
       summary: Get personal email leaks for authenticated user (DEPRECATED)
       deprecated: true
-      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
-
-        '
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.'
       tags:
-      - deprecated
+      - Deprecated
       responses:
         '200':
           description: OK
@@ -248,11 +244,9 @@ paths:
     get:
       summary: Get customer leaks for verified domains (DEPRECATED)
       deprecated: true
-      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.
-
-        '
+      description: '**DEPRECATED:** This endpoint is deprecated in favor of the consolidated `/v1/leaks` endpoint.'
       tags:
-      - deprecated
+      - Deprecated
       responses:
         '200':
           description: OK
@@ -357,42 +351,13 @@ paths:
         name: status
         description: supported status (fixed or open)
 components:
-  responses:
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
   schemas:
+    LeaksEntityStatus:
+      title: LeaksEntityStatus
+      enum:
+      - fixed
+      - open
+      - NA
     LeaksEntity:
       title: LeaksEntity
       type: object
@@ -429,12 +394,41 @@ components:
         email_domain:
           type: string
           description: Domain extracted from email addresses
-    LeaksEntityStatus:
-      title: LeaksEntityStatus
-      enum:
-      - fixed
-      - open
-      - NA
+  responses:
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

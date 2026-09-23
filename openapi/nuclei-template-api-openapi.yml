@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents Template API
+  title: PDCP Template API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -431,7 +431,70 @@ paths:
         name: offset
         description: The numbers of items to skip
 components:
+  responses:
+    UpdateSharedTemplateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - result
+            properties:
+              message:
+                type: string
+              result:
+                $ref: '#/components/schemas/SharedTemplateMetaData'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
   schemas:
+    TemplateWorkflowRejection:
+      title: TemplateWorkflowRejection
+      type: object
+      required:
+      - filename
+      - reason
+      properties:
+        filename:
+          type: string
+        reason:
+          type: string
+        hint:
+          type: string
+          description: Suggested action to resolve the rejection
     Facets:
       title: Facets
       type: object
@@ -446,43 +509,32 @@ components:
           type: integer
         total:
           type: integer
-    AIMeta:
-      type: object
-      properties:
-        model_used:
-          description: The AI model used to generate the template
-          type: string
-        is_prompt_by_human:
-          description: Whether the prompt was written by a human
-          type: boolean
-        is_template_by_human:
-          description: Whether the template was written by a human
-          type: boolean
-        prompt:
-          description: The prompt used to generate the template
-          type: string
-    TemplateValidationError:
-      title: TemplateValidationError
+    TemplateFileMetadata:
+      title: TemplateFileMetadata
       type: object
       required:
+      - dir
       - filename
-      - message
+      - template_id
+      - uri
       properties:
+        dir:
+          type: string
+          description: 'Directory of the template
+
+            '
         filename:
           type: string
-        message:
+          description: 'Name of the template
+
+            '
+        template_id:
           type: string
-        detail:
+          description: Template ID
+        uri:
           type: string
-        line:
-          type: integer
-          description: Line number reported by the validator (if available)
-        column:
-          type: integer
-          description: Column number reported by the validator (if available)
-        issue_code:
-          type: string
-          description: Optional validator issue identifier
+          description: URI of the template
+      description: Template File Metadata
     TemplateData:
       description: Template Document or object
       type: object
@@ -577,25 +629,90 @@ components:
           type: boolean
         remediation:
           type: string
-    SharedTemplateMetaData:
-      title: SharedTemplateMetaData
+    AIMeta:
       type: object
       properties:
-        expires_at:
+        model_used:
+          description: The AI model used to generate the template
           type: string
-          format: date-time
-        organizations:
-          type: array
-          items:
-            type: string
-        share_type:
+        is_prompt_by_human:
+          description: Whether the prompt was written by a human
+          type: boolean
+        is_template_by_human:
+          description: Whether the template was written by a human
+          type: boolean
+        prompt:
+          description: The prompt used to generate the template
+          type: string
+    PatchTemplateFileMetadata:
+      title: PatchTemplateFileMetadata
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      properties:
+        dir:
+          type: string
+        filename:
           type: string
         template_id:
           type: string
-        users_email:
-          type: array
-          items:
-            type: string
+    UploadTemplate:
+      title: UploadTemplate
+      type: object
+      properties:
+        ai_meta:
+          $ref: '#/components/schemas/AIMeta'
+        dir:
+          type: string
+        filename:
+          type: string
+        template:
+          type: string
+    FailedTemplateFileMetadataUpdate:
+      title: FailedTemplateFileMetadataUpdate
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      - error
+      properties:
+        dir:
+          type: string
+          description: Directory of the template
+        filename:
+          type: string
+          description: Name of the template
+        template_id:
+          type: string
+          description: Template ID
+        error:
+          type: string
+          description: Error message
+    TemplateValidationError:
+      title: TemplateValidationError
+      type: object
+      required:
+      - filename
+      - message
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+        detail:
+          type: string
+        line:
+          type: integer
+          description: Line number reported by the validator (if available)
+        column:
+          type: integer
+          description: Column number reported by the validator (if available)
+        issue_code:
+          type: string
+          description: Optional validator issue identifier
     Classification:
       description: Classification of template including additional metadata like cve-id, cwe-id etc
       type: object
@@ -628,142 +745,25 @@ components:
         cpe:
           type: string
           description: CPE for the template
-    FailedTemplateFileMetadataUpdate:
-      title: FailedTemplateFileMetadataUpdate
-      type: object
-      required:
-      - dir
-      - filename
-      - template_id
-      - error
-      properties:
-        dir:
-          type: string
-          description: Directory of the template
-        filename:
-          type: string
-          description: Name of the template
-        template_id:
-          type: string
-          description: Template ID
-        error:
-          type: string
-          description: Error message
-    UploadTemplate:
-      title: UploadTemplate
+    SharedTemplateMetaData:
+      title: SharedTemplateMetaData
       type: object
       properties:
-        ai_meta:
-          $ref: '#/components/schemas/AIMeta'
-        dir:
+        expires_at:
           type: string
-        filename:
-          type: string
-        template:
-          type: string
-    TemplateWorkflowRejection:
-      title: TemplateWorkflowRejection
-      type: object
-      required:
-      - filename
-      - reason
-      properties:
-        filename:
-          type: string
-        reason:
-          type: string
-        hint:
-          type: string
-          description: Suggested action to resolve the rejection
-    TemplateFileMetadata:
-      title: TemplateFileMetadata
-      type: object
-      required:
-      - dir
-      - filename
-      - template_id
-      - uri
-      properties:
-        dir:
-          type: string
-          description: 'Directory of the template
-
-            '
-        filename:
-          type: string
-          description: 'Name of the template
-
-            '
-        template_id:
-          type: string
-          description: Template ID
-        uri:
-          type: string
-          description: URI of the template
-      description: Template File Metadata
-    PatchTemplateFileMetadata:
-      title: PatchTemplateFileMetadata
-      type: object
-      required:
-      - dir
-      - filename
-      - template_id
-      properties:
-        dir:
-          type: string
-        filename:
+          format: date-time
+        organizations:
+          type: array
+          items:
+            type: string
+        share_type:
           type: string
         template_id:
           type: string
-  responses:
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    UpdateSharedTemplateResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - result
-            properties:
-              message:
-                type: string
-              result:
-                $ref: '#/components/schemas/SharedTemplateMetaData'
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
+        users_email:
+          type: array
+          items:
+            type: string
   securitySchemes:
     X-API-Key:
       name: X-API-Key

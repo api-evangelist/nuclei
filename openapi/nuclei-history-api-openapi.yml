@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents history API
+  title: PDCP History API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,13 +14,13 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: history
+- name: History
 paths:
   /v1/scans/vulns/history:
     get:
       summary: Get scan log stats of given scan id
       tags:
-      - history
+      - History
       responses:
         '200':
           description: OK

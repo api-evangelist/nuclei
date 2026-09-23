@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: PDCP agents domains API
+  title: PDCP Domains API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -14,7 +14,7 @@ servers:
 security:
 - X-API-Key: []
 tags:
-- name: domains
+- name: Domains
 paths:
   /v1/asset/domain/{domain_name}/filters:
     parameters:
@@ -26,7 +26,7 @@ paths:
     get:
       summary: Group assets by filters for an domain
       tags:
-      - domains
+      - Domains
       responses:
         '200':
           $ref: '#/components/responses/GetEnumerateFiltersResponse'
@@ -177,7 +177,7 @@ paths:
     get:
       summary: Get Enumeration Domain Contents
       tags:
-      - domains
+      - Domains
       responses:
         '200':
           $ref: '#/components/responses/GetEnumerateIdContents'
@@ -323,20 +323,29 @@ paths:
       description: Get enumeration content by domain_name
 components:
   schemas:
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
+    EnumerationSourceValue:
       type: object
+      required:
+      - source
+      - metadata
       properties:
-        description:
+        source:
           type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
+        metadata:
+          type: object
+          additionalProperties:
             type: string
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
     EnumerateFilterTypes:
       title: EnumerateFilterTypes
       type: string
@@ -353,29 +362,6 @@ components:
       - favicon
       - domain
       - labels
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
-      type: string
-      enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
-    EnumerationSourceValue:
-      type: object
-      required:
-      - source
-      - metadata
-      properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -521,6 +507,20 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
     EnumerateFiltersItem:
       title: EnumerateFiltersItem
       type: object
