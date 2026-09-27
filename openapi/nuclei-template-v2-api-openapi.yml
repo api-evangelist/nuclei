@@ -125,6 +125,20 @@ paths:
       operationId: get-v2-template-search
 components:
   schemas:
+    StatBuckets:
+      title: StatBuckets
+      type: object
+      properties:
+        buckets:
+          type: object
+          additionalProperties:
+            type: integer
+        missing:
+          type: integer
+        other:
+          type: integer
+        total:
+          type: integer
     TemplateData:
       description: Template Document or object
       type: object
@@ -219,21 +233,6 @@ components:
           type: boolean
         remediation:
           type: string
-    AIMeta:
-      type: object
-      properties:
-        model_used:
-          description: The AI model used to generate the template
-          type: string
-        is_prompt_by_human:
-          description: Whether the prompt was written by a human
-          type: boolean
-        is_template_by_human:
-          description: Whether the template was written by a human
-          type: boolean
-        prompt:
-          description: The prompt used to generate the template
-          type: string
     TemplateStats:
       type: object
       x-examples:
@@ -307,20 +306,6 @@ components:
           $ref: '#/components/schemas/StatBuckets'
         vendor:
           $ref: '#/components/schemas/StatBuckets'
-    StatBuckets:
-      title: StatBuckets
-      type: object
-      properties:
-        buckets:
-          type: object
-          additionalProperties:
-            type: integer
-        missing:
-          type: integer
-        other:
-          type: integer
-        total:
-          type: integer
     Classification:
       description: Classification of template including additional metadata like cve-id, cwe-id etc
       type: object
@@ -353,6 +338,21 @@ components:
         cpe:
           type: string
           description: CPE for the template
+    AIMeta:
+      type: object
+      properties:
+        model_used:
+          description: The AI model used to generate the template
+          type: string
+        is_prompt_by_human:
+          description: Whether the prompt was written by a human
+          type: boolean
+        is_template_by_human:
+          description: Whether the template was written by a human
+          type: boolean
+        prompt:
+          description: The prompt used to generate the template
+          type: string
   responses:
     MessageResponse:
       description: Example response

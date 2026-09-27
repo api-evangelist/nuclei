@@ -323,29 +323,6 @@ paths:
       description: Get enumeration content by domain_name
 components:
   schemas:
-    EnumerationSourceValue:
-      type: object
-      required:
-      - source
-      - metadata
-      properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
-      type: string
-      enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
     EnumerateFilterTypes:
       title: EnumerateFilterTypes
       type: string
@@ -362,6 +339,77 @@ components:
       - favicon
       - domain
       - labels
+    EnumerateFiltersItem:
+      title: EnumerateFiltersItem
+      type: object
+      required:
+      - value
+      - count
+      properties:
+        labels:
+          type: string
+        value:
+          type: string
+        port:
+          type: integer
+        technologies:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        website:
+          type: string
+        cpe:
+          type: string
+        icon:
+          type: string
+        favicon_body:
+          type: string
+        count:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -507,55 +555,35 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-    EnumerateFiltersItem:
-      title: EnumerateFiltersItem
-      type: object
-      required:
-      - value
-      - count
-      properties:
-        labels:
-          type: string
-        value:
-          type: string
-        port:
-          type: integer
-        technologies:
-          type: integer
-        categories:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        website:
-          type: string
-        cpe:
-          type: string
-        icon:
-          type: string
-        favicon_body:
-          type: string
-        count:
-          type: integer
-        updated_at:
-          type: string
-          format: date-time
   responses:
+    GetEnumerateFiltersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateFiltersItem'
     ErrorResponse:
       description: Example response
       content:
@@ -607,34 +635,6 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/EnumerationContent'
-    GetEnumerateFiltersResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerateFiltersItem'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

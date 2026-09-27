@@ -42,26 +42,6 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  schemas:
-    BillingCycle:
-      title: BillingCycle
-      type: object
-      required:
-      - id
-      - start_date
-      - end_date
-      - unique_asset_count
-      properties:
-        id:
-          type: integer
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-        unique_asset_count:
-          type: integer
   responses:
     BillingCycleResponse:
       description: Example response
@@ -99,6 +79,26 @@ components:
                 type: string
               status:
                 type: integer
+  schemas:
+    BillingCycle:
+      title: BillingCycle
+      type: object
+      required:
+      - id
+      - start_date
+      - end_date
+      - unique_asset_count
+      properties:
+        id:
+          type: integer
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        unique_asset_count:
+          type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

@@ -200,6 +200,12 @@ components:
           - skipped
           - in_progress
   responses:
+    TaskChunkResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TaskChunk'
     ErrorResponse:
       description: Example response
       content:
@@ -223,12 +229,6 @@ components:
                 type: string
               status:
                 type: integer
-    TaskChunkResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TaskChunk'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

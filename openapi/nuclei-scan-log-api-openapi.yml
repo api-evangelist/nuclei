@@ -302,13 +302,6 @@ paths:
         name: severity
 components:
   schemas:
-    LogExportFormat:
-      title: LogExportFormat
-      type: string
-      enum:
-      - raw
-      - json
-      - csv
     ScanLogResp:
       title: ScanLogResp
       type: object
@@ -334,6 +327,13 @@ components:
           type: string
         vuln_hash:
           type: string
+    LogExportFormat:
+      title: LogExportFormat
+      type: string
+      enum:
+      - raw
+      - json
+      - csv
   responses:
     ErrorResponse:
       description: Example response

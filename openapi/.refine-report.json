@@ -40,9 +40,7 @@
     "nuclei-users-api-openapi.yml",
     "nuclei-vuln-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -120,8 +118,7 @@
     "nuclei-openapi.yml: declared missing tag: vuln",
     "nuclei-openapi.yml: declared missing tag: vulnerability",
     "nuclei-openapi.yml: declared missing tag: vulns",
-    "superseded outputs removed: nuclei-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 36 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "nuclei-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -140,7 +137,7 @@
     "nuclei-history-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuclei-internal-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuclei-leaks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "nuclei-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuclei-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuclei-payment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuclei-results-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuclei-retests-api-openapi.yml: previously refined output, superseded by openapi/_original/",

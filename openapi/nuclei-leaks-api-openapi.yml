@@ -606,6 +606,17 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   responses:
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
     ErrorResponse:
       description: Example response
       content:
@@ -629,18 +640,53 @@ components:
                 type: string
               status:
                 type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
   schemas:
+    CombolistExposureCount:
+      title: CombolistExposureCount
+      type: object
+      properties:
+        combolist_exposure:
+          type: number
+    DevicesCount:
+      title: DevicesCount
+      type: object
+      properties:
+        devices:
+          type: number
+    EmployeesCount:
+      title: EmployeesCount
+      type: object
+      properties:
+        employees:
+          type: number
+    UsedUrlsCount:
+      title: UsedUrlsCount
+      type: object
+      properties:
+        count:
+          type: number
+        url:
+          type: string
+    LeakCountryStats:
+      title: LeakCountryStats
+      type: object
+      properties:
+        Country:
+          type: string
+        CredentialsCount:
+          type: number
+    CustomersCount:
+      title: CustomersCount
+      type: object
+      properties:
+        customers:
+          type: number
+    UsersCount:
+      title: UsersCount
+      type: object
+      properties:
+        user:
+          type: number
     LeaksUsersSampleData:
       title: LeaksUsersSampleData
       type: object
@@ -655,38 +701,12 @@ components:
           type: string
         log_date:
           type: string
-    UsedUrlsCount:
-      title: UsedUrlsCount
-      type: object
-      properties:
-        count:
-          type: number
-        url:
-          type: string
-    CombolistExposureCount:
-      title: CombolistExposureCount
-      type: object
-      properties:
-        combolist_exposure:
-          type: number
-    CustomersCount:
-      title: CustomersCount
-      type: object
-      properties:
-        customers:
-          type: number
     LeaksEntityStatus:
       title: LeaksEntityStatus
       enum:
       - fixed
       - open
       - NA
-    EmployeesCount:
-      title: EmployeesCount
-      type: object
-      properties:
-        employees:
-          type: number
     LeaksTimeline:
       title: LeaksTimeline
       type: object
@@ -696,26 +716,6 @@ components:
         Month:
           type: number
         Year:
-          type: number
-    DevicesCount:
-      title: DevicesCount
-      type: object
-      properties:
-        devices:
-          type: number
-    LeakCountryStats:
-      title: LeakCountryStats
-      type: object
-      properties:
-        Country:
-          type: string
-        CredentialsCount:
-          type: number
-    UsersCount:
-      title: UsersCount
-      type: object
-      properties:
-        user:
           type: number
   securitySchemes:
     X-API-Key:

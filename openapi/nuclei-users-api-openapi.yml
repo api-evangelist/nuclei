@@ -588,6 +588,77 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
+  schemas:
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
+    UserWorkspaces:
+      title: UserWorkspaces
+      type: object
+      required:
+      - name
+      - team_id
+      - active
+      - plan
+      - member_count
+      - role
+      - default
+      properties:
+        name:
+          type: string
+        team_id:
+          type: string
+        active:
+          type: boolean
+        plan:
+          type: string
+        member_count:
+          type: integer
+        role:
+          type: string
+        default:
+          type: boolean
+    DomainVerificationRequest:
+      title: DomainVerificationRequest
+      type: object
+      required:
+      - domain
+      - status
+      - created_at
+      - verification_attempts
+      properties:
+        domain:
+          type: string
+          description: The domain being verified
+        status:
+          type: string
+          enum:
+          - pending
+          - verified
+          - expired
+          - deleted
+          - failed
+          description: Current verification status
+        verification_string:
+          type: string
+          description: TXT record value to add to DNS (only present for pending requests)
+        created_at:
+          type: string
+          format: date-time
+          description: When the verification request was created
+        verification_attempts:
+          type: integer
+          description: Number of verification attempts made
+        last_attempt_at:
+          type: string
+          format: date-time
+          description: When the last verification attempt was made
+        verification_type:
+          $ref: '#/components/schemas/DomainVerificationType'
   responses:
     PostApiKeyRotateResponse:
       description: Example response
@@ -603,38 +674,67 @@ components:
             required:
             - message
             - api_key
-    GetBillingAssetsResponse:
+    GetUserSetupStatsResponse:
       description: Example response
       content:
         application/json:
           schema:
             type: object
             properties:
-              total_asset:
-                type: integer
-              total_unique_asset:
-                type: integer
-              total_billing_asset:
-                type: integer
-              total_unique_billing_asset:
-                type: integer
-              total_asset_group:
-                type: integer
-              asset_groups:
+              message:
+                type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
+            required:
+            - message
+            - onboarding_steps
+    GetPromocodeDetailsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - promo_code
+            - allowed_plan
+            - valid_for_days
+            - base_domain_count
+            - scan_tokens
+            properties:
+              message:
+                type: string
+              promo_code:
+                type: string
+              allowed_plan:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    total_unique_asset:
-                      type: integer
-                    total_asset:
-                      type: integer
-                    total_billing_asset:
-                      type: integer
-                    total_unique_billing_asset:
-                      type: integer
+                  type: string
+              valid_for_days:
+                type: integer
+              base_domain_count:
+                type: integer
+              scan_tokens:
+                type: integer
     ErrorResponse:
       description: Example response
       content:
@@ -658,31 +758,6 @@ components:
                 type: string
               status:
                 type: integer
-    DeleteUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
-    GetUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              api_key:
-                type: string
-            required:
-            - message
-            - api_key
     MessageResponse:
       description: Example response
       content:
@@ -767,67 +842,63 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
-    GetPromocodeDetailsResponse:
+    DeleteUserAPIKeyResponse:
       description: Example response
       content:
         application/json:
           schema:
             type: object
-            required:
-            - message
-            - promo_code
-            - allowed_plan
-            - valid_for_days
-            - base_domain_count
-            - scan_tokens
             properties:
               message:
                 type: string
-              promo_code:
+            required:
+            - message
+    GetUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
                 type: string
-              allowed_plan:
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
                 type: array
                 items:
-                  type: string
-              valid_for_days:
-                type: integer
-              base_domain_count:
-                type: integer
-              scan_tokens:
-                type: integer
-    GetUserSetupStatsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              onboarding_steps:
-                type: object
-                properties:
-                  vulnerability_scan:
-                    type: boolean
-                  asset_discovery:
-                    type: boolean
-                  alerting_integration:
-                    type: boolean
-                  reporting_integration:
-                    type: boolean
-                  cloud_integration:
-                    type: boolean
-                  subfinder_integration:
-                    type: boolean
-                  vulnerability_upload:
-                    type: boolean
-                  realtime_autoscan:
-                    type: boolean
-                  team_member_invitation:
-                    type: boolean
-            required:
-            - message
-            - onboarding_steps
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
   requestBodies:
     PostFeedbackRequest:
       content:
@@ -839,77 +910,6 @@ components:
                 type: string
             required:
             - feedback_text
-  schemas:
-    DomainVerificationRequest:
-      title: DomainVerificationRequest
-      type: object
-      required:
-      - domain
-      - status
-      - created_at
-      - verification_attempts
-      properties:
-        domain:
-          type: string
-          description: The domain being verified
-        status:
-          type: string
-          enum:
-          - pending
-          - verified
-          - expired
-          - deleted
-          - failed
-          description: Current verification status
-        verification_string:
-          type: string
-          description: TXT record value to add to DNS (only present for pending requests)
-        created_at:
-          type: string
-          format: date-time
-          description: When the verification request was created
-        verification_attempts:
-          type: integer
-          description: Number of verification attempts made
-        last_attempt_at:
-          type: string
-          format: date-time
-          description: When the last verification attempt was made
-        verification_type:
-          $ref: '#/components/schemas/DomainVerificationType'
-    DomainVerificationType:
-      title: DomainVerificationType
-      enum:
-      - dns_text_record
-      - html_meta_tag
-      - file_upload
-      default: dns_text_record
-    UserWorkspaces:
-      title: UserWorkspaces
-      type: object
-      required:
-      - name
-      - team_id
-      - active
-      - plan
-      - member_count
-      - role
-      - default
-      properties:
-        name:
-          type: string
-        team_id:
-          type: string
-        active:
-          type: boolean
-        plan:
-          type: string
-        member_count:
-          type: integer
-        role:
-          type: string
-        default:
-          type: boolean
   securitySchemes:
     X-API-Key:
       name: X-API-Key

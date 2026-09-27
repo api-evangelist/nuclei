@@ -1964,60 +1964,369 @@ paths:
                   description: The user email to associate with the export
       x-internal: true
 components:
+  responses:
+    PatchUserProfileResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+            required:
+            - message
+    UpdateTeamResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              message:
+                type: string
+            required:
+            - message
+    GetUserSetupStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
+            required:
+            - message
+            - onboarding_steps
+    UsageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              cvemap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              chaos:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              asnmap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+    PriceListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - list
+            - message
+            properties:
+              list:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceListItem'
+              message:
+                type: string
+    GetTeamMembersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              max_team_members:
+                type: integer
+              members:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMemberItem'
+            required:
+            - message
+            - members
+            - max_team_members
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+    GetDefaultTeamMembersResponse:
+      description: Default team members response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                  required:
+                  - email
+                  - role
+            required:
+            - message
+            - members
+    GetScansTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - scan_tokens
+            - used_scan_token
+            - remaining_scan_token
+            - is_scannable
+            - start_date
+            - end_date
+            - subscription_type
+            - base_domain_count
+            - remaining_domain_count
+            properties:
+              scan_tokens:
+                type: integer
+                format: int64
+              used_scan_token:
+                type: integer
+                format: int64
+              remaining_scan_token:
+                type: integer
+                format: int64
+              base_domain_count:
+                type: integer
+                format: int64
+              remaining_domain_count:
+                type: integer
+                format: int64
+              is_scannable:
+                type: boolean
+              start_date:
+                type: string
+                format: date-time
+              end_date:
+                type: string
+                format: date-time
+              expire_date:
+                type: string
+                format: date-time
+              verified_domain:
+                type: array
+                items:
+                  type: string
+              old_plan:
+                type: string
+              old_plan_expired_at:
+                type: string
+                format: date-time
+              is_enforced_limit:
+                type: boolean
+              subscription_type:
+                enum:
+                - TRIAL
+                - ENT_TRIAL
+                - PRO
+                - ENT
+                - FREE
+                - VERIFIED_FREE
+                - GROWTH
+    GetTeamResponse:
+      description: Get the workspace details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              workspaces:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceItem'
+              message:
+                type: string
+              name:
+                type: string
+            required:
+            - message
+    PostCreateUserResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ai_status:
+                type: boolean
+              scan_status:
+                type: boolean
+              static_scan:
+                type: boolean
+              neo_ai:
+                type: boolean
+              early_template:
+                type: boolean
+              user_id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+              invite_url:
+                type: string
+              password:
+                type: string
+            required:
+            - message
+    AdminAutomationsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - automations
+            properties:
+              message:
+                type: string
+              automations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminAutomationsItem'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
   schemas:
-    PriceListItem:
-      title: PriceListItem
+    AdminAutomationsItem:
+      title: AdminAutomationsItem
       type: object
       required:
-      - price_id
-      - amount
-      - recurrence
-      - monthly_token
+      - name
+      - status
+      - created_at
+      - updated_at
+      - user_id
+      - scan_data
       properties:
-        price_id:
-          type: string
-        amount:
-          type: integer
-        monthly_token:
-          type: integer
-        recurrence:
-          type: string
-    EnumerationIds:
-      title: EnumerationIds
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    UsageRangeEnum:
-      title: UsageRangeEnum
-      type: string
-      enum:
-      - daily
-      - weekly
-      - monthly
-      - custom
-    WorkspaceItem:
-      title: TeamMemberItem
-      type: object
-      properties:
-        id:
-          type: string
         name:
+          type: string
+        status:
           type: string
         created_at:
           type: string
-        member_count:
-          type: integer
-        owner_email:
+        updated_at:
           type: string
-      required:
-      - id
-      - name
-      - created_at
-      - member_count
-      - owner_email
+        user_id:
+          type: integer
+        scan_data:
+          $ref: '#/components/schemas/AutomationScanData'
     ContributorSummary:
       title: ContributorSummary
       type: object
@@ -2043,6 +2352,32 @@ components:
           type: object
         total_templates:
           type: integer
+    StripePriceItem:
+      title: StripePriceItem
+      type: object
+      required:
+      - price_id
+      - price
+      - name
+      properties:
+        price_id:
+          type: string
+          description: Stripe price ID
+        price:
+          type: number
+          description: Price amount in dollars
+        name:
+          type: string
+          description: Price display name
+        currency:
+          type: string
+          description: Currency code (e.g., USD)
+        interval:
+          type: string
+          description: Billing interval (month, year, etc.)
+        product_id:
+          type: string
+          description: Associated Stripe product ID
     PlanDefaultLimit:
       title: PlanDefaultLimit
       type: object
@@ -2078,6 +2413,45 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
+    EnumerationIds:
+      title: EnumerationIds
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    PriceListItem:
+      title: PriceListItem
+      type: object
+      required:
+      - price_id
+      - amount
+      - recurrence
+      - monthly_token
+      properties:
+        price_id:
+          type: string
+        amount:
+          type: integer
+        monthly_token:
+          type: integer
+        recurrence:
+          type: string
     IntegrationListItems:
       title: GithubTemplateListItem
       type: object
@@ -2104,29 +2478,6 @@ components:
       - org_name
       - account_type
       - handle
-    AdminAutomationsItem:
-      title: AdminAutomationsItem
-      type: object
-      required:
-      - name
-      - status
-      - created_at
-      - updated_at
-      - user_id
-      - scan_data
-      properties:
-        name:
-          type: string
-        status:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        user_id:
-          type: integer
-        scan_data:
-          $ref: '#/components/schemas/AutomationScanData'
     AutomationScanData:
       title: AutomationScanData
       type: object
@@ -2197,32 +2548,26 @@ components:
           type: boolean
         scan_all_assets:
           type: boolean
-    StripePriceItem:
-      title: StripePriceItem
+    WorkspaceItem:
+      title: TeamMemberItem
       type: object
-      required:
-      - price_id
-      - price
-      - name
       properties:
-        price_id:
+        id:
           type: string
-          description: Stripe price ID
-        price:
-          type: number
-          description: Price amount in dollars
         name:
           type: string
-          description: Price display name
-        currency:
+        created_at:
           type: string
-          description: Currency code (e.g., USD)
-        interval:
+        member_count:
+          type: integer
+        owner_email:
           type: string
-          description: Billing interval (month, year, etc.)
-        product_id:
-          type: string
-          description: Associated Stripe product ID
+      required:
+      - id
+      - name
+      - created_at
+      - member_count
+      - owner_email
     TeamMemberItem:
       title: TeamMemberItem
       type: object
@@ -2246,361 +2591,29 @@ components:
       - email
       - status
       - role
-    ServiceUsageItem:
-      title: ServiceUsageLimitItem
-      type: object
-      required:
-      - used
-      - remaining
-      - total
-      properties:
-        used:
-          type: integer
-        remaining:
-          type: integer
-        total:
-          type: integer
-  responses:
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetUserSetupStatsResponse:
-      description: Example response
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
+  requestBodies:
+    PatchTeamMemberRequest:
       content:
         application/json:
           schema:
             type: object
             properties:
-              message:
-                type: string
-              onboarding_steps:
-                type: object
-                properties:
-                  vulnerability_scan:
-                    type: boolean
-                  asset_discovery:
-                    type: boolean
-                  alerting_integration:
-                    type: boolean
-                  reporting_integration:
-                    type: boolean
-                  cloud_integration:
-                    type: boolean
-                  subfinder_integration:
-                    type: boolean
-                  vulnerability_upload:
-                    type: boolean
-                  realtime_autoscan:
-                    type: boolean
-                  team_member_invitation:
-                    type: boolean
-            required:
-            - message
-            - onboarding_steps
-    GetScansTokenResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - scan_tokens
-            - used_scan_token
-            - remaining_scan_token
-            - is_scannable
-            - start_date
-            - end_date
-            - subscription_type
-            - base_domain_count
-            - remaining_domain_count
-            properties:
-              scan_tokens:
-                type: integer
-                format: int64
-              used_scan_token:
-                type: integer
-                format: int64
-              remaining_scan_token:
-                type: integer
-                format: int64
-              base_domain_count:
-                type: integer
-                format: int64
-              remaining_domain_count:
-                type: integer
-                format: int64
-              is_scannable:
-                type: boolean
-              start_date:
-                type: string
-                format: date-time
-              end_date:
-                type: string
-                format: date-time
-              expire_date:
-                type: string
-                format: date-time
-              verified_domain:
-                type: array
-                items:
-                  type: string
-              old_plan:
-                type: string
-              old_plan_expired_at:
-                type: string
-                format: date-time
-              is_enforced_limit:
-                type: boolean
-              subscription_type:
-                enum:
-                - TRIAL
-                - ENT_TRIAL
-                - PRO
-                - ENT
-                - FREE
-                - VERIFIED_FREE
-                - GROWTH
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    GetTeamResponse:
-      description: Get the workspace details
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              workspaces:
-                type: array
-                items:
-                  $ref: '#/components/schemas/WorkspaceItem'
-              message:
-                type: string
-              name:
-                type: string
-            required:
-            - message
-    PatchUserProfileResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              ai_status:
-                type: boolean
-              scan_status:
-                type: boolean
-              static_scan:
-                type: boolean
-              neo_ai:
-                type: boolean
-              early_template:
-                type: boolean
-            required:
-            - message
-    AdminAutomationsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - automations
-            properties:
-              message:
-                type: string
-              automations:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AdminAutomationsItem'
-    GetBillingAssetsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              total_asset:
-                type: integer
-              total_unique_asset:
-                type: integer
-              total_billing_asset:
-                type: integer
-              total_unique_billing_asset:
-                type: integer
-              total_asset_group:
-                type: integer
-              asset_groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    total_unique_asset:
-                      type: integer
-                    total_asset:
-                      type: integer
-                    total_billing_asset:
-                      type: integer
-                    total_unique_billing_asset:
-                      type: integer
-    GetTeamMembersResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              max_team_members:
-                type: integer
-              members:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TeamMemberItem'
-            required:
-            - message
-            - members
-            - max_team_members
-    UpdateTeamResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              message:
-                type: string
-            required:
-            - message
-    GetDefaultTeamMembersResponse:
-      description: Default team members response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              members:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    role:
-                      type: string
-                  required:
-                  - email
-                  - role
-            required:
-            - message
-            - members
-    UsageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              cvemap:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              chaos:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              asnmap:
-                $ref: '#/components/schemas/ServiceUsageItem'
-    PriceListResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - list
-            - message
-            properties:
-              list:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PriceListItem'
-              message:
-                type: string
-    PostCreateUserResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              ai_status:
-                type: boolean
-              scan_status:
-                type: boolean
-              static_scan:
-                type: boolean
-              neo_ai:
-                type: boolean
-              early_template:
-                type: boolean
-              user_id:
-                type: integer
-              name:
-                type: string
               email:
                 type: string
               role:
                 type: string
-              invite_url:
-                type: string
-              password:
-                type: string
+                description: Team member role. Valid values are ADMIN, MEMBER, VIEWER, GUEST.
             required:
-            - message
-  requestBodies:
-    CreateContributeRequest:
+            - email
+    DeleteTeamMemberRequest:
       content:
         application/json:
           schema:
@@ -2608,25 +2621,8 @@ components:
             properties:
               email:
                 type: string
-              name:
-                type: string
-              template:
-                type: string
-              anonymous:
-                type: boolean
             required:
-            - template
-            - anonymous
-    CreateTeamRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-            required:
-            - name
+            - email
     AdminSetUsageLimit:
       content:
         application/json:
@@ -2644,124 +2640,6 @@ components:
                 type: number
               asnmap_allpwed_requests:
                 type: number
-    DeleteDefaultTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-                description: Email of specific member to remove. Omit to remove all
-    PatchTeamAdmin:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - max_members
-            properties:
-              max_members:
-                type: integer
-    AdminAddTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              owner_email:
-                type: string
-              member_email:
-                type: string
-            required:
-            - owner_email
-            - member_email
-    AddTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-            required:
-            - email
-    PatchTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              role:
-                type: string
-                description: Team member role. Valid values are ADMIN, MEMBER, VIEWER, GUEST.
-            required:
-            - email
-    InviteTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              invite_code:
-                type: string
-            required:
-            - invite_code
-    DeleteTeamMemberRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-            required:
-            - email
-    AdminUsageRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - email
-            - range
-            properties:
-              email:
-                type: string
-                format: email
-              range:
-                $ref: '#/components/schemas/UsageRangeEnum'
-              startDate:
-                type: string
-              endDate:
-                type: string
-    SetDefaultTeamMembersRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              members:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    role:
-                      type: string
-                      enum:
-                      - ADMIN
-                      - MEMBER
-                      - VIEWER
-                      - GUEST
-                  required:
-                  - email
-                  - role
-            required:
-            - members
     PatchUserProfile:
       content:
         application/json:
@@ -2799,6 +2677,128 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
+    CreateContributeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              template:
+                type: string
+              anonymous:
+                type: boolean
+            required:
+            - template
+            - anonymous
+    DeleteDefaultTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Email of specific member to remove. Omit to remove all
+    CreateTeamRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+            - name
+    SetDefaultTeamMembersRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    role:
+                      type: string
+                      enum:
+                      - ADMIN
+                      - MEMBER
+                      - VIEWER
+                      - GUEST
+                  required:
+                  - email
+                  - role
+            required:
+            - members
+    InviteTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              invite_code:
+                type: string
+            required:
+            - invite_code
+    AdminUsageRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - email
+            - range
+            properties:
+              email:
+                type: string
+                format: email
+              range:
+                $ref: '#/components/schemas/UsageRangeEnum'
+              startDate:
+                type: string
+              endDate:
+                type: string
+    AddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+            required:
+            - email
+    AdminAddTeamMemberRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              owner_email:
+                type: string
+              member_email:
+                type: string
+            required:
+            - owner_email
+            - member_email
+    PatchTeamAdmin:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - max_members
+            properties:
+              max_members:
+                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

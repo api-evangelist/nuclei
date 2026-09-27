@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: PDCP OAUTH API
+  title: PDCP OAuth API
   version: '1.0'
   summary: ProjectDiscovery Cloud Platform
   description: For more details, checkout https://docs.projectdiscovery.io/api-reference/editor/scan
@@ -301,6 +301,22 @@ paths:
       security:
       - X-API-Key: []
 components:
+  schemas:
+    OAuthMetadata:
+      title: OAuthMetadata
+      type: object
+      properties:
+        installation_url:
+          type: string
+      required:
+      - installation_url
+    OAuthStatus:
+      title: OAuthStatus
+      type: string
+      enum:
+      - not_connected
+      - pending
+      - success
   responses:
     ErrorResponse:
       description: Example response
@@ -325,22 +341,6 @@ components:
                 type: string
               status:
                 type: integer
-  schemas:
-    OAuthMetadata:
-      title: OAuthMetadata
-      type: object
-      properties:
-        installation_url:
-          type: string
-      required:
-      - installation_url
-    OAuthStatus:
-      title: OAuthStatus
-      type: string
-      enum:
-      - not_connected
-      - pending
-      - success
   securitySchemes:
     X-API-Key:
       name: X-API-Key
