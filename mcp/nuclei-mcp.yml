@@ -16,18 +16,33 @@ deployment:
 tools_count: 7
 tools:
 - name: create_task
-  description: ''
+  description: Start a new Neo AI security assessment (pentest, code review, recon, CVE triage, patch
+    validation, and more) or continue an existing one. Pass the objective in `task`, e.g. "Run a security
+    review of https://staging.example.com". Optional pa
 - name: get_file
-  description: ''
+  description: Fetch an artifact a task produced (report, screenshot, scan output, etc.) by its file_key
+    — get keys from get_task view=files. Small images (<=1MB) come back as inline image content, small
+    text (<=100KB) as inline text. Anything larger or b
 - name: get_issues
-  description: ''
+  description: 'List validated security findings (issues). This is the primary way to read what Neo found:
+    each issue is a confirmed vulnerability, misconfiguration, or exposure with severity, target, and
+    remediation. Filter by task_id (findings from one a'
 - name: get_task
-  description: ''
+  description: 'Inspect one task. Choose a `view`: `overview` (default — status, title, and the assistant''s
+    latest response), `logs` (the agent + tool execution audit log), `report` (the narrative Insights
+    summary; generated on demand if missing), or `file'
 - name: list_capabilities
-  description: ''
+  description: 'Discover what you can use when starting a task: the specialized agents already installed
+    on your account (agent_id), the selectable models (model), and your projects (project_id). Call this
+    before create_task when you want to target a speci'
 - name: list_tasks
-  description: ''
+  description: List your assessments with optional filters (project_id, status, search, visibility, is_scheduled),
+    optional team-shared tasks, and pagination. Returns task summaries (id, title, status, created time).
+    Read-only.
 - name: manage_task
-  description: ''
+  description: 'Perform a lifecycle action on a task. `action` is one of: `rename` (requires `title`),
+    `abort` (stop a running task), or `delete` (permanently remove the task and its messages — irreversible).'
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
