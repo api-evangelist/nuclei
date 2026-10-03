@@ -207,7 +207,195 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
+  responses:
+    GetRemediationEfficiencyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - remediation_efficiency
+            - remediation_state
+            - data
+            properties:
+              remediation_efficiency:
+                type: integer
+              remediation_state:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RemediationEfficiencyData'
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    ScanExposureMetricsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              new_vulnerability:
+                type: integer
+              open_vulnerability:
+                type: integer
+              fixed_vulnerability:
+                type: integer
+              time_series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanExposuresTimeSeries'
+    ScanRegressionRemediationMetricsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              regression_rate:
+                type: integer
+              avg_remediation_time:
+                type: string
+              regression_state:
+                type: string
+              total_fixed:
+                type: integer
+              total_count:
+                type: integer
+              severity_breakdown:
+                $ref: '#/components/schemas/SeverityBreakdown'
+              status_breakdown:
+                $ref: '#/components/schemas/StatusBreakdown'
+              time_series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanRegressionRemediationTimeSeries'
   schemas:
+    ScanExposuresTimeSeries:
+      title: ScanExposuresTimeSeries
+      type: object
+      required:
+      - date
+      - open_vulnerability
+      - fixed_vulnerability
+      - new_vulnerability
+      properties:
+        date:
+          type: string
+          format: date
+        open_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+        fixed_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+        new_vulnerability:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        critical:
+          type: integer
+        high:
+          type: integer
+        medium:
+          type: integer
+        low:
+          type: integer
+        info:
+          type: integer
+        unknown:
+          type: integer
+    EnumerationIDTypes:
+      title: EnumerationIDTypes
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    RemediationEfficiencyData:
+      title: RemediationEfficiencyData
+      type: object
+      required:
+      - vulnerability_severity
+      - average_time_to_remediate
+      - target_time_to_remediate
+      - remediation_trend
+      - timely_remediated_count
+      - total_vulnerabilities
+      properties:
+        vulnerability_severity:
+          type: string
+        average_time_to_remediate:
+          type: integer
+        target_time_to_remediate:
+          type: integer
+        remediation_trend:
+          type: integer
+        timely_remediated_count:
+          type: integer
+        total_vulnerabilities:
+          type: integer
+    VulnMetricSeverityBreakdown:
+      title: VulnMetricSeverityBreakdown
+      type: object
+      required:
+      - total_count
+      - severity_breakdown
+      - total_fixed
+      properties:
+        total_fixed:
+          type: integer
+        total_count:
+          type: integer
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        status_breakdown:
+          $ref: '#/components/schemas/StatusBreakdown'
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
     AssetFilters:
       title: AssetFilters
       type: object
@@ -285,6 +473,20 @@ components:
         only_ip:
           type: boolean
           description: Query only dns IP records
+    ScanRegressionRemediationTimeSeries:
+      title: ScanRegressionRemediationTimeSeries
+      type: object
+      required:
+      - date
+      - data
+      properties:
+        date:
+          type: string
+          format: date
+        avg_remediation_time:
+          type: string
+        data:
+          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
     StatusBreakdown:
       title: StatusBreakdown
       type: object
@@ -303,208 +505,6 @@ components:
           type: integer
         triaged:
           type: integer
-    ScanExposuresTimeSeries:
-      title: ScanExposuresTimeSeries
-      type: object
-      required:
-      - date
-      - open_vulnerability
-      - fixed_vulnerability
-      - new_vulnerability
-      properties:
-        date:
-          type: string
-          format: date
-        open_vulnerability:
-          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
-        fixed_vulnerability:
-          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
-        new_vulnerability:
-          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
-    EnumerationIDTypes:
-      title: EnumerationIDTypes
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
-      type: string
-      enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
-    SeverityBreakdown:
-      title: SeverityBreakdown
-      type: object
-      properties:
-        critical:
-          type: integer
-        high:
-          type: integer
-        medium:
-          type: integer
-        low:
-          type: integer
-        info:
-          type: integer
-        unknown:
-          type: integer
-    ScanRegressionRemediationTimeSeries:
-      title: ScanRegressionRemediationTimeSeries
-      type: object
-      required:
-      - date
-      - data
-      properties:
-        date:
-          type: string
-          format: date
-        avg_remediation_time:
-          type: string
-        data:
-          $ref: '#/components/schemas/VulnMetricSeverityBreakdown'
-    RemediationEfficiencyData:
-      title: RemediationEfficiencyData
-      type: object
-      required:
-      - vulnerability_severity
-      - average_time_to_remediate
-      - target_time_to_remediate
-      - remediation_trend
-      - timely_remediated_count
-      - total_vulnerabilities
-      properties:
-        vulnerability_severity:
-          type: string
-        average_time_to_remediate:
-          type: integer
-        target_time_to_remediate:
-          type: integer
-        remediation_trend:
-          type: integer
-        timely_remediated_count:
-          type: integer
-        total_vulnerabilities:
-          type: integer
-    VulnMetricSeverityBreakdown:
-      title: VulnMetricSeverityBreakdown
-      type: object
-      required:
-      - total_count
-      - severity_breakdown
-      - total_fixed
-      properties:
-        total_fixed:
-          type: integer
-        total_count:
-          type: integer
-        severity_breakdown:
-          $ref: '#/components/schemas/SeverityBreakdown'
-        status_breakdown:
-          $ref: '#/components/schemas/StatusBreakdown'
-  responses:
-    GetRemediationEfficiencyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - remediation_efficiency
-            - remediation_state
-            - data
-            properties:
-              remediation_efficiency:
-                type: integer
-              remediation_state:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RemediationEfficiencyData'
-    ScanRegressionRemediationMetricsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              regression_rate:
-                type: integer
-              avg_remediation_time:
-                type: string
-              regression_state:
-                type: string
-              total_fixed:
-                type: integer
-              total_count:
-                type: integer
-              severity_breakdown:
-                $ref: '#/components/schemas/SeverityBreakdown'
-              status_breakdown:
-                $ref: '#/components/schemas/StatusBreakdown'
-              time_series:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScanRegressionRemediationTimeSeries'
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    ScanExposureMetricsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              new_vulnerability:
-                type: integer
-              open_vulnerability:
-                type: integer
-              fixed_vulnerability:
-                type: integer
-              time_series:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScanExposuresTimeSeries'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

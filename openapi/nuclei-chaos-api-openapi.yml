@@ -166,51 +166,6 @@ paths:
         description: Pagination Offset
 components:
   schemas:
-    DomainSearchItem:
-      title: DomainSearchItem
-      type: object
-      required:
-      - name
-      - type
-      - search_score
-      properties:
-        domain:
-          $ref: '#/components/schemas/RootDomainInfo'
-        name:
-          description: The display name for autocomplete
-          type: string
-        organization:
-          $ref: '#/components/schemas/OrganizationInfo'
-        search_score:
-          description: The search score of the result
-          type: number
-        type:
-          description: Indicates whether this is an organization or domain result
-          enum:
-          - organization
-          - domain
-          type: string
-    RootDomainInfo:
-      title: RootDomainInfo
-      additionalProperties: false
-      description: Root Domain Information
-      properties:
-        domain:
-          description: The root domain name
-          type: string
-        image_url:
-          description: URL to domain's image
-          type: string
-        name:
-          description: The domain name
-          type: string
-        organization_slug:
-          description: Slug identifier of the associated organization
-          type: string
-        total_subdomains:
-          description: The total number of subdomains
-          type: integer
-      type: object
     AssociatedDomainsResultSet:
       title: AssociatedDomainsResultSet
       type: object
@@ -252,86 +207,43 @@ components:
         total_pages:
           description: Total pages when paginated
           type: integer
-    AssociatedDomainResult:
-      title: AssociatedDomainResult
-      type: object
-      required:
-      - domain
-      - sources
-      properties:
-        domain:
-          description: Associated domain name
-          type: string
-        evidence:
-          $ref: '#/components/schemas/AssociatedDomainEvidence'
-        sources:
-          description: Sources that reported the association
-          type: array
-          items:
+    OrganizationFullInfo:
+      allOf:
+      - $ref: '#/components/schemas/OrganizationInfo'
+      - properties:
+          aliases:
+            description: List of organization aliases
+            items:
+              type: string
+            type: array
+          category_groups:
+            description: Macro level category groups (e.g. AI instead of generative_ai)
+            items:
+              type: string
+            type: array
+          created_at:
+            description: Timestamp when the organization record was created
+            format: date-time
             type: string
-    OrganizationInfo:
-      title: OrganizationInfo
-      description: Organization Information
-      properties:
-        acquirer_slug:
-          description: Slug of acquiring organization if applicable
-          type: string
-        contact_email:
-          description: Contact email address
-          type: string
-        domain:
-          description: Primary domain of the organization
-          type: string
-        image_url:
-          description: URL to organization's image
-          type: string
-        industries:
-          description: Industries of the organization
-          items:
+          description:
+            description: Full description of the organization
             type: string
-          type: array
-        legal_name:
-          description: Legal name of the organization
-          type: string
-        linkedin:
-          description: LinkedIn profile URL
-          type: string
-        name:
-          description: The organization name
-          type: string
-        num_employees_enum:
-          description: Employee count range category
-          type: string
-        org_status:
-          description: Status of the organization
-          type: string
-        short_description:
-          description: Brief description of the organization
-          type: string
-        slug:
-          description: URL-friendly identifier
-          type: string
-        subsidary_domains:
-          description: List of subsidiary domains
-          items:
+          founded_on.value:
+            description: Organization founding date (YYYY-MM-DD)
             type: string
-          type: array
-        total_subdomains:
-          description: Total number of subdomains
-          type: integer
-        total_subsidaries:
-          description: Total number of subsidiaries
-          type: integer
-        total_subsidary_domains:
-          description: Total number of subsidiary domains
-          type: integer
-        total_subsidary_subdomains:
-          description: Total number of subdomains across all subsidiary domains
-          type: integer
-        twitter:
-          description: Twitter profile URL
-          type: string
-      type: object
+          rank:
+            description: Organization's rank
+            type: integer
+          subsidaries:
+            description: List of all subsidiary organizations
+            items:
+              $ref: '#/components/schemas/OrganizationInfo'
+            type: array
+          updated_at:
+            description: Timestamp when the organization record was last updated
+            format: date-time
+            type: string
+        type: object
     AssociatedDomainEvidence:
       title: AssociatedDomainEvidence
       type: object
@@ -414,82 +326,132 @@ components:
         whois_server:
           description: WHOIS server
           type: string
-    OrganizationFullInfo:
-      allOf:
-      - $ref: '#/components/schemas/OrganizationInfo'
-      - properties:
-          aliases:
-            description: List of organization aliases
-            items:
-              type: string
-            type: array
-          category_groups:
-            description: Macro level category groups (e.g. AI instead of generative_ai)
-            items:
-              type: string
-            type: array
-          created_at:
-            description: Timestamp when the organization record was created
-            format: date-time
+    OrganizationInfo:
+      title: OrganizationInfo
+      description: Organization Information
+      properties:
+        acquirer_slug:
+          description: Slug of acquiring organization if applicable
+          type: string
+        contact_email:
+          description: Contact email address
+          type: string
+        domain:
+          description: Primary domain of the organization
+          type: string
+        image_url:
+          description: URL to organization's image
+          type: string
+        industries:
+          description: Industries of the organization
+          items:
             type: string
-          description:
-            description: Full description of the organization
+          type: array
+        legal_name:
+          description: Legal name of the organization
+          type: string
+        linkedin:
+          description: LinkedIn profile URL
+          type: string
+        name:
+          description: The organization name
+          type: string
+        num_employees_enum:
+          description: Employee count range category
+          type: string
+        org_status:
+          description: Status of the organization
+          type: string
+        short_description:
+          description: Brief description of the organization
+          type: string
+        slug:
+          description: URL-friendly identifier
+          type: string
+        subsidary_domains:
+          description: List of subsidiary domains
+          items:
             type: string
-          founded_on.value:
-            description: Organization founding date (YYYY-MM-DD)
+          type: array
+        total_subdomains:
+          description: Total number of subdomains
+          type: integer
+        total_subsidaries:
+          description: Total number of subsidiaries
+          type: integer
+        total_subsidary_domains:
+          description: Total number of subsidiary domains
+          type: integer
+        total_subsidary_subdomains:
+          description: Total number of subdomains across all subsidiary domains
+          type: integer
+        twitter:
+          description: Twitter profile URL
+          type: string
+      type: object
+    AssociatedDomainResult:
+      title: AssociatedDomainResult
+      type: object
+      required:
+      - domain
+      - sources
+      properties:
+        domain:
+          description: Associated domain name
+          type: string
+        evidence:
+          $ref: '#/components/schemas/AssociatedDomainEvidence'
+        sources:
+          description: Sources that reported the association
+          type: array
+          items:
             type: string
-          rank:
-            description: Organization's rank
-            type: integer
-          subsidaries:
-            description: List of all subsidiary organizations
-            items:
-              $ref: '#/components/schemas/OrganizationInfo'
-            type: array
-          updated_at:
-            description: Timestamp when the organization record was last updated
-            format: date-time
-            type: string
-        type: object
+    DomainSearchItem:
+      title: DomainSearchItem
+      type: object
+      required:
+      - name
+      - type
+      - search_score
+      properties:
+        domain:
+          $ref: '#/components/schemas/RootDomainInfo'
+        name:
+          description: The display name for autocomplete
+          type: string
+        organization:
+          $ref: '#/components/schemas/OrganizationInfo'
+        search_score:
+          description: The search score of the result
+          type: number
+        type:
+          description: Indicates whether this is an organization or domain result
+          enum:
+          - organization
+          - domain
+          type: string
+    RootDomainInfo:
+      title: RootDomainInfo
+      additionalProperties: false
+      description: Root Domain Information
+      properties:
+        domain:
+          description: The root domain name
+          type: string
+        image_url:
+          description: URL to domain's image
+          type: string
+        name:
+          description: The domain name
+          type: string
+        organization_slug:
+          description: Slug identifier of the associated organization
+          type: string
+        total_subdomains:
+          description: The total number of subdomains
+          type: integer
+      type: object
   responses:
-    DomainSearchResults:
-      description: Domain Search Results
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - count
-            - results
-            - total
-            properties:
-              count:
-                type: integer
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DomainSearchItem'
-              total:
-                type: integer
-    OrganizationSearchResults:
-      description: Organization Search Results
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - count
-            - results
-            - total
-            properties:
-              count:
-                type: integer
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OrganizationFullInfo'
-              total:
-                type: integer
     ErrorResponse:
       description: Example response
       content:
@@ -513,6 +475,25 @@ components:
                 type: string
               status:
                 type: integer
+    OrganizationSearchResults:
+      description: Organization Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationFullInfo'
+              total:
+                type: integer
     AssociatedDomainsResults:
       description: Associated domains response
       content:
@@ -523,6 +504,25 @@ components:
           schema:
             type: string
             description: Plain text list of domains when raw=true
+    DomainSearchResults:
+      description: Domain Search Results
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - count
+            - results
+            - total
+            properties:
+              count:
+                type: integer
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DomainSearchItem'
+              total:
+                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

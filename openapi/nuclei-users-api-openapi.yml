@@ -589,13 +589,6 @@ paths:
         name: X-Team-Id
 components:
   schemas:
-    DomainVerificationType:
-      title: DomainVerificationType
-      enum:
-      - dns_text_record
-      - html_meta_tag
-      - file_upload
-      default: dns_text_record
     UserWorkspaces:
       title: UserWorkspaces
       type: object
@@ -659,8 +652,26 @@ components:
           description: When the last verification attempt was made
         verification_type:
           $ref: '#/components/schemas/DomainVerificationType'
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
   responses:
-    PostApiKeyRotateResponse:
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    GetUserAPIKeyResponse:
       description: Example response
       content:
         application/json:
@@ -674,7 +685,62 @@ components:
             required:
             - message
             - api_key
-    GetUserSetupStatsResponse:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+    DeleteUserAPIKeyResponse:
       description: Example response
       content:
         application/json:
@@ -683,30 +749,8 @@ components:
             properties:
               message:
                 type: string
-              onboarding_steps:
-                type: object
-                properties:
-                  vulnerability_scan:
-                    type: boolean
-                  asset_discovery:
-                    type: boolean
-                  alerting_integration:
-                    type: boolean
-                  reporting_integration:
-                    type: boolean
-                  cloud_integration:
-                    type: boolean
-                  subfinder_integration:
-                    type: boolean
-                  vulnerability_upload:
-                    type: boolean
-                  realtime_autoscan:
-                    type: boolean
-                  team_member_invitation:
-                    type: boolean
             required:
             - message
-            - onboarding_steps
     GetPromocodeDetailsResponse:
       description: Example response
       content:
@@ -735,40 +779,20 @@ components:
                 type: integer
               scan_tokens:
                 type: integer
-    ErrorResponse:
+    PostApiKeyRotateResponse:
       description: Example response
       content:
         application/json:
           schema:
             type: object
-            required:
-            - message
             properties:
               message:
                 type: string
-              kind:
+              api_key:
                 type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
             required:
             - message
-            properties:
-              message:
-                type: string
+            - api_key
     GetUserProfileResponse:
       description: Example response
       content:
@@ -842,7 +866,7 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
-    DeleteUserAPIKeyResponse:
+    GetUserSetupStatsResponse:
       description: Example response
       content:
         application/json:
@@ -851,54 +875,30 @@ components:
             properties:
               message:
                 type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
             required:
             - message
-    GetUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              api_key:
-                type: string
-            required:
-            - message
-            - api_key
-    GetBillingAssetsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              total_asset:
-                type: integer
-              total_unique_asset:
-                type: integer
-              total_billing_asset:
-                type: integer
-              total_unique_billing_asset:
-                type: integer
-              total_asset_group:
-                type: integer
-              asset_groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    total_unique_asset:
-                      type: integer
-                    total_asset:
-                      type: integer
-                    total_billing_asset:
-                      type: integer
-                    total_unique_billing_asset:
-                      type: integer
+            - onboarding_steps
   requestBodies:
     PostFeedbackRequest:
       content:

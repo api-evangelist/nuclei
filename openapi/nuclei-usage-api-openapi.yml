@@ -45,8 +45,31 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
+  schemas:
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
   responses:
-    UsageResponse:
+    MessageResponse:
       description: Example response
       content:
         application/json:
@@ -57,12 +80,6 @@ components:
             properties:
               message:
                 type: string
-              cvemap:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              chaos:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              asnmap:
-                $ref: '#/components/schemas/ServiceUsageItem'
     ErrorResponse:
       description: Example response
       content:
@@ -86,7 +103,7 @@ components:
                 type: string
               status:
                 type: integer
-    MessageResponse:
+    UsageResponse:
       description: Example response
       content:
         application/json:
@@ -97,29 +114,12 @@ components:
             properties:
               message:
                 type: string
-  schemas:
-    UsageRangeEnum:
-      title: UsageRangeEnum
-      type: string
-      enum:
-      - daily
-      - weekly
-      - monthly
-      - custom
-    ServiceUsageItem:
-      title: ServiceUsageLimitItem
-      type: object
-      required:
-      - used
-      - remaining
-      - total
-      properties:
-        used:
-          type: integer
-        remaining:
-          type: integer
-        total:
-          type: integer
+              cvemap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              chaos:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              asnmap:
+                $ref: '#/components/schemas/ServiceUsageItem'
   requestBodies:
     UsageRequest:
       content:

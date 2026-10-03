@@ -158,34 +158,6 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
 components:
   schemas:
-    EnumerationIds:
-      title: EnumerationIds
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    GetAutomationsListItem:
-      title: GetAutomationsListItem
-      type: object
-      required:
-      - name
-      - event
-      - status
-      - created_at
-      - updated_at
-      properties:
-        name:
-          type: string
-        event:
-          type: string
-        status:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
     GetAutomationItem:
       title: GetAutomationItem
       type: object
@@ -212,6 +184,26 @@ components:
           type: string
         data:
           $ref: '#/components/schemas/AutomationScanData'
+    GetAutomationsListItem:
+      title: GetAutomationsListItem
+      type: object
+      required:
+      - name
+      - event
+      - status
+      - created_at
+      - updated_at
+      properties:
+        name:
+          type: string
+        event:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
     AutomationScanData:
       title: AutomationScanData
       type: object
@@ -282,7 +274,49 @@ components:
           type: boolean
         scan_all_assets:
           type: boolean
+    EnumerationIds:
+      title: EnumerationIds
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
   responses:
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
     GetAutomationsListResponse:
       description: Example response
       content:
@@ -312,53 +346,7 @@ components:
                 type: string
               automation:
                 $ref: '#/components/schemas/GetAutomationItem'
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
   requestBodies:
-    UpdateAutomationRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              status:
-                type: string
-              scan_data:
-                $ref: '#/components/schemas/AutomationScanData'
     AddAutomation:
       content:
         application/json:
@@ -380,6 +368,18 @@ components:
                 $ref: '#/components/schemas/AutomationScanData'
               enumeration_id:
                 type: string
+    UpdateAutomationRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+              scan_data:
+                $ref: '#/components/schemas/AutomationScanData'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

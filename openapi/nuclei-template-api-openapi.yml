@@ -432,27 +432,25 @@ paths:
         description: The numbers of items to skip
 components:
   schemas:
-    FailedTemplateFileMetadataUpdate:
-      title: FailedTemplateFileMetadataUpdate
+    SharedTemplateMetaData:
+      title: SharedTemplateMetaData
       type: object
-      required:
-      - dir
-      - filename
-      - template_id
-      - error
       properties:
-        dir:
+        expires_at:
           type: string
-          description: Directory of the template
-        filename:
+          format: date-time
+        organizations:
+          type: array
+          items:
+            type: string
+        share_type:
           type: string
-          description: Name of the template
         template_id:
           type: string
-          description: Template ID
-        error:
-          type: string
-          description: Error message
+        users_email:
+          type: array
+          items:
+            type: string
     TemplateData:
       description: Template Document or object
       type: object
@@ -547,99 +545,20 @@ components:
           type: boolean
         remediation:
           type: string
-    Facets:
-      title: Facets
-      type: object
-      properties:
-        buckets:
-          type: object
-          additionalProperties:
-            type: integer
-        missing:
-          type: integer
-        others:
-          type: integer
-        total:
-          type: integer
-    UploadTemplate:
-      title: UploadTemplate
-      type: object
-      properties:
-        ai_meta:
-          $ref: '#/components/schemas/AIMeta'
-        dir:
-          type: string
-        filename:
-          type: string
-        template:
-          type: string
-    SharedTemplateMetaData:
-      title: SharedTemplateMetaData
-      type: object
-      properties:
-        expires_at:
-          type: string
-          format: date-time
-        organizations:
-          type: array
-          items:
-            type: string
-        share_type:
-          type: string
-        template_id:
-          type: string
-        users_email:
-          type: array
-          items:
-            type: string
-    TemplateValidationError:
-      title: TemplateValidationError
-      type: object
-      required:
-      - filename
-      - message
-      properties:
-        filename:
-          type: string
-        message:
-          type: string
-        detail:
-          type: string
-        line:
-          type: integer
-          description: Line number reported by the validator (if available)
-        column:
-          type: integer
-          description: Column number reported by the validator (if available)
-        issue_code:
-          type: string
-          description: Optional validator issue identifier
-    TemplateFileMetadata:
-      title: TemplateFileMetadata
+    PatchTemplateFileMetadata:
+      title: PatchTemplateFileMetadata
       type: object
       required:
       - dir
       - filename
       - template_id
-      - uri
       properties:
         dir:
           type: string
-          description: 'Directory of the template
-
-            '
         filename:
           type: string
-          description: 'Name of the template
-
-            '
         template_id:
           type: string
-          description: Template ID
-        uri:
-          type: string
-          description: URI of the template
-      description: Template File Metadata
     AIMeta:
       type: object
       properties:
@@ -655,34 +574,27 @@ components:
         prompt:
           description: The prompt used to generate the template
           type: string
-    PatchTemplateFileMetadata:
-      title: PatchTemplateFileMetadata
+    FailedTemplateFileMetadataUpdate:
+      title: FailedTemplateFileMetadataUpdate
       type: object
       required:
       - dir
       - filename
       - template_id
+      - error
       properties:
         dir:
           type: string
+          description: Directory of the template
         filename:
           type: string
+          description: Name of the template
         template_id:
           type: string
-    TemplateWorkflowRejection:
-      title: TemplateWorkflowRejection
-      type: object
-      required:
-      - filename
-      - reason
-      properties:
-        filename:
+          description: Template ID
+        error:
           type: string
-        reason:
-          type: string
-        hint:
-          type: string
-          description: Suggested action to resolve the rejection
+          description: Error message
     Classification:
       description: Classification of template including additional metadata like cve-id, cwe-id etc
       type: object
@@ -715,8 +627,96 @@ components:
         cpe:
           type: string
           description: CPE for the template
+    TemplateFileMetadata:
+      title: TemplateFileMetadata
+      type: object
+      required:
+      - dir
+      - filename
+      - template_id
+      - uri
+      properties:
+        dir:
+          type: string
+          description: 'Directory of the template
+
+            '
+        filename:
+          type: string
+          description: 'Name of the template
+
+            '
+        template_id:
+          type: string
+          description: Template ID
+        uri:
+          type: string
+          description: URI of the template
+      description: Template File Metadata
+    TemplateValidationError:
+      title: TemplateValidationError
+      type: object
+      required:
+      - filename
+      - message
+      properties:
+        filename:
+          type: string
+        message:
+          type: string
+        detail:
+          type: string
+        line:
+          type: integer
+          description: Line number reported by the validator (if available)
+        column:
+          type: integer
+          description: Column number reported by the validator (if available)
+        issue_code:
+          type: string
+          description: Optional validator issue identifier
+    UploadTemplate:
+      title: UploadTemplate
+      type: object
+      properties:
+        ai_meta:
+          $ref: '#/components/schemas/AIMeta'
+        dir:
+          type: string
+        filename:
+          type: string
+        template:
+          type: string
+    Facets:
+      title: Facets
+      type: object
+      properties:
+        buckets:
+          type: object
+          additionalProperties:
+            type: integer
+        missing:
+          type: integer
+        others:
+          type: integer
+        total:
+          type: integer
+    TemplateWorkflowRejection:
+      title: TemplateWorkflowRejection
+      type: object
+      required:
+      - filename
+      - reason
+      properties:
+        filename:
+          type: string
+        reason:
+          type: string
+        hint:
+          type: string
+          description: Suggested action to resolve the rejection
   responses:
-    UpdateSharedTemplateResponse:
+    MessageResponse:
       description: Example response
       content:
         application/json:
@@ -724,12 +724,9 @@ components:
             type: object
             required:
             - message
-            - result
             properties:
               message:
                 type: string
-              result:
-                $ref: '#/components/schemas/SharedTemplateMetaData'
     ErrorResponse:
       description: Example response
       content:
@@ -753,7 +750,7 @@ components:
                 type: string
               status:
                 type: integer
-    MessageResponse:
+    UpdateSharedTemplateResponse:
       description: Example response
       content:
         application/json:
@@ -761,9 +758,12 @@ components:
             type: object
             required:
             - message
+            - result
             properties:
               message:
                 type: string
+              result:
+                $ref: '#/components/schemas/SharedTemplateMetaData'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

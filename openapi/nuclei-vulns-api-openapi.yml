@@ -195,6 +195,72 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-v1-scans-vulns-score-metrics
 components:
+  schemas:
+    CoverageStats:
+      title: CoverageStats
+      description: Coverage statistics showing template availability
+      type: object
+      required:
+      - percentage
+      - total
+      - covered
+      properties:
+        percentage:
+          type: number
+          format: float
+          description: Coverage percentage
+        total:
+          type: integer
+          description: Total number of items (CVEs, KEVs, or POCs)
+        covered:
+          type: integer
+          description: Number of items with templates
+        remaining:
+          type: integer
+          description: Number of items without templates (total - covered)
+    SeverityBreakdown:
+      title: SeverityBreakdown
+      type: object
+      properties:
+        critical:
+          type: integer
+        high:
+          type: integer
+        medium:
+          type: integer
+        low:
+          type: integer
+        info:
+          type: integer
+        unknown:
+          type: integer
+    VulnScoreMetricsTimeSeries:
+      title: VulnScoreMetricsTimeSeries
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        security_score:
+          type: number
+          format: double
+        open_vulnerability:
+          $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
+        total_scanned_assets:
+          type: integer
+        total_affected_assets:
+          type: integer
+      description: ''
+    OpenVulnerabilityScoreMetrics:
+      title: OpenVulnerabilityScoreMetrics
+      type: object
+      properties:
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        total_cve:
+          type: integer
+        total_kev:
+          type: integer
   responses:
     ErrorResponse:
       description: Example response
@@ -219,6 +285,17 @@ components:
                 type: string
               status:
                 type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
     VulnScoreMetricsResponse:
       description: Example response
       content:
@@ -248,83 +325,6 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/VulnScoreMetricsTimeSeries'
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-  schemas:
-    CoverageStats:
-      title: CoverageStats
-      description: Coverage statistics showing template availability
-      type: object
-      required:
-      - percentage
-      - total
-      - covered
-      properties:
-        percentage:
-          type: number
-          format: float
-          description: Coverage percentage
-        total:
-          type: integer
-          description: Total number of items (CVEs, KEVs, or POCs)
-        covered:
-          type: integer
-          description: Number of items with templates
-        remaining:
-          type: integer
-          description: Number of items without templates (total - covered)
-    VulnScoreMetricsTimeSeries:
-      title: VulnScoreMetricsTimeSeries
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        security_score:
-          type: number
-          format: double
-        open_vulnerability:
-          $ref: '#/components/schemas/OpenVulnerabilityScoreMetrics'
-        total_scanned_assets:
-          type: integer
-        total_affected_assets:
-          type: integer
-      description: ''
-    SeverityBreakdown:
-      title: SeverityBreakdown
-      type: object
-      properties:
-        critical:
-          type: integer
-        high:
-          type: integer
-        medium:
-          type: integer
-        low:
-          type: integer
-        info:
-          type: integer
-        unknown:
-          type: integer
-    OpenVulnerabilityScoreMetrics:
-      title: OpenVulnerabilityScoreMetrics
-      type: object
-      properties:
-        severity_breakdown:
-          $ref: '#/components/schemas/SeverityBreakdown'
-        total_cve:
-          type: integer
-        total_kev:
-          type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key
