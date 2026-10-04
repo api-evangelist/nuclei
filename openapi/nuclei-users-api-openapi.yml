@@ -588,90 +588,8 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  schemas:
-    UserWorkspaces:
-      title: UserWorkspaces
-      type: object
-      required:
-      - name
-      - team_id
-      - active
-      - plan
-      - member_count
-      - role
-      - default
-      properties:
-        name:
-          type: string
-        team_id:
-          type: string
-        active:
-          type: boolean
-        plan:
-          type: string
-        member_count:
-          type: integer
-        role:
-          type: string
-        default:
-          type: boolean
-    DomainVerificationRequest:
-      title: DomainVerificationRequest
-      type: object
-      required:
-      - domain
-      - status
-      - created_at
-      - verification_attempts
-      properties:
-        domain:
-          type: string
-          description: The domain being verified
-        status:
-          type: string
-          enum:
-          - pending
-          - verified
-          - expired
-          - deleted
-          - failed
-          description: Current verification status
-        verification_string:
-          type: string
-          description: TXT record value to add to DNS (only present for pending requests)
-        created_at:
-          type: string
-          format: date-time
-          description: When the verification request was created
-        verification_attempts:
-          type: integer
-          description: Number of verification attempts made
-        last_attempt_at:
-          type: string
-          format: date-time
-          description: When the last verification attempt was made
-        verification_type:
-          $ref: '#/components/schemas/DomainVerificationType'
-    DomainVerificationType:
-      title: DomainVerificationType
-      enum:
-      - dns_text_record
-      - html_meta_tag
-      - file_upload
-      default: dns_text_record
   responses:
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetUserAPIKeyResponse:
+    PostApiKeyRotateResponse:
       description: Example response
       content:
         application/json:
@@ -685,7 +603,7 @@ components:
             required:
             - message
             - api_key
-    ErrorResponse:
+    MessageResponse:
       description: Example response
       content:
         application/json:
@@ -696,51 +614,7 @@ components:
             properties:
               message:
                 type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    GetBillingAssetsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              total_asset:
-                type: integer
-              total_unique_asset:
-                type: integer
-              total_billing_asset:
-                type: integer
-              total_unique_billing_asset:
-                type: integer
-              total_asset_group:
-                type: integer
-              asset_groups:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    total_unique_asset:
-                      type: integer
-                    total_asset:
-                      type: integer
-                    total_billing_asset:
-                      type: integer
-                    total_unique_billing_asset:
-                      type: integer
-    DeleteUserAPIKeyResponse:
+    GetUserSetupStatsResponse:
       description: Example response
       content:
         application/json:
@@ -749,8 +623,30 @@ components:
             properties:
               message:
                 type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
             required:
             - message
+            - onboarding_steps
     GetPromocodeDetailsResponse:
       description: Example response
       content:
@@ -779,7 +675,7 @@ components:
                 type: integer
               scan_tokens:
                 type: integer
-    PostApiKeyRotateResponse:
+    GetUserAPIKeyResponse:
       description: Example response
       content:
         application/json:
@@ -866,7 +762,30 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
-    GetUserSetupStatsResponse:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    DeleteUserAPIKeyResponse:
       description: Example response
       content:
         application/json:
@@ -875,30 +794,111 @@ components:
             properties:
               message:
                 type: string
-              onboarding_steps:
-                type: object
-                properties:
-                  vulnerability_scan:
-                    type: boolean
-                  asset_discovery:
-                    type: boolean
-                  alerting_integration:
-                    type: boolean
-                  reporting_integration:
-                    type: boolean
-                  cloud_integration:
-                    type: boolean
-                  subfinder_integration:
-                    type: boolean
-                  vulnerability_upload:
-                    type: boolean
-                  realtime_autoscan:
-                    type: boolean
-                  team_member_invitation:
-                    type: boolean
             required:
             - message
-            - onboarding_steps
+    GetBillingAssetsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total_asset:
+                type: integer
+              total_unique_asset:
+                type: integer
+              total_billing_asset:
+                type: integer
+              total_unique_billing_asset:
+                type: integer
+              total_asset_group:
+                type: integer
+              asset_groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    total_unique_asset:
+                      type: integer
+                    total_asset:
+                      type: integer
+                    total_billing_asset:
+                      type: integer
+                    total_unique_billing_asset:
+                      type: integer
+  schemas:
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
+    DomainVerificationRequest:
+      title: DomainVerificationRequest
+      type: object
+      required:
+      - domain
+      - status
+      - created_at
+      - verification_attempts
+      properties:
+        domain:
+          type: string
+          description: The domain being verified
+        status:
+          type: string
+          enum:
+          - pending
+          - verified
+          - expired
+          - deleted
+          - failed
+          description: Current verification status
+        verification_string:
+          type: string
+          description: TXT record value to add to DNS (only present for pending requests)
+        created_at:
+          type: string
+          format: date-time
+          description: When the verification request was created
+        verification_attempts:
+          type: integer
+          description: Number of verification attempts made
+        last_attempt_at:
+          type: string
+          format: date-time
+          description: When the last verification attempt was made
+        verification_type:
+          $ref: '#/components/schemas/DomainVerificationType'
+    UserWorkspaces:
+      title: UserWorkspaces
+      type: object
+      required:
+      - name
+      - team_id
+      - active
+      - plan
+      - member_count
+      - role
+      - default
+      properties:
+        name:
+          type: string
+        team_id:
+          type: string
+        active:
+          type: boolean
+        plan:
+          type: string
+        member_count:
+          type: integer
+        role:
+          type: string
+        default:
+          type: boolean
   requestBodies:
     PostFeedbackRequest:
       content:

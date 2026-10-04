@@ -322,99 +322,37 @@ paths:
       - X-API-Key: []
       description: Get enumeration content by domain_name
 components:
-  responses:
-    GetEnumerateIdContents:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - message
-            - data
-            properties:
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerationContent'
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    GetEnumerateFiltersResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerateFiltersItem'
   schemas:
-    EnumerationSourceValue:
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
       type: object
-      required:
-      - source
-      - metadata
       properties:
-        source:
+        description:
           type: string
-        metadata:
-          type: object
-          additionalProperties:
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
             type: string
+    EnumerateFilterTypes:
+      title: EnumerateFilterTypes
+      type: string
+      enum:
+      - host
+      - port
+      - ip
+      - cname
+      - technologies
+      - status_code
+      - content_length
+      - title
+      - webserver
+      - favicon
+      - domain
+      - labels
     EnumerateFiltersItem:
       title: EnumerateFiltersItem
       type: object
@@ -449,17 +387,18 @@ components:
         updated_at:
           type: string
           format: date-time
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
-      type: string
-      enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -605,36 +544,97 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-    EnumerateFilterTypes:
-      title: EnumerateFilterTypes
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
       type: string
       enum:
-      - host
-      - port
-      - ip
-      - cname
-      - technologies
-      - status_code
-      - content_length
-      - title
-      - webserver
-      - favicon
-      - domain
-      - labels
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
+  responses:
+    GetEnumerateIdContents:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - message
+            - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationContent'
+    GetEnumerateFiltersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateFiltersItem'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

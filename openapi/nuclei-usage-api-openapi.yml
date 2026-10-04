@@ -45,29 +45,21 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  schemas:
-    ServiceUsageItem:
-      title: ServiceUsageLimitItem
-      type: object
-      required:
-      - used
-      - remaining
-      - total
-      properties:
-        used:
-          type: integer
-        remaining:
-          type: integer
-        total:
-          type: integer
-    UsageRangeEnum:
-      title: UsageRangeEnum
-      type: string
-      enum:
-      - daily
-      - weekly
-      - monthly
-      - custom
+  requestBodies:
+    UsageRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - range
+            properties:
+              range:
+                $ref: '#/components/schemas/UsageRangeEnum'
+              startDate:
+                type: string
+              endDate:
+                type: string
   responses:
     MessageResponse:
       description: Example response
@@ -80,6 +72,23 @@ components:
             properties:
               message:
                 type: string
+    UsageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              cvemap:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              chaos:
+                $ref: '#/components/schemas/ServiceUsageItem'
+              asnmap:
+                $ref: '#/components/schemas/ServiceUsageItem'
     ErrorResponse:
       description: Example response
       content:
@@ -103,38 +112,29 @@ components:
                 type: string
               status:
                 type: integer
-    UsageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              cvemap:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              chaos:
-                $ref: '#/components/schemas/ServiceUsageItem'
-              asnmap:
-                $ref: '#/components/schemas/ServiceUsageItem'
-  requestBodies:
-    UsageRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - range
-            properties:
-              range:
-                $ref: '#/components/schemas/UsageRangeEnum'
-              startDate:
-                type: string
-              endDate:
-                type: string
+  schemas:
+    UsageRangeEnum:
+      title: UsageRangeEnum
+      type: string
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - custom
+    ServiceUsageItem:
+      title: ServiceUsageLimitItem
+      type: object
+      required:
+      - used
+      - remaining
+      - total
+      properties:
+        used:
+          type: integer
+        remaining:
+          type: integer
+        total:
+          type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

@@ -114,17 +114,19 @@ paths:
         name: X-Team-Id
 components:
   schemas:
-    EnumerationSourceValue:
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
       type: object
-      required:
-      - source
-      - metadata
       properties:
-        source:
+        description:
           type: string
-        metadata:
-          type: object
-          additionalProperties:
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
             type: string
     VulnerabilityEvent:
       title: VulnerabilityEvent
@@ -241,6 +243,84 @@ components:
           type: string
         url:
           type: string
+    VulnerabilityResults:
+      type: object
+      required:
+      - matcher_status
+      - vuln_id
+      - target
+      - created_at
+      - scan_id
+      - event
+      - template_id
+      - result_type
+      - vuln_hash
+      properties:
+        matcher_status:
+          type: boolean
+        vuln_id:
+          type: string
+        target:
+          type: string
+        template_url:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        scan_id:
+          type: string
+        event:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityEvent'
+        template_id:
+          type: string
+        template_path:
+          type: string
+        template_encoded:
+          type: string
+        result_type:
+          type: string
+        vuln_status:
+          type: string
+        vuln_hash:
+          type: string
+        is_regression:
+          type: boolean
+        is_internal:
+          type: boolean
+        labels:
+          type: array
+          items:
+            type: string
+        port:
+          type: integer
+        asset_metadata:
+          type: object
+          $ref: '#/components/schemas/EnumerationContent'
+        remediation:
+          type: string
+        description:
+          type: string
+        impact:
+          type: string
+        reference:
+          type: array
+          items:
+            type: string
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -386,86 +466,6 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-    VulnerabilityResults:
-      type: object
-      required:
-      - matcher_status
-      - vuln_id
-      - target
-      - created_at
-      - scan_id
-      - event
-      - template_id
-      - result_type
-      - vuln_hash
-      properties:
-        matcher_status:
-          type: boolean
-        vuln_id:
-          type: string
-        target:
-          type: string
-        template_url:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        scan_id:
-          type: string
-        event:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityEvent'
-        template_id:
-          type: string
-        template_path:
-          type: string
-        template_encoded:
-          type: string
-        result_type:
-          type: string
-        vuln_status:
-          type: string
-        vuln_hash:
-          type: string
-        is_regression:
-          type: boolean
-        is_internal:
-          type: boolean
-        labels:
-          type: array
-          items:
-            type: string
-        port:
-          type: integer
-        asset_metadata:
-          type: object
-          $ref: '#/components/schemas/EnumerationContent'
-        remediation:
-          type: string
-        description:
-          type: string
-        impact:
-          type: string
-        reference:
-          type: array
-          items:
-            type: string
   responses:
     GetRetestResultsResponse:
       description: Example response
@@ -487,6 +487,20 @@ components:
           schema:
             type: object
             properties: {}
+    GetSingleRetestResultResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              results:
+                $ref: '#/components/schemas/VulnerabilityResults'
+            required:
+            - message
+            - results
     ErrorResponse:
       description: Example response
       content:
@@ -510,20 +524,6 @@ components:
                 type: string
               status:
                 type: integer
-    GetSingleRetestResultResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              results:
-                $ref: '#/components/schemas/VulnerabilityResults'
-            required:
-            - message
-            - results
     PostRetestTemplateResponse:
       description: Example response
       content:

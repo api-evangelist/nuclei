@@ -2307,7 +2307,194 @@ paths:
       - X-API-Key: []
       description: Export enumeration content by domain
 components:
+  responses:
+    GetEnumerationScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - schedules
+            properties:
+              message:
+                type: string
+              schedules:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationSchedule'
+    EnumerateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateData'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    EnumerationStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - asset_stats
+            properties:
+              asset_stats:
+                $ref: '#/components/schemas/AssetStats'
+              enumeration_stats:
+                $ref: '#/components/schemas/EnumerationCounts'
+    GetEnumerateFiltersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerateFiltersItem'
+    GetEnumerateIdContentsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - data
+            properties:
+              message:
+                type: string
+              data:
+                $ref: '#/components/schemas/EnumerateData'
+    GetEnumerateIdContents:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - message
+            - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnumerationContent'
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
   schemas:
+    EnumerateFilterTypes:
+      title: EnumerateFilterTypes
+      type: string
+      enum:
+      - host
+      - port
+      - ip
+      - cname
+      - technologies
+      - status_code
+      - content_length
+      - title
+      - webserver
+      - favicon
+      - domain
+      - labels
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     EnumerationSchedule:
       title: EnumerationSchedule
       type: object
@@ -2339,118 +2526,17 @@ components:
             type: integer
             minimum: 0
             maximum: 6
-    SchedulerFrequency:
-      title: SchedulerFrequency
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
       type: string
       enum:
-      - hourly
-      - daily
-      - weekly
-      - monthly
-      - custom
-      description: Allowed frequencies for the scheduler
-    EnumerationStats:
-      title: EnumerationStats
-      type: object
-      required:
-      - hosts
-      - http
-      - endpoints
-      - ports
-      - total_assets
-      properties:
-        hosts:
-          type: integer
-          format: int64
-        http:
-          type: integer
-          format: int64
-        endpoints:
-          type: integer
-          format: int64
-        ports:
-          type: integer
-          format: int64
-        total_assets:
-          type: integer
-          format: int64
-        total_asset_groups:
-          type: integer
-          format: int64
-    EnumerationSourceValue:
-      type: object
-      required:
-      - source
-      - metadata
-      properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-    EnumerationCounts:
-      description: Example response
-      title: EnumerationCounts
-      type: object
-      properties:
-        total_enumeration:
-          type: integer
-          format: int64
-        total_unique_enumeration:
-          type: integer
-          format: int64
-        total_uploaded_enumeration:
-          type: integer
-          format: int64
-        total_discovery_enumeration:
-          type: integer
-          format: int64
-        total_cloud_enumeration:
-          type: integer
-          format: int64
-    EnumerationLaunchConfig:
-      title: EnumerationLaunchConfig
-      type: object
-      properties:
-        follow-redirect:
-          type: boolean
-        ports:
-          type: string
-    EnumerateFiltersItem:
-      title: EnumerateFiltersItem
-      type: object
-      required:
-      - value
-      - count
-      properties:
-        labels:
-          type: string
-        value:
-          type: string
-        port:
-          type: integer
-        technologies:
-          type: integer
-        categories:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        website:
-          type: string
-        cpe:
-          type: string
-        icon:
-          type: string
-        favicon_body:
-          type: string
-        count:
-          type: integer
-        updated_at:
-          type: string
-          format: date-time
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
     AssetStats:
       title: AssetStats
       type: object
@@ -2496,40 +2582,232 @@ components:
       - technologies
       - vulnerabilities
       - screenshots
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+    AssetFilters:
+      title: AssetFilters
+      type: object
+      additionalProperties: false
+      properties:
+        is_tech:
+          type: boolean
+          description: Return records that have technologies
+        is_favicon:
+          type: boolean
+          description: Return the records that have favicon
+        is_new:
+          type: boolean
+          description: Filter by new content
+        labels:
+          type: string
+          description: Filter by comma separated labels, e.g-> labels=p1,p2
+        host:
+          type: string
+          description: Filter by comma separated hosts, e.g-> host=p1,p2
+        port:
+          type: string
+          description: Filter by comma separated ports, e.g-> port=p1,p2
+        status_code:
+          type: string
+          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
+        content_length:
+          type: string
+          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
+        title:
+          type: string
+          description: Filter by comma separated titles, e.g-> title=p1,p2
+        domain:
+          type: array
+          description: Filter by comma separated domain names, e.g-> domain=domain1.com,domain2.com
+          items:
+            type: string
+        cname:
+          type: string
+          description: Filter by comma separated cnames, e.g-> cname=p1,p2
+        technologies:
+          type: string
+          description: Filter by comma separated technologies, e.g-> technologies=p1,p2
+        ip:
+          type: string
+          description: Filter by comma separated ips, e.g-> ip=p1,p2
+        is_screenshot:
+          type: boolean
+          description: Return the records with screenshots
+        time:
+          $ref: '#/components/schemas/TimeRangeQueryParameter'
+          description: Filter by time range
+        start_date:
+          type: string
+          format: date
+          description: Filter by start date
+        end_date:
+          type: string
+          format: date
+          description: Filter by end date
+        custom_filter:
+          type: string
+          description: Filter by custom filter. Double encode the query string.
+        search:
+          type: string
+          description: Search on the content name
+        enumeration_ids:
+          type: array
+          items:
+            type: string
+          description: Filter by enumeration ids
+        only_dns:
+          type: boolean
+          description: Query only dns FQDN records
+        only_ip:
+          type: boolean
+          description: Query only dns IP records
+    EnumerateData:
+      title: EnumerateData
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - created_at
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        failure_reason:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+        enumeration_time:
+          type: string
+          format: duration
+        enumeration_type:
+          type: string
+        enumeration_stats:
+          $ref: '#/components/schemas/EnumerationStats'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        root_domains:
+          type: array
+          items:
+            type: string
+        exclusions:
+          type: array
+          items:
+            type: string
+          description: Combined inclusion (prefixed with +) and exclusion patterns for discovery scope
+        enrichment_hosts_count:
+          type: integer
+        is_rescan:
+          type: boolean
+        rescan_count:
+          type: integer
+        cloudlist_config_ids:
+          type: array
+          items:
+            type: string
+        cloudlist_provider_name:
+          type: string
+        enumeration_time_elapsed:
+          type: string
+        total_assets:
+          type: integer
+          format: int64
+        new_assets:
+          type: integer
+          format: int64
+        domain_names:
+          type: array
+          items:
+            type: string
+        schedule:
+          $ref: '#/components/schemas/EnumerationSchedule'
+        is_public:
+          type: boolean
+        asset_group_filters:
+          type: object
+          $ref: '#/components/schemas/AssetFilters'
+        body:
+          type: string
+        agent_id:
+          type: string
+        agent_tags:
+          type: array
+          items:
+            type: string
+        agent_networks:
+          type: array
+          items:
+            type: string
+        agent_behavior:
+          type: string
+          enum:
+          - distribute
+          - mirror
+          default: distribute
+        agent_auto_discover:
+          type: boolean
+        automatic_vuln_scans:
+          type: boolean
+        is_internal:
+          type: boolean
+    EnumerationStats:
+      title: EnumerationStats
+      type: object
+      required:
+      - hosts
+      - http
+      - endpoints
+      - ports
+      - total_assets
+      properties:
+        hosts:
+          type: integer
+          format: int64
+        http:
+          type: integer
+          format: int64
+        endpoints:
+          type: integer
+          format: int64
+        ports:
+          type: integer
+          format: int64
+        total_assets:
+          type: integer
+          format: int64
+        total_asset_groups:
+          type: integer
+          format: int64
+    SchedulerFrequency:
+      title: SchedulerFrequency
       type: string
       enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
-    EnumerateFilterTypes:
-      title: EnumerateFilterTypes
-      type: string
-      enum:
-      - host
-      - port
-      - ip
-      - cname
-      - technologies
-      - status_code
-      - content_length
-      - title
-      - webserver
-      - favicon
-      - domain
-      - labels
-    EnumExportFormats:
-      title: EnumExportFormats
-      type: string
-      enum:
-      - raw
-      - json
-      - csv
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      - custom
+      description: Allowed frequencies for the scheduler
     EnumerationConfig:
       title: EnumerationConfig
       type: object
@@ -2579,6 +2857,75 @@ components:
           description: Combined inclusion (prefixed with +) and exclusion patterns for discovery scope
         automatic_vuln_scans:
           type: boolean
+    EnumerateFiltersItem:
+      title: EnumerateFiltersItem
+      type: object
+      required:
+      - value
+      - count
+      properties:
+        labels:
+          type: string
+        value:
+          type: string
+        port:
+          type: integer
+        technologies:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        website:
+          type: string
+        cpe:
+          type: string
+        icon:
+          type: string
+        favicon_body:
+          type: string
+        count:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+    EnumerationCounts:
+      description: Example response
+      title: EnumerationCounts
+      type: object
+      properties:
+        total_enumeration:
+          type: integer
+          format: int64
+        total_unique_enumeration:
+          type: integer
+          format: int64
+        total_uploaded_enumeration:
+          type: integer
+          format: int64
+        total_discovery_enumeration:
+          type: integer
+          format: int64
+        total_cloud_enumeration:
+          type: integer
+          format: int64
+    EnumerationLaunchConfig:
+      title: EnumerationLaunchConfig
+      type: object
+      properties:
+        follow-redirect:
+          type: boolean
+        ports:
+          type: string
+    EnumExportFormats:
+      title: EnumExportFormats
+      type: string
+      enum:
+      - raw
+      - json
+      - csv
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -2724,219 +3071,7 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-    AssetFilters:
-      title: AssetFilters
-      type: object
-      additionalProperties: false
-      properties:
-        is_tech:
-          type: boolean
-          description: Return records that have technologies
-        is_favicon:
-          type: boolean
-          description: Return the records that have favicon
-        is_new:
-          type: boolean
-          description: Filter by new content
-        labels:
-          type: string
-          description: Filter by comma separated labels, e.g-> labels=p1,p2
-        host:
-          type: string
-          description: Filter by comma separated hosts, e.g-> host=p1,p2
-        port:
-          type: string
-          description: Filter by comma separated ports, e.g-> port=p1,p2
-        status_code:
-          type: string
-          description: Filter by comma separated status codes, e.g-> status_code=p1,p2
-        content_length:
-          type: string
-          description: Filter by comma separated content lengths, e.g-> content_length=p1,p2
-        title:
-          type: string
-          description: Filter by comma separated titles, e.g-> title=p1,p2
-        domain:
-          type: array
-          description: Filter by comma separated domain names, e.g-> domain=domain1.com,domain2.com
-          items:
-            type: string
-        cname:
-          type: string
-          description: Filter by comma separated cnames, e.g-> cname=p1,p2
-        technologies:
-          type: string
-          description: Filter by comma separated technologies, e.g-> technologies=p1,p2
-        ip:
-          type: string
-          description: Filter by comma separated ips, e.g-> ip=p1,p2
-        is_screenshot:
-          type: boolean
-          description: Return the records with screenshots
-        time:
-          $ref: '#/components/schemas/TimeRangeQueryParameter'
-          description: Filter by time range
-        start_date:
-          type: string
-          format: date
-          description: Filter by start date
-        end_date:
-          type: string
-          format: date
-          description: Filter by end date
-        custom_filter:
-          type: string
-          description: Filter by custom filter. Double encode the query string.
-        search:
-          type: string
-          description: Search on the content name
-        enumeration_ids:
-          type: array
-          items:
-            type: string
-          description: Filter by enumeration ids
-        only_dns:
-          type: boolean
-          description: Query only dns FQDN records
-        only_ip:
-          type: boolean
-          description: Query only dns IP records
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-    EnumerateData:
-      title: EnumerateData
-      type: object
-      required:
-      - id
-      - name
-      - status
-      - created_at
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-        failure_reason:
-          type: string
-        completed_at:
-          type: string
-          format: date-time
-        enumeration_time:
-          type: string
-          format: duration
-        enumeration_type:
-          type: string
-        enumeration_stats:
-          $ref: '#/components/schemas/EnumerationStats'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        root_domains:
-          type: array
-          items:
-            type: string
-        exclusions:
-          type: array
-          items:
-            type: string
-          description: Combined inclusion (prefixed with +) and exclusion patterns for discovery scope
-        enrichment_hosts_count:
-          type: integer
-        is_rescan:
-          type: boolean
-        rescan_count:
-          type: integer
-        cloudlist_config_ids:
-          type: array
-          items:
-            type: string
-        cloudlist_provider_name:
-          type: string
-        enumeration_time_elapsed:
-          type: string
-        total_assets:
-          type: integer
-          format: int64
-        new_assets:
-          type: integer
-          format: int64
-        domain_names:
-          type: array
-          items:
-            type: string
-        schedule:
-          $ref: '#/components/schemas/EnumerationSchedule'
-        is_public:
-          type: boolean
-        asset_group_filters:
-          type: object
-          $ref: '#/components/schemas/AssetFilters'
-        body:
-          type: string
-        agent_id:
-          type: string
-        agent_tags:
-          type: array
-          items:
-            type: string
-        agent_networks:
-          type: array
-          items:
-            type: string
-        agent_behavior:
-          type: string
-          enum:
-          - distribute
-          - mirror
-          default: distribute
-        agent_auto_discover:
-          type: boolean
-        automatic_vuln_scans:
-          type: boolean
-        is_internal:
-          type: boolean
   requestBodies:
-    UpdateAssetGroupRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - filters
-            properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
-              name:
-                type: string
-    CreateAssetGroupRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - filters
-            properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
-              name:
-                type: string
     SetEnumerationScheduleRequest:
       content:
         application/json:
@@ -2966,165 +3101,30 @@ components:
                   type: integer
                   minimum: 0
                   maximum: 6
-  responses:
-    ErrorResponse:
-      description: Example response
+    UpdateAssetGroupRequest:
       content:
         application/json:
           schema:
             type: object
             required:
-            - message
+            - filters
             properties:
-              message:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+              name:
                 type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    GetEnumerateIdContentsResponse:
-      description: Example response
+    CreateAssetGroupRequest:
       content:
         application/json:
           schema:
             type: object
             required:
-            - message
-            - data
+            - filters
             properties:
-              message:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+              name:
                 type: string
-              data:
-                $ref: '#/components/schemas/EnumerateData'
-    GetEnumerateFiltersResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerateFiltersItem'
-    EnumerateResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerateData'
-    EnumerationStatsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - asset_stats
-            properties:
-              asset_stats:
-                $ref: '#/components/schemas/AssetStats'
-              enumeration_stats:
-                $ref: '#/components/schemas/EnumerationCounts'
-    GetEnumerateIdContents:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - message
-            - data
-            properties:
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerationContent'
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetEnumerationScheduleResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - schedules
-            properties:
-              message:
-                type: string
-              schedules:
-                type: array
-                items:
-                  $ref: '#/components/schemas/EnumerationSchedule'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

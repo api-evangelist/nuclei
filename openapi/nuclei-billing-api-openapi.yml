@@ -43,19 +43,6 @@ paths:
         name: X-Team-Id
 components:
   responses:
-    BillingCycleResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - cycles
-            properties:
-              cycles:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BillingCycle'
     ErrorResponse:
       description: Example response
       content:
@@ -79,6 +66,19 @@ components:
                 type: string
               status:
                 type: integer
+    BillingCycleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - cycles
+            properties:
+              cycles:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingCycle'
   schemas:
     BillingCycle:
       title: BillingCycle

@@ -219,14 +219,6 @@ paths:
       security:
       - X-API-Key: []
 components:
-  schemas:
-    DomainVerificationType:
-      title: DomainVerificationType
-      enum:
-      - dns_text_record
-      - html_meta_tag
-      - file_upload
-      default: dns_text_record
   responses:
     ErrorResponse:
       description: Example response
@@ -262,6 +254,14 @@ components:
             properties:
               message:
                 type: string
+  schemas:
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
   requestBodies:
     CreateTeamRequest:
       content:

@@ -302,13 +302,6 @@ paths:
       - X-API-Key: []
 components:
   schemas:
-    OAuthStatus:
-      title: OAuthStatus
-      type: string
-      enum:
-      - not_connected
-      - pending
-      - success
     OAuthMetadata:
       title: OAuthMetadata
       type: object
@@ -317,6 +310,13 @@ components:
           type: string
       required:
       - installation_url
+    OAuthStatus:
+      title: OAuthStatus
+      type: string
+      enum:
+      - not_connected
+      - pending
+      - success
   responses:
     ErrorResponse:
       description: Example response

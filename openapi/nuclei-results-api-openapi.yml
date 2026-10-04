@@ -699,125 +699,185 @@ paths:
         name: end_date
         description: time filter end date
 components:
+  responses:
+    GetScansVulnIdResponse:
+      description: /scans/vuln/:vuln_id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VulnerabilityResultsOld'
+    GetScanResultsFiltersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            - new_matched
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FiltersItem'
+              new_matched:
+                type: integer
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    GetVulnChangelogsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VulnerabilityChangelogs'
+    GetScanResultsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - message
+            - data
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VulnerabilityResults'
+              stats:
+                type: object
+                properties:
+                  total:
+                    type: integer
+              filters:
+                type: object
+    GetScanResultStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              stats:
+                $ref: '#/components/schemas/ScanStats'
+            required:
+            - message
   schemas:
-    EnumerationSourceValue:
+    ScanStats:
+      title: ScanStats
       type: object
-      required:
-      - source
-      - metadata
       properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-    VulnerabilityResultsOld:
-      title: VulnerabilityResultsOld
-      type: object
-      required:
-      - scan_id
-      - target
-      - template_id
-      - vuln_id
-      - matcher_status
-      - created_at
-      - event
-      properties:
-        scan_id:
-          type: string
-        target:
-          type: string
-        template_encoded:
-          type: string
-        template_url:
-          type: string
-        template_path:
-          type: string
-        template_id:
-          type: string
-        vuln_id:
-          type: string
-        matcher_status:
-          type: boolean
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        event:
-          $ref: '#/components/schemas/VulnerabilityEvent'
-        id:
-          type: string
-        vuln_status:
-          type: string
-        vuln_hash:
-          type: string
-        port:
+        cves:
           type: integer
-        asset_metadata:
+        matched:
+          type: integer
+        not_matched:
+          type: integer
+        severity:
           type: object
-          $ref: '#/components/schemas/EnumerationContent'
-        remediation:
-          type: string
-        impact:
-          type: string
+        total_count:
+          type: integer
+        total_scan:
+          type: integer
+        total_target:
+          type: integer
+        total_template:
+          type: integer
+        vuln_status:
+          type: object
+        total_regression:
+          type: integer
+          format: int64
+        is_internal:
+          type: integer
+          format: int64
+          description: Count of internal vulnerabilities
+        is_external:
+          type: integer
+          format: int64
+          description: Count of external vulnerabilities
+      required:
+      - cves
+      - matched
+      - not_matched
+      - total_count
+      - total_scan
+      - total_target
+      - total_template
+      - total_regression
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
         description:
           type: string
-        reference:
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
           type: array
           items:
             type: string
-    VulnerabilityChangelogs:
-      title: VulnerabilityChangelogs
-      type: object
-      properties:
-        matcher_status:
-          type: boolean
-        vuln_id:
-          type: string
-        target:
-          type: string
-        template_url:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        scan_id:
-          type: string
-        event:
-          type: object
-          $ref: '#/components/schemas/VulnerabilityEvent'
-        change_event:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityChangelogsEvent'
-        template_id:
-          type: string
-        template_path:
-          type: string
-        template_encoded:
-          type: string
-        result_type:
-          type: string
-        vuln_status:
-          type: string
-        vuln_hash:
-          type: string
-        labels:
-          type: array
-          items:
-            type: string
-      required:
-      - matcher_status
-      - vuln_id
-      - target
-      - created_at
-      - scan_id
-      - event
-      - template_id
-      - result_type
-      - vuln_hash
     VulnerabilityEvent:
       title: VulnerabilityEvent
       type: object
@@ -925,6 +985,21 @@ components:
               $ref: '#/components/schemas/VulnIssueTrackerItem'
         port:
           type: string
+    FiltersItem:
+      title: FilterItem
+      type: object
+      properties:
+        value:
+          type: string
+        name:
+          type: string
+        severity:
+          type: string
+        count:
+          type: integer
+      required:
+      - value
+      - count
     VulnIssueTrackerItem:
       title: VulnIssueTrackerItem
       type: object
@@ -933,6 +1008,201 @@ components:
           type: string
         url:
           type: string
+    VulnerabilityResults:
+      type: object
+      required:
+      - matcher_status
+      - vuln_id
+      - target
+      - created_at
+      - scan_id
+      - event
+      - template_id
+      - result_type
+      - vuln_hash
+      properties:
+        matcher_status:
+          type: boolean
+        vuln_id:
+          type: string
+        target:
+          type: string
+        template_url:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        scan_id:
+          type: string
+        event:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityEvent'
+        template_id:
+          type: string
+        template_path:
+          type: string
+        template_encoded:
+          type: string
+        result_type:
+          type: string
+        vuln_status:
+          type: string
+        vuln_hash:
+          type: string
+        is_regression:
+          type: boolean
+        is_internal:
+          type: boolean
+        labels:
+          type: array
+          items:
+            type: string
+        port:
+          type: integer
+        asset_metadata:
+          type: object
+          $ref: '#/components/schemas/EnumerationContent'
+        remediation:
+          type: string
+        description:
+          type: string
+        impact:
+          type: string
+        reference:
+          type: array
+          items:
+            type: string
+    VulnerabilityChangelogs:
+      title: VulnerabilityChangelogs
+      type: object
+      properties:
+        matcher_status:
+          type: boolean
+        vuln_id:
+          type: string
+        target:
+          type: string
+        template_url:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        scan_id:
+          type: string
+        event:
+          type: object
+          $ref: '#/components/schemas/VulnerabilityEvent'
+        change_event:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityChangelogsEvent'
+        template_id:
+          type: string
+        template_path:
+          type: string
+        template_encoded:
+          type: string
+        result_type:
+          type: string
+        vuln_status:
+          type: string
+        vuln_hash:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+      required:
+      - matcher_status
+      - vuln_id
+      - target
+      - created_at
+      - scan_id
+      - event
+      - template_id
+      - result_type
+      - vuln_hash
+    VulnerabilityResultsOld:
+      title: VulnerabilityResultsOld
+      type: object
+      required:
+      - scan_id
+      - target
+      - template_id
+      - vuln_id
+      - matcher_status
+      - created_at
+      - event
+      properties:
+        scan_id:
+          type: string
+        target:
+          type: string
+        template_encoded:
+          type: string
+        template_url:
+          type: string
+        template_path:
+          type: string
+        template_id:
+          type: string
+        vuln_id:
+          type: string
+        matcher_status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        event:
+          $ref: '#/components/schemas/VulnerabilityEvent'
+        id:
+          type: string
+        vuln_status:
+          type: string
+        vuln_hash:
+          type: string
+        port:
+          type: integer
+        asset_metadata:
+          type: object
+          $ref: '#/components/schemas/EnumerationContent'
+        remediation:
+          type: string
+        impact:
+          type: string
+        description:
+          type: string
+        reference:
+          type: array
+          items:
+            type: string
+    VulnerabilityChangelogsEvent:
+      title: VulnerabilityChangelogsEvent
+      type: object
+      properties:
+        name:
+          description: The name of the event
+          type: string
+        from:
+          description: The from value of the event
+        to:
+          description: The to value of the event
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -1078,276 +1348,6 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-    VulnerabilityChangelogsEvent:
-      title: VulnerabilityChangelogsEvent
-      type: object
-      properties:
-        name:
-          description: The name of the event
-          type: string
-        from:
-          description: The from value of the event
-        to:
-          description: The to value of the event
-    ScanStats:
-      title: ScanStats
-      type: object
-      properties:
-        cves:
-          type: integer
-        matched:
-          type: integer
-        not_matched:
-          type: integer
-        severity:
-          type: object
-        total_count:
-          type: integer
-        total_scan:
-          type: integer
-        total_target:
-          type: integer
-        total_template:
-          type: integer
-        vuln_status:
-          type: object
-        total_regression:
-          type: integer
-          format: int64
-        is_internal:
-          type: integer
-          format: int64
-          description: Count of internal vulnerabilities
-        is_external:
-          type: integer
-          format: int64
-          description: Count of external vulnerabilities
-      required:
-      - cves
-      - matched
-      - not_matched
-      - total_count
-      - total_scan
-      - total_target
-      - total_template
-      - total_regression
-    VulnerabilityResults:
-      type: object
-      required:
-      - matcher_status
-      - vuln_id
-      - target
-      - created_at
-      - scan_id
-      - event
-      - template_id
-      - result_type
-      - vuln_hash
-      properties:
-        matcher_status:
-          type: boolean
-        vuln_id:
-          type: string
-        target:
-          type: string
-        template_url:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        scan_id:
-          type: string
-        event:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityEvent'
-        template_id:
-          type: string
-        template_path:
-          type: string
-        template_encoded:
-          type: string
-        result_type:
-          type: string
-        vuln_status:
-          type: string
-        vuln_hash:
-          type: string
-        is_regression:
-          type: boolean
-        is_internal:
-          type: boolean
-        labels:
-          type: array
-          items:
-            type: string
-        port:
-          type: integer
-        asset_metadata:
-          type: object
-          $ref: '#/components/schemas/EnumerationContent'
-        remediation:
-          type: string
-        description:
-          type: string
-        impact:
-          type: string
-        reference:
-          type: array
-          items:
-            type: string
-    FiltersItem:
-      title: FilterItem
-      type: object
-      properties:
-        value:
-          type: string
-        name:
-          type: string
-        severity:
-          type: string
-        count:
-          type: integer
-      required:
-      - value
-      - count
-  responses:
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    GetVulnChangelogsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - data
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VulnerabilityChangelogs'
-    GetScansVulnIdResponse:
-      description: /scans/vuln/:vuln_id
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/VulnerabilityResultsOld'
-    GetScanResultsFiltersResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            - new_matched
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FiltersItem'
-              new_matched:
-                type: integer
-    GetScanResultStatsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              stats:
-                $ref: '#/components/schemas/ScanStats'
-            required:
-            - message
-    GetScanResultsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - message
-            - data
-            properties:
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VulnerabilityResults'
-              stats:
-                type: object
-                properties:
-                  total:
-                    type: integer
-              filters:
-                type: object
   securitySchemes:
     X-API-Key:
       name: X-API-Key

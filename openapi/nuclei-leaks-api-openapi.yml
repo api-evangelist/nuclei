@@ -606,17 +606,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   responses:
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
     ErrorResponse:
       description: Example response
       content:
@@ -640,19 +629,18 @@ components:
                 type: string
               status:
                 type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
   schemas:
-    EmployeesCount:
-      title: EmployeesCount
-      type: object
-      properties:
-        employees:
-          type: number
-    LeaksEntityStatus:
-      title: LeaksEntityStatus
-      enum:
-      - fixed
-      - open
-      - NA
     LeaksUsersSampleData:
       title: LeaksUsersSampleData
       type: object
@@ -667,38 +655,6 @@ components:
           type: string
         log_date:
           type: string
-    LeakCountryStats:
-      title: LeakCountryStats
-      type: object
-      properties:
-        Country:
-          type: string
-        CredentialsCount:
-          type: number
-    DevicesCount:
-      title: DevicesCount
-      type: object
-      properties:
-        devices:
-          type: number
-    UsedUrlsCount:
-      title: UsedUrlsCount
-      type: object
-      properties:
-        count:
-          type: number
-        url:
-          type: string
-    LeaksTimeline:
-      title: LeaksTimeline
-      type: object
-      properties:
-        CredentialsCount:
-          type: number
-        Month:
-          type: number
-        Year:
-          type: number
     CombolistExposureCount:
       title: CombolistExposureCount
       type: object
@@ -711,11 +667,55 @@ components:
       properties:
         customers:
           type: number
+    LeakCountryStats:
+      title: LeakCountryStats
+      type: object
+      properties:
+        Country:
+          type: string
+        CredentialsCount:
+          type: number
+    LeaksTimeline:
+      title: LeaksTimeline
+      type: object
+      properties:
+        CredentialsCount:
+          type: number
+        Month:
+          type: number
+        Year:
+          type: number
+    LeaksEntityStatus:
+      title: LeaksEntityStatus
+      enum:
+      - fixed
+      - open
+      - NA
+    UsedUrlsCount:
+      title: UsedUrlsCount
+      type: object
+      properties:
+        count:
+          type: number
+        url:
+          type: string
+    EmployeesCount:
+      title: EmployeesCount
+      type: object
+      properties:
+        employees:
+          type: number
     UsersCount:
       title: UsersCount
       type: object
       properties:
         user:
+          type: number
+    DevicesCount:
+      title: DevicesCount
+      type: object
+      properties:
+        devices:
           type: number
   securitySchemes:
     X-API-Key:

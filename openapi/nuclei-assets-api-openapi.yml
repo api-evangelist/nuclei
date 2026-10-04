@@ -630,7 +630,7 @@ paths:
         name: X-Team-Id
 components:
   responses:
-    UploadAssetResponse:
+    DeleteAssetResponse:
       description: Example response
       content:
         application/json:
@@ -639,8 +639,19 @@ components:
             properties:
               message:
                 type: string
-              upload_status:
+            required:
+            - message
+    GetUserAssetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
                 type: string
+              asset_count:
+                type: integer
               asset_id:
                 type: string
               uploaded_at:
@@ -649,53 +660,6 @@ components:
                 type: string
             required:
             - message
-    AssetCountResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - asset_count
-            - async
-            properties:
-              message:
-                type: string
-              asset_count:
-                type: integer
-              async:
-                type: boolean
-                description: Whether the operation is running asynchronously
-    GetAssetChangelogsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  type: object
-                  $ref: '#/components/schemas/AssetChangelogs'
     ErrorResponse:
       description: Example response
       content:
@@ -719,36 +683,24 @@ components:
                 type: string
               status:
                 type: integer
-    GetUserAssetResponse:
+    AssetCountResponse:
       description: Example response
       content:
         application/json:
           schema:
             type: object
+            required:
+            - message
+            - asset_count
+            - async
             properties:
               message:
                 type: string
               asset_count:
                 type: integer
-              asset_id:
-                type: string
-              uploaded_at:
-                type: string
-              name:
-                type: string
-            required:
-            - message
-    DeleteAssetResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
+              async:
+                type: boolean
+                description: Whether the operation is running asynchronously
     PatchAssetContentResponse:
       description: Example response
       content:
@@ -762,17 +714,6 @@ components:
                 type: string
             required:
             - message
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
     GetAssetResponse:
       description: Example response
       content:
@@ -847,6 +788,35 @@ components:
               extended_metadata:
                 type: object
                 additionalProperties: {}
+    GetAssetChangelogsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/AssetChangelogs'
     GetAssetsListResponse:
       description: Example response
       content:
@@ -863,66 +833,36 @@ components:
             required:
             - message
             - data
-  requestBodies:
-    AssetIdLabelsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - labels
-            properties:
-              labels:
-                type: array
-                items:
-                  type: string
-    UpdateAssetLabelsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - filters
-            - labels
-            properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
-              labels:
-                type: array
-                items:
-                  type: string
-    UpdateAssetRequest:
+    UploadAssetResponse:
+      description: Example response
       content:
         application/json:
           schema:
             type: object
             properties:
+              message:
+                type: string
+              upload_status:
+                type: string
+              asset_id:
+                type: string
+              uploaded_at:
+                type: string
               name:
                 type: string
             required:
-            - name
-    UpdateEnumeratedAssetRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              labels:
-                type: array
-                items:
-                  type: string
-              name:
-                type: string
-    DeleteAssetsRequest:
+            - message
+    MessageResponse:
+      description: Example response
       content:
         application/json:
           schema:
             type: object
             required:
-            - filters
+            - message
             properties:
-              filters:
-                $ref: '#/components/schemas/AssetFilters'
+              message:
+                type: string
   schemas:
     VulnerabilityChangelogsEvent:
       title: VulnerabilityChangelogsEvent
@@ -1103,6 +1043,66 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VulnerabilityChangelogsEvent'
+  requestBodies:
+    AssetIdLabelsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - labels
+            properties:
+              labels:
+                type: array
+                items:
+                  type: string
+    UpdateAssetRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+            - name
+    DeleteAssetsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - filters
+            properties:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+    UpdateAssetLabelsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - filters
+            - labels
+            properties:
+              filters:
+                $ref: '#/components/schemas/AssetFilters'
+              labels:
+                type: array
+                items:
+                  type: string
+    UpdateEnumeratedAssetRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              labels:
+                type: array
+                items:
+                  type: string
+              name:
+                type: string
   securitySchemes:
     X-API-Key:
       name: X-API-Key

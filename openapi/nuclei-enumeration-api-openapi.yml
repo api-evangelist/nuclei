@@ -167,6 +167,23 @@ paths:
       security:
       - X-API-Key: []
 components:
+  schemas:
+    AssetCategory:
+      title: AssetCategory
+      type: object
+      required:
+      - name
+      - total_assets
+      - technologies
+      properties:
+        name:
+          type: string
+        total_assets:
+          type: integer
+        technologies:
+          type: object
+          additionalProperties:
+            type: integer
   responses:
     ErrorResponse:
       description: Example response
@@ -191,23 +208,6 @@ components:
                 type: string
               status:
                 type: integer
-  schemas:
-    AssetCategory:
-      title: AssetCategory
-      type: object
-      required:
-      - name
-      - total_assets
-      - technologies
-      properties:
-        name:
-          type: string
-        total_assets:
-          type: integer
-        technologies:
-          type: object
-          additionalProperties:
-            type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key
