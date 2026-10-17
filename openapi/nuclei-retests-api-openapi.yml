@@ -114,20 +114,6 @@ paths:
         name: X-Team-Id
 components:
   schemas:
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
     VulnerabilityEvent:
       title: VulnerabilityEvent
       type: object
@@ -235,14 +221,6 @@ components:
               $ref: '#/components/schemas/VulnIssueTrackerItem'
         port:
           type: string
-    VulnIssueTrackerItem:
-      title: VulnIssueTrackerItem
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
     VulnerabilityResults:
       type: object
       required:
@@ -309,17 +287,19 @@ components:
           type: array
           items:
             type: string
-    EnumerationSourceValue:
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
       type: object
-      required:
-      - source
-      - metadata
       properties:
-        source:
+        description:
           type: string
-        metadata:
-          type: object
-          additionalProperties:
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
             type: string
     EnumerationContent:
       title: EnumerationContent
@@ -466,41 +446,27 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    VulnIssueTrackerItem:
+      title: VulnIssueTrackerItem
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
   responses:
-    GetRetestResultsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              results:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VulnerabilityResults'
-            required:
-            - message
-            - results
-        application/xml:
-          schema:
-            type: object
-            properties: {}
-    GetSingleRetestResultResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              results:
-                $ref: '#/components/schemas/VulnerabilityResults'
-            required:
-            - message
-            - results
     ErrorResponse:
       description: Example response
       content:
@@ -524,6 +490,20 @@ components:
                 type: string
               status:
                 type: integer
+    GetSingleRetestResultResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              results:
+                $ref: '#/components/schemas/VulnerabilityResults'
+            required:
+            - message
+            - results
     PostRetestTemplateResponse:
       description: Example response
       content:
@@ -537,6 +517,26 @@ components:
                 $ref: '#/components/schemas/VulnerabilityResults'
             required:
             - message
+    GetRetestResultsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              results:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VulnerabilityResults'
+            required:
+            - message
+            - results
+        application/xml:
+          schema:
+            type: object
+            properties: {}
   requestBodies:
     RetestTemplateRequest:
       content:

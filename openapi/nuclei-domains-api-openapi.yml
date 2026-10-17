@@ -353,52 +353,6 @@ components:
       - favicon
       - domain
       - labels
-    EnumerateFiltersItem:
-      title: EnumerateFiltersItem
-      type: object
-      required:
-      - value
-      - count
-      properties:
-        labels:
-          type: string
-        value:
-          type: string
-        port:
-          type: integer
-        technologies:
-          type: integer
-        categories:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        website:
-          type: string
-        cpe:
-          type: string
-        icon:
-          type: string
-        favicon_body:
-          type: string
-        count:
-          type: integer
-        updated_at:
-          type: string
-          format: date-time
-    EnumerationSourceValue:
-      type: object
-      required:
-      - source
-      - metadata
-      properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -544,6 +498,52 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    EnumerateFiltersItem:
+      title: EnumerateFiltersItem
+      type: object
+      required:
+      - value
+      - count
+      properties:
+        labels:
+          type: string
+        value:
+          type: string
+        port:
+          type: integer
+        technologies:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        website:
+          type: string
+        cpe:
+          type: string
+        icon:
+          type: string
+        favicon_body:
+          type: string
+        count:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
     TimeRangeQueryParameter:
       title: TimeRangeQueryParameter
       type: string
@@ -584,6 +584,29 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/EnumerationContent'
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
     GetEnumerateFiltersResponse:
       description: Example response
       content:
@@ -612,29 +635,6 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/EnumerateFiltersItem'
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
   securitySchemes:
     X-API-Key:
       name: X-API-Key

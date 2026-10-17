@@ -589,106 +589,6 @@ paths:
         name: X-Team-Id
 components:
   responses:
-    PostApiKeyRotateResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              api_key:
-                type: string
-            required:
-            - message
-            - api_key
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetUserSetupStatsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              onboarding_steps:
-                type: object
-                properties:
-                  vulnerability_scan:
-                    type: boolean
-                  asset_discovery:
-                    type: boolean
-                  alerting_integration:
-                    type: boolean
-                  reporting_integration:
-                    type: boolean
-                  cloud_integration:
-                    type: boolean
-                  subfinder_integration:
-                    type: boolean
-                  vulnerability_upload:
-                    type: boolean
-                  realtime_autoscan:
-                    type: boolean
-                  team_member_invitation:
-                    type: boolean
-            required:
-            - message
-            - onboarding_steps
-    GetPromocodeDetailsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            - promo_code
-            - allowed_plan
-            - valid_for_days
-            - base_domain_count
-            - scan_tokens
-            properties:
-              message:
-                type: string
-              promo_code:
-                type: string
-              allowed_plan:
-                type: array
-                items:
-                  type: string
-              valid_for_days:
-                type: integer
-              base_domain_count:
-                type: integer
-              scan_tokens:
-                type: integer
-    GetUserAPIKeyResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              api_key:
-                type: string
-            required:
-            - message
-            - api_key
     GetUserProfileResponse:
       description: Example response
       content:
@@ -762,6 +662,48 @@ components:
                 properties:
                   internal_scan:
                     type: boolean
+    GetUserAPIKeyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+    GetPromocodeDetailsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            - promo_code
+            - allowed_plan
+            - valid_for_days
+            - base_domain_count
+            - scan_tokens
+            properties:
+              message:
+                type: string
+              promo_code:
+                type: string
+              allowed_plan:
+                type: array
+                items:
+                  type: string
+              valid_for_days:
+                type: integer
+              base_domain_count:
+                type: integer
+              scan_tokens:
+                type: integer
     ErrorResponse:
       description: Example response
       content:
@@ -796,6 +738,39 @@ components:
                 type: string
             required:
             - message
+    GetUserSetupStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              onboarding_steps:
+                type: object
+                properties:
+                  vulnerability_scan:
+                    type: boolean
+                  asset_discovery:
+                    type: boolean
+                  alerting_integration:
+                    type: boolean
+                  reporting_integration:
+                    type: boolean
+                  cloud_integration:
+                    type: boolean
+                  subfinder_integration:
+                    type: boolean
+                  vulnerability_upload:
+                    type: boolean
+                  realtime_autoscan:
+                    type: boolean
+                  team_member_invitation:
+                    type: boolean
+            required:
+            - message
+            - onboarding_steps
     GetBillingAssetsResponse:
       description: Example response
       content:
@@ -828,14 +803,43 @@ components:
                       type: integer
                     total_unique_billing_asset:
                       type: integer
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+    PostApiKeyRotateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              api_key:
+                type: string
+            required:
+            - message
+            - api_key
+  requestBodies:
+    PostFeedbackRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback_text:
+                type: string
+            required:
+            - feedback_text
   schemas:
-    DomainVerificationType:
-      title: DomainVerificationType
-      enum:
-      - dns_text_record
-      - html_meta_tag
-      - file_upload
-      default: dns_text_record
     DomainVerificationRequest:
       title: DomainVerificationRequest
       type: object
@@ -899,17 +903,13 @@ components:
           type: string
         default:
           type: boolean
-  requestBodies:
-    PostFeedbackRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              feedback_text:
-                type: string
-            required:
-            - feedback_text
+    DomainVerificationType:
+      title: DomainVerificationType
+      enum:
+      - dns_text_record
+      - html_meta_tag
+      - file_upload
+      default: dns_text_record
   securitySchemes:
     X-API-Key:
       name: X-API-Key

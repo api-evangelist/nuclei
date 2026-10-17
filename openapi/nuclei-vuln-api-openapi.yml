@@ -76,10 +76,6 @@ components:
               status:
                 type: integer
   schemas:
-    VulnerabilityHistoryDetail:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/VulnerabilityHistory'
     VulnerabilityHistory:
       type: object
       properties:
@@ -111,6 +107,10 @@ components:
       required:
       - history_count
       - history
+    VulnerabilityHistoryDetail:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/VulnerabilityHistory'
   securitySchemes:
     X-API-Key:
       name: X-API-Key

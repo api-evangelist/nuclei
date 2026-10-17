@@ -1434,392 +1434,6 @@ paths:
         description: 'Retrieve the Team ID from: https://cloud.projectdiscovery.io/settings/team'
         name: X-Team-Id
 components:
-  responses:
-    ErrorResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-              kind:
-                type: string
-              code:
-                type: string
-              error:
-                type: string
-              error_id:
-                type: string
-              param:
-                type: string
-              status:
-                type: integer
-    VulnsTrackerExportResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - ok
-            - vuln_id
-            - reporting_config_id
-            - reporting_config_name
-            - ticket_url
-            - ticket_id
-            - tracker_name
-            properties:
-              ok:
-                type: boolean
-              vuln_id:
-                type: string
-              reporting_config_id:
-                type: string
-              reporting_config_name:
-                type: string
-              ticket_url:
-                type: string
-              ticket_id:
-                type: string
-              tracker_name:
-                type: string
-    PostRescanVulnResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              results:
-                $ref: '#/components/schemas/VulnerabilityResultsOld'
-            required:
-            - message
-    DeleteScanScheduleResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
-    ImportScanResponse:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            description: Scan is a single scan object
-            properties:
-              id:
-                type: string
-              message:
-                type: string
-            required:
-            - id
-            - message
-    SetScanScheduleResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-            required:
-            - message
-    GetScanScheduleResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              schedules:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScanSchedule'
-            required:
-            - message
-            - schedules
-    ScanStatsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - scan_stats
-            - scan_status
-            properties:
-              scan_stats:
-                type: object
-                required:
-                - total_scan
-                - total_unique_scan
-                - total_uploaded_scan
-                - total_scheduled_scan
-                properties:
-                  total_scan:
-                    type: integer
-                  total_unique_scan:
-                    type: integer
-                  total_uploaded_scan:
-                    type: integer
-                  total_scheduled_scan:
-                    type: integer
-              scan_status:
-                type: object
-                required:
-                - failed
-                - finished
-                - queued
-                - running
-                - starting
-                - stopped
-                - uploaded
-                properties:
-                  failed:
-                    type: integer
-                  finished:
-                    type: integer
-                  queued:
-                    type: integer
-                  running:
-                    type: integer
-                  starting:
-                    type: integer
-                  stopped:
-                    type: integer
-                  uploaded:
-                    type: integer
-    TriggerUserScanResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              id:
-                type: string
-              message:
-                type: string
-              truncated-scan-targets:
-                type: integer
-        application/xml:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              id:
-                type: string
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              id:
-                type: string
-            required:
-            - message
-        text/html:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              id:
-                type: string
-            required:
-            - message
-    StaticScanIPsResponse:
-      description: ''
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - ips
-            properties:
-              ips:
-                type: array
-                items:
-                  type: object
-                  required:
-                  - ip
-                  properties:
-                    ip:
-                      type: string
-    GetScansHistoryResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - message
-            - data
-            properties:
-              message:
-                type: string
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScansHistoryItems'
-              total_completed_request:
-                type: integer
-              total_scan_run:
-                type: integer
-              total_unique_scan_run:
-                type: integer
-    GetScansTokenResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - scan_tokens
-            - used_scan_token
-            - remaining_scan_token
-            - is_scannable
-            - start_date
-            - end_date
-            - subscription_type
-            - base_domain_count
-            - remaining_domain_count
-            properties:
-              scan_tokens:
-                type: integer
-                format: int64
-              used_scan_token:
-                type: integer
-                format: int64
-              remaining_scan_token:
-                type: integer
-                format: int64
-              base_domain_count:
-                type: integer
-                format: int64
-              remaining_domain_count:
-                type: integer
-                format: int64
-              is_scannable:
-                type: boolean
-              start_date:
-                type: string
-                format: date-time
-              end_date:
-                type: string
-                format: date-time
-              expire_date:
-                type: string
-                format: date-time
-              verified_domain:
-                type: array
-                items:
-                  type: string
-              old_plan:
-                type: string
-              old_plan_expired_at:
-                type: string
-                format: date-time
-              is_enforced_limit:
-                type: boolean
-              subscription_type:
-                enum:
-                - TRIAL
-                - ENT_TRIAL
-                - PRO
-                - ENT
-                - FREE
-                - VERIFIED_FREE
-                - GROWTH
-    GetScansStatusResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              current_page:
-                type: integer
-              result_count:
-                type: integer
-              total_results:
-                type: integer
-              total_pages:
-                type: integer
-              message:
-                type: string
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScanStatusItem'
-            required:
-            - message
-            - current_page
-            - result_count
-            - total_results
-            - total_pages
-            - data
-    DeleteScansResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              ok:
-                type: boolean
-            required:
-            - message
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
-    GetScanDetailsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScanStatusItem'
   schemas:
     StatisticsResponse:
       title: StatisticsResponse
@@ -1837,95 +1451,14 @@ components:
           type: object
           additionalProperties:
             type: integer
-    ScanAssetListItem:
-      title: ScanAssetListItem
+    EnumerationIds:
+      title: EnumerationIds
       type: object
-      required:
-      - host
-      - scanned_on
-      properties:
-        host:
-          type: string
-        port:
-          type: integer
-        scanned_on:
-          type: string
-          format: date-time
-    VulnIssueTrackerItem:
-      title: VulnIssueTrackerItem
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-    EnumerationSourceValue:
-      type: object
-      required:
-      - source
-      - metadata
-      properties:
-        source:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-    ScanConfigItem:
-      title: ScanConfigItem
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        provider_name:
-          type: string
-        config_type:
-          type: string
       required:
       - id
-      - name
-      - config_type
-    TimeRangeQueryParameter:
-      title: TimeRangeQueryParameter
-      type: string
-      enum:
-      - last_day
-      - last_week
-      - last_month
-      - last_3_months
-      - last_6_months
-      - last_12_months
-      - all_time
-    ScanAssetListItemOptional:
-      title: ScanAssetListItem
-      type: object
-      required:
-      - host
-      - scanned_on
       properties:
-        host:
+        id:
           type: string
-        port:
-          type: integer
-        scanned_on:
-          type: string
-          format: date-time
-    EnumerationContentTechnologyDetails:
-      title: EnumerationContentTechnologyDetails
-      type: object
-      properties:
-        description:
-          type: string
-        website:
-          type: string
-        icon:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
     AssetFilters:
       title: AssetFilters
       type: object
@@ -2003,6 +1536,85 @@ components:
         only_ip:
           type: boolean
           description: Query only dns IP records
+    ScanSchedule:
+      title: ScanSchedule
+      type: object
+      required:
+      - scan_frequency
+      - scan_id
+      - schedule_last_run
+      - schedule_next_run
+      properties:
+        scan_frequency:
+          type: string
+        scan_id:
+          type: string
+        schedule_last_run:
+          type: string
+        schedule_next_run:
+          type: string
+        start_time:
+          type: string
+          format: time
+        hourly_frequency:
+          type: integer
+        custom_weekdays:
+          type: array
+          description: 'Array of integer denoting the weekdays on which the scan is supposed to run.
+
+            0-6 denoting Sunday-Saturday.'
+          items:
+            type: integer
+            minimum: 0
+            maximum: 6
+    ScanConfigItem:
+      title: ScanConfigItem
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        provider_name:
+          type: string
+        config_type:
+          type: string
+      required:
+      - id
+      - name
+      - config_type
+    VulnStatusEnum:
+      title: VulnStatusEnum
+      enum:
+      - open
+      - false_positive
+      - fixed
+      - duplicate
+      - fix_in_progress
+      - accepted_risk
+      - triaged
+    TimeRangeQueryParameter:
+      title: TimeRangeQueryParameter
+      type: string
+      enum:
+      - last_day
+      - last_week
+      - last_month
+      - last_3_months
+      - last_6_months
+      - last_12_months
+      - all_time
+    PrivateTemplates:
+      title: PrivateTemplates
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+      required:
+      - name
+      - contents
     ScanStatusItem:
       title: ScanStatusItem
       type: object
@@ -2105,425 +1717,6 @@ components:
           default: distribute
         is_internal:
           type: boolean
-    ScansHistoryItems:
-      title: ScansHistoryItems
-      type: object
-      properties:
-        completed_request:
-          type: integer
-        name:
-          type: string
-        scan_id:
-          type: string
-        scan_time:
-          type: string
-        severity:
-          type: object
-        status:
-          type: string
-        time:
-          type: string
-        total_request:
-          type: integer
-        total_result:
-          type: integer
-        total_target:
-          type: integer
-        total_templates:
-          type: integer
-        error_details:
-          type: string
-    EnumerationIds:
-      title: EnumerationIds
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    VulnerabilityEvent:
-      title: VulnerabilityEvent
-      type: object
-      properties:
-        curl-command:
-          type: string
-        extracted-results:
-          type: array
-          items:
-            type: string
-        extractor-name:
-          type: string
-        host:
-          type: string
-        info:
-          type: object
-          required:
-          - name
-          properties:
-            classification:
-              type: object
-              properties:
-                cpe:
-                  type: string
-                cve-id:
-                  type: array
-                  items:
-                    type: string
-                cvss-metrics:
-                  type: string
-                cvss-score:
-                  type: number
-                cwe-id:
-                  type: array
-                  items:
-                    type: string
-                epss-percentile:
-                  type: number
-                epss-score:
-                  type: number
-            metadata:
-              type: object
-            author:
-              type: array
-              items:
-                type: string
-            description:
-              type: string
-            impact:
-              type: string
-            name:
-              type: string
-            tags:
-              type: array
-              items:
-                type: string
-            reference:
-              type: array
-              items:
-                type: string
-            remediation:
-              type: string
-            severity:
-              type: string
-        ip:
-          type: string
-        matched-at:
-          type: string
-        matched-line:
-          type: array
-          items:
-            type: integer
-        matcher-name:
-          type: string
-        matcher-status:
-          type: boolean
-        path:
-          type: string
-        request:
-          type: string
-        response:
-          type: string
-        template-id:
-          type: string
-        template-path:
-          type: string
-        timestamp:
-          type: string
-        type:
-          type: string
-        error:
-          type: string
-        issue_trackers:
-          type: object
-          properties:
-            jira:
-              $ref: '#/components/schemas/VulnIssueTrackerItem'
-            github:
-              $ref: '#/components/schemas/VulnIssueTrackerItem'
-            gitlab:
-              $ref: '#/components/schemas/VulnIssueTrackerItem'
-            linear:
-              $ref: '#/components/schemas/VulnIssueTrackerItem'
-            custom:
-              $ref: '#/components/schemas/VulnIssueTrackerItem'
-        port:
-          type: string
-    EnumerationIDTypes:
-      title: EnumerationIDTypes
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-    ScanConfig:
-      title: ScanConfig
-      type: object
-      properties:
-        targets:
-          type: array
-          items:
-            type: string
-        assets_lists:
-          type: array
-          items:
-            type: string
-        public_templates:
-          type: array
-          items:
-            type: string
-        early_templates:
-          type: array
-          items:
-            type: string
-        template_urls:
-          type: array
-          items:
-            type: string
-        template_ids:
-          type: array
-          items:
-            type: string
-        scan_config_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScanConfigItem'
-        report_config_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScanConfigItem'
-        alerting_config_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScanConfigItem'
-        enumeration_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnumerationIDTypesDetail'
-        socks5_proxy:
-          type: string
-        agent_id:
-          type: string
-        agent_tags:
-          type: array
-          items:
-            type: string
-        agent_networks:
-          type: array
-          items:
-            type: string
-        agent_behavior:
-          type: string
-          enum:
-          - distribute
-          - mirror
-          default: distribute
-        scan_all_assets:
-          type: boolean
-        asset_filters:
-          $ref: '#/components/schemas/AssetFilters'
-    SchedulerFrequency:
-      title: SchedulerFrequency
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - monthly
-      - custom
-      description: Allowed frequencies for the scheduler
-    ScanSchedule:
-      title: ScanSchedule
-      type: object
-      required:
-      - scan_frequency
-      - scan_id
-      - schedule_last_run
-      - schedule_next_run
-      properties:
-        scan_frequency:
-          type: string
-        scan_id:
-          type: string
-        schedule_last_run:
-          type: string
-        schedule_next_run:
-          type: string
-        start_time:
-          type: string
-          format: time
-        hourly_frequency:
-          type: integer
-        custom_weekdays:
-          type: array
-          description: 'Array of integer denoting the weekdays on which the scan is supposed to run.
-
-            0-6 denoting Sunday-Saturday.'
-          items:
-            type: integer
-            minimum: 0
-            maximum: 6
-    EnumerationIDTypesDetail:
-      title: EnumerationIDTypesDetail
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        total_assets:
-          type: integer
-        enumeration_type:
-          type: string
-        cloudlist_provider_name:
-          type: string
-        types:
-          type: array
-          items:
-            enum:
-            - hosts
-            - ports
-            - http
-            - endpoints
-      required:
-      - id
-      - types
-      - name
-      - enumeration_type
-    VulnStatusEnum:
-      title: VulnStatusEnum
-      enum:
-      - open
-      - false_positive
-      - fixed
-      - duplicate
-      - fix_in_progress
-      - accepted_risk
-      - triaged
-    PrivateTemplates:
-      title: PrivateTemplates
-      type: object
-      properties:
-        name:
-          type: string
-        contents:
-          type: string
-      required:
-      - name
-      - contents
-    VulnerabilityResultsOld:
-      title: VulnerabilityResultsOld
-      type: object
-      required:
-      - scan_id
-      - target
-      - template_id
-      - vuln_id
-      - matcher_status
-      - created_at
-      - event
-      properties:
-        scan_id:
-          type: string
-        target:
-          type: string
-        template_encoded:
-          type: string
-        template_url:
-          type: string
-        template_path:
-          type: string
-        template_id:
-          type: string
-        vuln_id:
-          type: string
-        matcher_status:
-          type: boolean
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        event:
-          $ref: '#/components/schemas/VulnerabilityEvent'
-        id:
-          type: string
-        vuln_status:
-          type: string
-        vuln_hash:
-          type: string
-        port:
-          type: integer
-        asset_metadata:
-          type: object
-          $ref: '#/components/schemas/EnumerationContent'
-        remediation:
-          type: string
-        impact:
-          type: string
-        description:
-          type: string
-        reference:
-          type: array
-          items:
-            type: string
-    ScanConfigUpdateItem:
-      title: ScanConfigUpdateItem
-      type: object
-      properties:
-        targets:
-          type: array
-          items:
-            type: string
-        assets_lists:
-          type: array
-          items:
-            type: string
-        templates:
-          type: array
-          items:
-            type: string
-        early_templates:
-          type: array
-          items:
-            type: string
-        scan_config_ids:
-          type: array
-          items:
-            type: string
-        report_config_ids:
-          type: array
-          items:
-            type: string
-        alerting_config_ids:
-          type: array
-          items:
-            type: string
-        enumeration_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnumerationIDTypes'
-        socks5_proxy:
-          type: string
-        agent_id:
-          type: string
-        agent_tags:
-          type: array
-          items:
-            type: string
-        agent_networks:
-          type: array
-          items:
-            type: string
-        agent_behavior:
-          type: string
-          enum:
-          - distribute
-          - mirror
-          default: distribute
-        scan_all_assets:
-          type: boolean
-        asset_filters:
-          $ref: '#/components/schemas/AssetFilters'
     EnumerationContent:
       title: EnumerationContent
       type: object
@@ -2669,39 +1862,814 @@ components:
             $ref: '#/components/schemas/EnumerationSourceValue'
         is_internal:
           type: boolean
-  requestBodies:
-    DeleteVulnsRequest:
+    ScansHistoryItems:
+      title: ScansHistoryItems
+      type: object
+      properties:
+        completed_request:
+          type: integer
+        name:
+          type: string
+        scan_id:
+          type: string
+        scan_time:
+          type: string
+        severity:
+          type: object
+        status:
+          type: string
+        time:
+          type: string
+        total_request:
+          type: integer
+        total_result:
+          type: integer
+        total_target:
+          type: integer
+        total_templates:
+          type: integer
+        error_details:
+          type: string
+    ScanAssetListItem:
+      title: ScanAssetListItem
+      type: object
+      required:
+      - host
+      - scanned_on
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        scanned_on:
+          type: string
+          format: date-time
+    ScanConfigUpdateItem:
+      title: ScanConfigUpdateItem
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        assets_lists:
+          type: array
+          items:
+            type: string
+        templates:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            type: string
+        report_config_ids:
+          type: array
+          items:
+            type: string
+        alerting_config_ids:
+          type: array
+          items:
+            type: string
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIDTypes'
+        socks5_proxy:
+          type: string
+        agent_id:
+          type: string
+        agent_tags:
+          type: array
+          items:
+            type: string
+        agent_networks:
+          type: array
+          items:
+            type: string
+        agent_behavior:
+          type: string
+          enum:
+          - distribute
+          - mirror
+          default: distribute
+        scan_all_assets:
+          type: boolean
+        asset_filters:
+          $ref: '#/components/schemas/AssetFilters'
+    EnumerationContentTechnologyDetails:
+      title: EnumerationContentTechnologyDetails
+      type: object
+      properties:
+        description:
+          type: string
+        website:
+          type: string
+        icon:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+    EnumerationSourceValue:
+      type: object
+      required:
+      - source
+      - metadata
+      properties:
+        source:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    VulnIssueTrackerItem:
+      title: VulnIssueTrackerItem
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+    EnumerationIDTypes:
+      title: EnumerationIDTypes
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+    EnumerationIDTypesDetail:
+      title: EnumerationIDTypesDetail
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        total_assets:
+          type: integer
+        enumeration_type:
+          type: string
+        cloudlist_provider_name:
+          type: string
+        types:
+          type: array
+          items:
+            enum:
+            - hosts
+            - ports
+            - http
+            - endpoints
+      required:
+      - id
+      - types
+      - name
+      - enumeration_type
+    ScanConfig:
+      title: ScanConfig
+      type: object
+      properties:
+        targets:
+          type: array
+          items:
+            type: string
+        assets_lists:
+          type: array
+          items:
+            type: string
+        public_templates:
+          type: array
+          items:
+            type: string
+        early_templates:
+          type: array
+          items:
+            type: string
+        template_urls:
+          type: array
+          items:
+            type: string
+        template_ids:
+          type: array
+          items:
+            type: string
+        scan_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        report_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        alerting_config_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScanConfigItem'
+        enumeration_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumerationIDTypesDetail'
+        socks5_proxy:
+          type: string
+        agent_id:
+          type: string
+        agent_tags:
+          type: array
+          items:
+            type: string
+        agent_networks:
+          type: array
+          items:
+            type: string
+        agent_behavior:
+          type: string
+          enum:
+          - distribute
+          - mirror
+          default: distribute
+        scan_all_assets:
+          type: boolean
+        asset_filters:
+          $ref: '#/components/schemas/AssetFilters'
+    SchedulerFrequency:
+      title: SchedulerFrequency
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      - custom
+      description: Allowed frequencies for the scheduler
+    VulnerabilityResultsOld:
+      title: VulnerabilityResultsOld
+      type: object
+      required:
+      - scan_id
+      - target
+      - template_id
+      - vuln_id
+      - matcher_status
+      - created_at
+      - event
+      properties:
+        scan_id:
+          type: string
+        target:
+          type: string
+        template_encoded:
+          type: string
+        template_url:
+          type: string
+        template_path:
+          type: string
+        template_id:
+          type: string
+        vuln_id:
+          type: string
+        matcher_status:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        event:
+          $ref: '#/components/schemas/VulnerabilityEvent'
+        id:
+          type: string
+        vuln_status:
+          type: string
+        vuln_hash:
+          type: string
+        port:
+          type: integer
+        asset_metadata:
+          type: object
+          $ref: '#/components/schemas/EnumerationContent'
+        remediation:
+          type: string
+        impact:
+          type: string
+        description:
+          type: string
+        reference:
+          type: array
+          items:
+            type: string
+    ScanAssetListItemOptional:
+      title: ScanAssetListItem
+      type: object
+      required:
+      - host
+      - scanned_on
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        scanned_on:
+          type: string
+          format: date-time
+    VulnerabilityEvent:
+      title: VulnerabilityEvent
+      type: object
+      properties:
+        curl-command:
+          type: string
+        extracted-results:
+          type: array
+          items:
+            type: string
+        extractor-name:
+          type: string
+        host:
+          type: string
+        info:
+          type: object
+          required:
+          - name
+          properties:
+            classification:
+              type: object
+              properties:
+                cpe:
+                  type: string
+                cve-id:
+                  type: array
+                  items:
+                    type: string
+                cvss-metrics:
+                  type: string
+                cvss-score:
+                  type: number
+                cwe-id:
+                  type: array
+                  items:
+                    type: string
+                epss-percentile:
+                  type: number
+                epss-score:
+                  type: number
+            metadata:
+              type: object
+            author:
+              type: array
+              items:
+                type: string
+            description:
+              type: string
+            impact:
+              type: string
+            name:
+              type: string
+            tags:
+              type: array
+              items:
+                type: string
+            reference:
+              type: array
+              items:
+                type: string
+            remediation:
+              type: string
+            severity:
+              type: string
+        ip:
+          type: string
+        matched-at:
+          type: string
+        matched-line:
+          type: array
+          items:
+            type: integer
+        matcher-name:
+          type: string
+        matcher-status:
+          type: boolean
+        path:
+          type: string
+        request:
+          type: string
+        response:
+          type: string
+        template-id:
+          type: string
+        template-path:
+          type: string
+        timestamp:
+          type: string
+        type:
+          type: string
+        error:
+          type: string
+        issue_trackers:
+          type: object
+          properties:
+            jira:
+              $ref: '#/components/schemas/VulnIssueTrackerItem'
+            github:
+              $ref: '#/components/schemas/VulnIssueTrackerItem'
+            gitlab:
+              $ref: '#/components/schemas/VulnIssueTrackerItem'
+            linear:
+              $ref: '#/components/schemas/VulnIssueTrackerItem'
+            custom:
+              $ref: '#/components/schemas/VulnIssueTrackerItem'
+        port:
+          type: string
+  responses:
+    ErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+              kind:
+                type: string
+              code:
+                type: string
+              error:
+                type: string
+              error_id:
+                type: string
+              param:
+                type: string
+              status:
+                type: integer
+    PostRescanVulnResponse:
+      description: Example response
       content:
         application/json:
           schema:
             type: object
             properties:
-              ids:
-                type: array
-                items:
-                  type: string
-              type:
+              message:
                 type: string
-              vuln_status:
-                type: array
-                items:
-                  type: string
-              scan_id:
+              results:
+                $ref: '#/components/schemas/VulnerabilityResultsOld'
+            required:
+            - message
+    SetScanScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
                 type: string
-              severity:
-                type: array
-                items:
-                  type: string
-              host:
-                type: array
-                items:
-                  type: string
-              template:
-                type: array
-                items:
-                  type: string
-              search:
+            required:
+            - message
+    TriggerUserScanResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              id:
                 type: string
+              message:
+                type: string
+              truncated-scan-targets:
+                type: integer
+        application/xml:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              id:
+                type: string
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              id:
+                type: string
+            required:
+            - message
+        text/html:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              id:
+                type: string
+            required:
+            - message
+    StaticScanIPsResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - ips
+            properties:
+              ips:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - ip
+                  properties:
+                    ip:
+                      type: string
+    ImportScanResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Scan is a single scan object
+            properties:
+              id:
+                type: string
+              message:
+                type: string
+            required:
+            - id
+            - message
+    VulnsTrackerExportResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - ok
+            - vuln_id
+            - reporting_config_id
+            - reporting_config_name
+            - ticket_url
+            - ticket_id
+            - tracker_name
+            properties:
+              ok:
+                type: boolean
+              vuln_id:
+                type: string
+              reporting_config_id:
+                type: string
+              reporting_config_name:
+                type: string
+              ticket_url:
+                type: string
+              ticket_id:
+                type: string
+              tracker_name:
+                type: string
+    ScanStatsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - scan_stats
+            - scan_status
+            properties:
+              scan_stats:
+                type: object
+                required:
+                - total_scan
+                - total_unique_scan
+                - total_uploaded_scan
+                - total_scheduled_scan
+                properties:
+                  total_scan:
+                    type: integer
+                  total_unique_scan:
+                    type: integer
+                  total_uploaded_scan:
+                    type: integer
+                  total_scheduled_scan:
+                    type: integer
+              scan_status:
+                type: object
+                required:
+                - failed
+                - finished
+                - queued
+                - running
+                - starting
+                - stopped
+                - uploaded
+                properties:
+                  failed:
+                    type: integer
+                  finished:
+                    type: integer
+                  queued:
+                    type: integer
+                  running:
+                    type: integer
+                  starting:
+                    type: integer
+                  stopped:
+                    type: integer
+                  uploaded:
+                    type: integer
+    GetScanScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              schedules:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanSchedule'
+            required:
+            - message
+            - schedules
+    GetScanDetailsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScanStatusItem'
+    GetScansHistoryResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - message
+            - data
+            properties:
+              message:
+                type: string
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScansHistoryItems'
+              total_completed_request:
+                type: integer
+              total_scan_run:
+                type: integer
+              total_unique_scan_run:
+                type: integer
+    DeleteScansResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              ok:
+                type: boolean
+            required:
+            - message
+    GetScansStatusResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              current_page:
+                type: integer
+              result_count:
+                type: integer
+              total_results:
+                type: integer
+              total_pages:
+                type: integer
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScanStatusItem'
+            required:
+            - message
+            - current_page
+            - result_count
+            - total_results
+            - total_pages
+            - data
+    DeleteScanScheduleResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+            - message
+    GetScansTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - scan_tokens
+            - used_scan_token
+            - remaining_scan_token
+            - is_scannable
+            - start_date
+            - end_date
+            - subscription_type
+            - base_domain_count
+            - remaining_domain_count
+            properties:
+              scan_tokens:
+                type: integer
+                format: int64
+              used_scan_token:
+                type: integer
+                format: int64
+              remaining_scan_token:
+                type: integer
+                format: int64
+              base_domain_count:
+                type: integer
+                format: int64
+              remaining_domain_count:
+                type: integer
+                format: int64
+              is_scannable:
+                type: boolean
+              start_date:
+                type: string
+                format: date-time
+              end_date:
+                type: string
+                format: date-time
+              expire_date:
+                type: string
+                format: date-time
+              verified_domain:
+                type: array
+                items:
+                  type: string
+              old_plan:
+                type: string
+              old_plan_expired_at:
+                type: string
+                format: date-time
+              is_enforced_limit:
+                type: boolean
+              subscription_type:
+                enum:
+                - TRIAL
+                - ENT_TRIAL
+                - PRO
+                - ENT
+                - FREE
+                - VERIFIED_FREE
+                - GROWTH
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+  requestBodies:
     PatchScanVulnsRequest:
       content:
         application/json:
@@ -2734,45 +2702,6 @@ components:
                   type: string
               search:
                 type: string
-    SetScanScheduleRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - scan_id
-            - scan_frequency
-            properties:
-              scan_id:
-                type: string
-              scan_frequency:
-                $ref: '#/components/schemas/SchedulerFrequency'
-              start_time:
-                type: string
-                format: time
-              hourly_frequency:
-                type: integer
-                minimum: 1
-                maximum: 24
-              custom_weekdays:
-                type: array
-                description: '0-6 denoting Sunday-Saturday.
-
-                  It accepts an array of weekday'
-                items:
-                  type: integer
-                  minimum: 0
-                  maximum: 6
-    UpdateScanRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-            required:
-            - name
     PatchScanVulnsLabelsRequest:
       content:
         application/json:
@@ -2879,6 +2808,77 @@ components:
                 description: Combined inclusion and exclusion patterns for scan scope. Exclusion patterns (e.g. `*.staging.company.com`) filter out matching targets. Inclusion patterns use a `+` prefix (e.g. `+prod-*.company.com`) to restrict scanning to only matching targets (allowlist mode). When inclusion patterns are present, targets must match at least one inclusion pattern and not match any exclusion pattern. Supports exact domains, wildcard patterns, IP addresses, and CIDR ranges.
               asset_filters:
                 $ref: '#/components/schemas/AssetFilters'
+    UpdateScanRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+            required:
+            - name
+    SetScanScheduleRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - scan_id
+            - scan_frequency
+            properties:
+              scan_id:
+                type: string
+              scan_frequency:
+                $ref: '#/components/schemas/SchedulerFrequency'
+              start_time:
+                type: string
+                format: time
+              hourly_frequency:
+                type: integer
+                minimum: 1
+                maximum: 24
+              custom_weekdays:
+                type: array
+                description: '0-6 denoting Sunday-Saturday.
+
+                  It accepts an array of weekday'
+                items:
+                  type: integer
+                  minimum: 0
+                  maximum: 6
+    DeleteVulnsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+              type:
+                type: string
+              vuln_status:
+                type: array
+                items:
+                  type: string
+              scan_id:
+                type: string
+              severity:
+                type: array
+                items:
+                  type: string
+              host:
+                type: array
+                items:
+                  type: string
+              template:
+                type: array
+                items:
+                  type: string
+              search:
+                type: string
   securitySchemes:
     X-API-Key:
       name: X-API-Key

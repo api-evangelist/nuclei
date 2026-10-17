@@ -219,17 +219,6 @@ components:
                 type: string
               status:
                 type: integer
-    MessageResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - message
-            properties:
-              message:
-                type: string
     VulnScoreMetricsResponse:
       description: Example response
       content:
@@ -259,6 +248,17 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/VulnScoreMetricsTimeSeries'
+    MessageResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
   schemas:
     CoverageStats:
       title: CoverageStats
@@ -282,6 +282,16 @@ components:
         remaining:
           type: integer
           description: Number of items without templates (total - covered)
+    OpenVulnerabilityScoreMetrics:
+      title: OpenVulnerabilityScoreMetrics
+      type: object
+      properties:
+        severity_breakdown:
+          $ref: '#/components/schemas/SeverityBreakdown'
+        total_cve:
+          type: integer
+        total_kev:
+          type: integer
     VulnScoreMetricsTimeSeries:
       title: VulnScoreMetricsTimeSeries
       type: object
@@ -314,16 +324,6 @@ components:
         info:
           type: integer
         unknown:
-          type: integer
-    OpenVulnerabilityScoreMetrics:
-      title: OpenVulnerabilityScoreMetrics
-      type: object
-      properties:
-        severity_breakdown:
-          $ref: '#/components/schemas/SeverityBreakdown'
-        total_cve:
-          type: integer
-        total_kev:
           type: integer
   securitySchemes:
     X-API-Key:
