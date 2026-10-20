@@ -1,0 +1,1984 @@
+{
+  "endpoint": "https://mcp.projectdiscovery.io/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "neo-mcp",
+    "version": "0.6.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Resolve the pending approval on a suspended task. Use this when get_task reports status `suspended` — typically a Thorough-mode (mode=plan) task waiting on plan review, or a planner waiting on ask_question answers.\n\n`decision=approve` executes the plan in the same task stream. `decision=decline` sends the plan back for revision using `feedback` (required) — it does NOT cancel the task, and the revised plan needs approval again. To stop a task outright use manage_task action=abort. When the task suspended on a clarifying question, pass the replies in `answers`.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "description": "UUID of the suspended task"
+            },
+            "decision": {
+              "type": "string",
+              "description": "approve to continue, or decline to send the work back for revision",
+              "enum": [
+                "approve",
+                "decline"
+              ]
+            },
+            "feedback": {
+              "type": "string",
+              "description": "revision guidance; required when declining a plan review"
+            },
+            "answers": {
+              "type": "object",
+              "description": "answers to the planner's clarifying questions, as an object keyed by each question's id (get_task lists the pending questions and their ids). Value is the chosen option id, an array of option ids when the question allows multiple, or the text for a free-text question",
+              "additionalProperties": true
+            },
+            "tool_call_id": {
+              "type": "string",
+              "description": "the exact pending tool call to decide on; omit to let the tool resolve the task's current pending approval"
+            }
+          },
+          "required": [
+            "task_id",
+            "decision"
+          ],
+          "additionalProperties": false
+        },
+        "name": "approve_task",
+        "title": "Resolve a pending approval"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "File a new security finding. `title` is the only required field, but what you supply decides what Neo will store: a severity of high or critical is rejected without `remediation` (30+ characters), `cwe_ids` and `cvss_score`, and is silently recorded as `info` unless `impact` states a demonstrated effect or `evidence` proves one. Supply the proof with the finding rather than trying to raise its severity afterwards. Use `project_id` to file it into an engagement.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "severity": {
+              "type": "string",
+              "description": "severity to record; high and critical also need remediation, cwe_ids, cvss_score and demonstrated impact",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "info",
+                "unknown"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "initial status (default unverified)",
+              "enum": [
+                "unverified",
+                "open",
+                "confirmed",
+                "in_progress",
+                "resolved",
+                "false_positive",
+                "accepted_risk",
+                "duplicate"
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "description": "confidence that the finding is real",
+              "enum": [
+                "confirmed",
+                "firm",
+                "tentative"
+              ]
+            },
+            "priority": {
+              "type": "string",
+              "description": "remediation priority",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "none"
+              ]
+            },
+            "assignee": {
+              "type": "string",
+              "description": "email of the person responsible for remediation"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "project UUID to file this finding under"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "ID of the task that produced this finding"
+            },
+            "source": {
+              "type": "string",
+              "description": "where the finding came from (e.g. burp, snyk, manual); defaults to mcp"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "tags to file it under"
+            },
+            "title": {
+              "type": "string",
+              "description": "one-line summary of the finding"
+            },
+            "description": {
+              "type": "string",
+              "description": "what the finding is and how it was reached"
+            },
+            "impact": {
+              "type": "string",
+              "description": "what an attacker gains; state the demonstrated effect, not the theoretical one — this is part of what lets Neo store a severity above info"
+            },
+            "remediation": {
+              "type": "string",
+              "description": "how to fix it; required and at least 30 characters for high or critical severity"
+            },
+            "type": {
+              "type": "string",
+              "description": "finding category",
+              "enum": [
+                "vulnerability",
+                "misconfiguration",
+                "exposure",
+                "compliance",
+                "information",
+                "other"
+              ]
+            },
+            "reproduction_steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "ordered steps that reproduce the finding"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "artifact kind: http_exchange, command_output, code_reference, screenshot, or other",
+                    "enum": [
+                      "http_exchange",
+                      "command_output",
+                      "code_reference",
+                      "screenshot",
+                      "other"
+                    ]
+                  },
+                  "caption": {
+                    "type": "string",
+                    "description": "short description of what this artifact shows"
+                  },
+                  "request": {
+                    "type": "string",
+                    "description": "raw HTTP request (http_exchange)"
+                  },
+                  "response": {
+                    "type": "string",
+                    "description": "raw HTTP response (http_exchange)"
+                  },
+                  "command": {
+                    "type": "string",
+                    "description": "command that was run (command_output)"
+                  },
+                  "output": {
+                    "type": "string",
+                    "description": "command or tool output (command_output)"
+                  },
+                  "file": {
+                    "type": "string",
+                    "description": "source file path (code_reference)"
+                  },
+                  "line": {
+                    "type": "integer",
+                    "description": "line number (code_reference)"
+                  },
+                  "snippet": {
+                    "type": "string",
+                    "description": "code excerpt (code_reference)"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "screenshot or artifact URL (screenshot)"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              "description": "proof artifacts; a finding with no evidence and no demonstrated-effect impact cannot hold a severity above info"
+            },
+            "cvss_score": {
+              "type": "string",
+              "description": "CVSS base score 0.0-10.0 as a string; required for high or critical severity"
+            },
+            "cwe_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "CWE identifiers (e.g. CWE-79); at least one is required for a high or critical vulnerability"
+            },
+            "cve_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "CVE identifiers (e.g. CVE-2024-0001)"
+            },
+            "reference_urls": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "supporting links"
+            },
+            "target": {
+              "type": "string",
+              "description": "what is affected — host, URL, ARN, repo path, file:line"
+            },
+            "target_type": {
+              "type": "string",
+              "description": "category of target: host, cloud_resource, app, code, container, dependency, api, certificate"
+            },
+            "host": {
+              "type": "string",
+              "description": "affected hostname"
+            },
+            "ip_address": {
+              "type": "string",
+              "description": "affected IP address"
+            },
+            "port": {
+              "type": "integer",
+              "description": "affected port"
+            },
+            "protocol": {
+              "type": "string",
+              "description": "affected protocol"
+            },
+            "url": {
+              "type": "string",
+              "description": "affected URL"
+            },
+            "component": {
+              "type": "string",
+              "description": "affected component or service"
+            },
+            "ticket_id": {
+              "type": "string",
+              "description": "external ticket key (Jira, Linear, GitHub issue)"
+            },
+            "ticket_url": {
+              "type": "string",
+              "description": "link to the external ticket"
+            },
+            "due_date": {
+              "type": "string",
+              "description": "remediation deadline, RFC3339 (e.g. 2026-03-01T00:00:00Z)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "create_issue",
+        "title": "Record a finding"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Create a project to group related assessments. Returns a project_id you pass to create_task so every task in an engagement shares one scope. Use `settings_md` for standing instructions that apply to every task in the project (scope limits, rules of engagement, target constraints) — the agent reads it at the start of each project-scoped task, so it does not have to be repeated in every prompt. `type` is fixed at creation and cannot be changed: `shared` (default) uses the common workspace and is visible to your whole team; `dedicated` uses an isolated, private workspace only invited members can reach.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "project name (2-128 chars); omit to let Neo name it from the first task"
+            },
+            "type": {
+              "type": "string",
+              "description": "workspace type, fixed at creation: shared (default, team-visible common workspace) or dedicated (isolated private workspace)",
+              "default": "shared",
+              "enum": [
+                "shared",
+                "dedicated"
+              ]
+            },
+            "tags": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "initial tags (max 20, each max 32 chars)"
+            },
+            "settings_md": {
+              "type": "string",
+              "description": "project instruction markdown the agent reads at the start of every project-scoped task; use it for scope limits and rules of engagement (max 35000 chars)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "create_project",
+        "title": "Create a project"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Create a recurring or one-time schedule that runs a Neo assessment on a cadence. This is the MCP equivalent of POST /api/v1/schedules — do not pass schedule options to create_task. Recurring schedules need scan_frequency (and optionally start_time); one_time schedules need run_at. Call list_capabilities to discover valid agent_id, model, and project_id values. Returns the schedule id and next run time. With model auto, each run also picks a model for each subagent; subagent_models replaces the default list and subagent_reasoning_effort caps the effort. They are saved with the schedule and checked again on every run.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task": {
+              "type": "string",
+              "description": "the security objective to run on each scheduled execution"
+            },
+            "name": {
+              "type": "string",
+              "description": "human-readable schedule name"
+            },
+            "schedule_type": {
+              "type": "string",
+              "description": "recurring (default) or one_time",
+              "default": "recurring",
+              "enum": [
+                "recurring",
+                "one_time"
+              ]
+            },
+            "scan_frequency": {
+              "type": "string",
+              "description": "for recurring schedules: daily, weekly, monthly, or custom",
+              "enum": [
+                "daily",
+                "weekly",
+                "monthly",
+                "custom"
+              ]
+            },
+            "start_time": {
+              "type": "string",
+              "description": "start time in HH:MM format (24h)"
+            },
+            "run_at": {
+              "type": "string",
+              "description": "for one_time schedules: relative (5m, 1h, 2d) or absolute (14:30) time"
+            },
+            "custom_weekdays": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "description": "for scan_frequency=custom: weekdays 0=Sunday through 6=Saturday"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "project UUID to scope this schedule to (see list_capabilities)"
+            },
+            "model": {
+              "type": "string",
+              "description": "LLM model ID, exactly as list_capabilities shows it for your model source. On a Neo account these are Neo model labels; with your own API keys or AI connections they are your provider's exact model IDs. Omit it to let Neo choose for your model source. With auto, Neo also picks a model for each subagent."
+            },
+            "visibility": {
+              "type": "string",
+              "description": "visibility of each run: private, unlisted, or team",
+              "enum": [
+                "private",
+                "unlisted",
+                "team"
+              ]
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "route each run to a specific agent (see list_capabilities)"
+            },
+            "file_keys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "file references to attach to each run"
+            },
+            "secrets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "secret names to expose at runtime"
+            },
+            "reporting_mode": {
+              "type": "string",
+              "description": "full (default) or changes_only",
+              "enum": [
+                "full",
+                "changes_only"
+              ]
+            },
+            "subagent_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9._:/@+-]+$"
+              },
+              "description": "models each run may use for subagents, as exact model IDs (see list_capabilities), in order of preference; replaces the default list. Saved with the schedule and checked again on every run",
+              "maxItems": 50
+            },
+            "subagent_reasoning_effort": {
+              "type": "string",
+              "description": "the highest reasoning effort a subagent may use on each run: auto (no ceiling, the default), low, medium, high, or max",
+              "default": "auto",
+              "enum": [
+                "auto",
+                "low",
+                "medium",
+                "high",
+                "max"
+              ]
+            }
+          },
+          "required": [
+            "task"
+          ],
+          "additionalProperties": false
+        },
+        "name": "create_schedule",
+        "title": "Create a schedule"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Start a new Neo AI security assessment (pentest, code review, recon, CVE triage, patch validation, and more) or continue an existing one. Pass the objective in `task`, e.g. \"Run a security review of https://staging.example.com\". Optional parameters mirror POST /api/v1/tasks: title, visibility, project, agent routing, sandbox, secrets, files, memory, and per-run credit/duration/step ceilings.\n\nPick `mode` deliberately. `agent` (default) dispatches one agent immediately — good for a scoped, well-specified job. `plan` is Thorough mode: a planner gathers information and drafts a reviewable plan, the swarm executes it in parallel, and findings are re-verified before they surface — prefer it for broad or open-ended objectives such as a full-scope pentest. Saying \"be thorough\" in the prompt does NOT change the mode. `goal` plans once and then runs autonomously to completion. `chat` has limited tools.\n\nIn `plan` mode the task suspends for your approval unless you pass auto_execute=true — call approve_task to release or revise the plan. Set ask_question=true to let the planner ask clarifying questions first (also answered via approve_task).\n\nCall list_capabilities to discover valid agent_id, model, and project_id values. Returns a task_id once the task is accepted and queued; Neo then works asynchronously. Next: call get_task to watch progress, then get_issues to read validated findings. Do not poll in a tight loop.\n\nWith model auto (the default), Neo also picks a model for each subagent from a curated list your model source can use. Pass subagent_models to replace that list with models you choose, and subagent_reasoning_effort to cap the effort a subagent may use.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task": {
+              "type": "string",
+              "description": "the security objective or prompt for the Neo AI agent"
+            },
+            "title": {
+              "type": "string",
+              "description": "task title; when set, auto title generation is skipped (max 500 characters)"
+            },
+            "model": {
+              "type": "string",
+              "description": "LLM model ID, exactly as list_capabilities shows it for your model source. On a Neo account these are Neo model labels; with your own API keys or AI connections they are your provider's exact model IDs. Omit it to let Neo choose for your model source. With auto, Neo also picks a model for each subagent.",
+              "default": "auto"
+            },
+            "mode": {
+              "type": "string",
+              "description": "execution mode: agent (full tools), chat (limited tools), plan (Thorough mode: planner gathers info and drafts a reviewable plan first), or goal (plan once, then autonomously execute and verify)",
+              "default": "agent",
+              "enum": [
+                "agent",
+                "chat",
+                "plan",
+                "goal"
+              ]
+            },
+            "visibility": {
+              "type": "string",
+              "description": "task visibility: private (default), unlisted, or team",
+              "enum": [
+                "private",
+                "unlisted",
+                "team"
+              ]
+            },
+            "project_id": {
+              "type": "string",
+              "description": "project UUID to scope this task to (see list_capabilities, or create_project). A UUID that is not an existing project creates a new unnamed project — pass an ID you got from list_capabilities or create_project, never an invented one"
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "route to one specific agent (see list_capabilities); omit to let the AgentSwarm orchestrator pick automatically (default); incompatible with goal mode and with agent_ids"
+            },
+            "agent_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "restrict AgentSwarm orchestration to these agent IDs; mutually exclusive with agent_id"
+            },
+            "sandbox_id": {
+              "type": "string",
+              "description": "sandbox UUID to run on (from GET /api/v1/sandboxes); omit to use the Neo-managed cloud sandbox"
+            },
+            "isolated": {
+              "type": "boolean",
+              "description": "run in an ephemeral sandbox with no prior user context. Leave this off unless isolation is what the user actually asked for: the default shared sandbox keeps their workspace and prior context, while an ephemeral one starts empty and can be reclaimed while a task sits suspended, which makes a later approve_task unrecoverable. Cannot be combined with browser_session_refs"
+            },
+            "browser_session_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "warm browser session refs (brs_<hex>) to continue from; cannot be combined with isolated"
+            },
+            "secrets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "secret names to expose at runtime (opt-in, from GET /api/v1/secrets); only listed names are resolved"
+            },
+            "file_keys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "file references to attach to the task"
+            },
+            "auto_execute": {
+              "type": "boolean",
+              "description": "plan mode only: when true the plan runs immediately; when false (the default) the task suspends for review and you must call approve_task to continue. Reject for goal mode, which is always automatic"
+            },
+            "ask_question": {
+              "type": "boolean",
+              "description": "allow the planner to ask clarifying questions (default false). When true the task can suspend awaiting answers, which you supply via approve_task"
+            },
+            "max_iterations": {
+              "type": "integer",
+              "description": "execution-verification loop iterations, 0-5 (agent and plan modes only). Defaults to 0 for agent mode and 1 for plan mode; rejected for goal mode",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "max_steps": {
+              "type": "integer",
+              "description": "max LLM steps for the execution phase, 4-200 (agent and plan modes only). Rejected for goal mode. Note: usage-plan limits override this on metered plans",
+              "minimum": 4,
+              "maximum": 200
+            },
+            "credits_budget": {
+              "type": "number",
+              "description": "per-run Neo credit ceiling, 1-500 (defaults to 500)",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "max_duration_seconds": {
+              "type": "integer",
+              "description": "cumulative active runtime ceiling in seconds, 300-86400 (defaults to 86400); approval suspension time is excluded",
+              "minimum": 300,
+              "maximum": 86400
+            },
+            "memory_off": {
+              "type": "boolean",
+              "description": "do not read or update memory from previous tasks; current-task working memory still applies"
+            },
+            "completion_delivery": {
+              "type": "string",
+              "description": "completion handoff: webhook (POST to the team webhook) or artifact (persist for GET /api/v1/tasks/{id}/artifacts). Omit for no handoff",
+              "enum": [
+                "webhook",
+                "artifact"
+              ]
+            },
+            "triage_ref": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "description": "inbox source: hackerone, github, or gmail",
+                  "enum": [
+                    "hackerone",
+                    "github",
+                    "gmail"
+                  ]
+                },
+                "external_id": {
+                  "type": "string",
+                  "description": "HackerOne report id, GHSA id, or Gmail thread id"
+                },
+                "context": {
+                  "type": "string",
+                  "description": "program handle (HackerOne), owner/repo (GitHub), or mailbox email (Gmail)"
+                }
+              },
+              "description": "link this task to a HackerOne, GitHub, or Gmail inbox item; forces team visibility",
+              "required": [
+                "source",
+                "external_id"
+              ],
+              "additionalProperties": false
+            },
+            "task_id": {
+              "type": "string",
+              "description": "existing task UUID to continue a conversation"
+            },
+            "subagent_models": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9._:/@+-]+$"
+              },
+              "description": "models Neo may use for subagents, as exact model IDs (see list_capabilities), in order of preference; replaces the default list. Omit to let auto pick from a curated list your model source can use",
+              "maxItems": 50
+            },
+            "subagent_reasoning_effort": {
+              "type": "string",
+              "description": "the highest reasoning effort a subagent may use: auto (no ceiling, the default), low, medium, high, or max",
+              "default": "auto",
+              "enum": [
+                "auto",
+                "low",
+                "medium",
+                "high",
+                "max"
+              ]
+            }
+          },
+          "required": [
+            "task"
+          ],
+          "additionalProperties": false
+        },
+        "name": "create_task",
+        "title": "Start a Neo assessment"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Export findings as JSON or CSV for a report or an external system, with the same filters as get_issues. Returns the exported document inline. Prefer get_issues for reading a handful of findings; this is for handing a whole set to something else. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "format": {
+              "type": "string",
+              "description": "export format: json (default) or csv",
+              "default": "json",
+              "enum": [
+                "json",
+                "csv"
+              ]
+            },
+            "project_id": {
+              "type": "string",
+              "description": "scope to this project UUID"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "scope to findings from this task ID"
+            },
+            "severity": {
+              "type": "string",
+              "description": "filter by severity",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "info",
+                "unknown"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "filter by status",
+              "enum": [
+                "unverified",
+                "open",
+                "confirmed",
+                "in_progress",
+                "resolved",
+                "false_positive",
+                "accepted_risk",
+                "duplicate"
+              ]
+            },
+            "search": {
+              "type": "string",
+              "description": "full-text search"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "export_issues",
+        "title": "Export findings"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Read one agent's details and whether you have it installed. `agent` accepts a directory UUID, a full Explore link (https://neo.projectdiscovery.io/explore/<uuid>) — which is how unlisted agents are reached — or the agent_id of an agent already installed on your account or a native Neo agent. Shared and installed agents also report when_to_use, required env vars, visibility, and author; Neo's built-in native agents have none of those, so those fields are absent rather than empty for them. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent": {
+              "type": "string",
+              "description": "directory UUID, Explore link, or the agent_id of an installed or native agent"
+            }
+          },
+          "required": [
+            "agent"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_agent",
+        "title": "Get an agent"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Fetch an artifact a task produced (report, screenshot, scan output, etc.) by its file_key — get keys from get_task view=files. Small images (<=1MB) come back as inline image content, small text (<=100KB) as inline text. Anything larger or binary is returned as an auto-generated permanent, publicly accessible download link — note this creates a shareable link, so it is not a pure read.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "file_key": {
+              "type": "string",
+              "description": "full workspace path (e.g. workspace/tasks/{id}/report.pdf) as shown by get_task view=files"
+            }
+          },
+          "required": [
+            "file_key"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_file",
+        "title": "Get a file"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Read one finding in full by its UUID (get IDs from get_issues). `view=overview` (default) returns the description, impact, evidence, reproduction steps, remediation, CVSS/CVE/CWE, and every affected asset — everything get_issues leaves out. `view=timeline` returns the change history and comments: who changed severity or status, when, and why; `view=assets` lists every affected asset with its own remediation state and asset_id. Read this before re-classifying a finding with manage_issue. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "description": "UUID of the finding (from get_issues)"
+            },
+            "view": {
+              "type": "string",
+              "description": "which slice to return: overview (default) or timeline",
+              "default": "overview",
+              "enum": [
+                "overview",
+                "timeline",
+                "assets"
+              ]
+            }
+          },
+          "required": [
+            "issue_id"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_issue",
+        "title": "Get one finding"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Return finding counts broken down by severity, status, priority, type, and source, optionally scoped to one project or task. Use this for a posture summary instead of paging through get_issues and counting. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "description": "scope counts to this project UUID"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "scope counts to findings from this task ID"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "get_issue_stats",
+        "title": "Get finding counts"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "List validated security findings (issues). This is the primary way to read what Neo found: each issue is a confirmed vulnerability, misconfiguration, or exposure with severity, target, and remediation. Filter by task_id (findings from one assessment), project_id, severity, status, or a full-text search. Returns a summary line per finding — call get_issue for one finding's description, evidence, and remediation. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "description": "scope to findings from this task ID"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "scope to findings in this project UUID"
+            },
+            "severity": {
+              "type": "string",
+              "description": "filter by severity",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "info",
+                "unknown"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "filter by status",
+              "enum": [
+                "unverified",
+                "open",
+                "confirmed",
+                "in_progress",
+                "resolved",
+                "false_positive",
+                "accepted_risk",
+                "duplicate"
+              ]
+            },
+            "search": {
+              "type": "string",
+              "description": "full-text search across title, description, host, template"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "max findings to return (1-200, default 50)",
+              "default": 50
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "get_issues",
+        "title": "Get validated findings"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Inspect one project. `view=overview` (default) returns its name, type, tags, settings_md, spending cap, and issue counts; `view=members` lists who has access. Use list_capabilities to discover project IDs. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "description": "UUID of the project"
+            },
+            "view": {
+              "type": "string",
+              "description": "which slice to return: overview or members",
+              "default": "overview",
+              "enum": [
+                "overview",
+                "members"
+              ]
+            }
+          },
+          "required": [
+            "project_id"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_project",
+        "title": "Get a project"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Read one pull request in full: title, description, author, head and base branches, labels, draft and merge state, and Neo's review summary with finding counts by severity. Read this before triggering a review — an open review, or a PR that is already merged, usually means there is nothing to run. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "repo_id": {
+              "type": "string",
+              "description": "repository UUID (from list_repos)"
+            },
+            "pull_number": {
+              "type": "integer",
+              "description": "the pull request number as GitHub shows it"
+            }
+          },
+          "required": [
+            "repo_id",
+            "pull_number"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_pull_request",
+        "title": "Get a pull request"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Neo's standing security picture for a repository: its archetype, the top risk classes with severity and rationale, CVE and fix counts, and how much of the repository has been analysed. Use it to decide where review effort belongs; use list_pull_requests for what is in flight. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "repo_id": {
+              "type": "string",
+              "description": "repository UUID (from list_repos)"
+            }
+          },
+          "required": [
+            "repo_id"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_repo_security_overview",
+        "title": "Get a repository's security overview"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Inspect one task. Choose a `view`: `overview` (default — status, title, and the assistant's latest response), `logs` (the agent + tool execution audit log), `report` (the narrative Insights summary; generated on demand if missing), `files` (artifacts the task produced), `health` (whether the live stream is still progressing), or `artifacts` (the completion artifact, when the task produced one). For validated vulnerabilities use get_issues instead. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "description": "UUID of the task"
+            },
+            "view": {
+              "type": "string",
+              "description": "which slice to return: overview, logs, report, files, health, or artifacts",
+              "default": "overview",
+              "enum": [
+                "overview",
+                "logs",
+                "report",
+                "files",
+                "health",
+                "artifacts"
+              ]
+            }
+          },
+          "required": [
+            "task_id"
+          ],
+          "additionalProperties": false
+        },
+        "name": "get_task",
+        "title": "Get a task"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false,
+          "idempotentHint": true
+        },
+        "description": "Install (fork) a shared agent into your account so create_task can route to it. `agent` must be a directory UUID or an Explore link — a slug is not enough, because the agent is not on your account yet. Returns the `agent_id` to pass to create_task's agent_id. Calling it again for an agent you already have is not an error: it reports the existing agent_id. It does fail if a different agent of your own already occupies that agent_id, since routing a task there would run the wrong agent.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "agent": {
+              "type": "string",
+              "description": "directory UUID or Explore link of the agent to install"
+            },
+            "custom_name": {
+              "type": "string",
+              "description": "name for your copy; defaults to \"<original name> (Copy)\""
+            }
+          },
+          "required": [
+            "agent"
+          ],
+          "additionalProperties": false
+        },
+        "name": "install_agent",
+        "title": "Install a shared agent"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Read (`action=get`) or replace (`action=set`) the policy text that governs how Neo classifies findings — what counts as which severity, what is out of scope, house conventions. `project_id` targets that project's override instead of the account-wide policy. If findings are routinely coming out at the wrong severity, correcting this policy is the durable fix; re-classifying them one by one is not. `set` replaces the whole document, so read it first.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "get to read the policy, set to replace it",
+              "enum": [
+                "get",
+                "set"
+              ]
+            },
+            "config_text": {
+              "type": "string",
+              "description": "the policy text agents follow when creating findings (required when action=set)"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "read or write the project-specific override instead of the account-wide policy"
+            }
+          },
+          "required": [
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "issue_config",
+        "title": "Read or set the finding policy"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Discover what you can use when starting a task: the specialized agents already installed on your account (agent_id), the selectable models (model), and your projects (project_id). Call this before create_task when you want to target a specific agent, model, or project. It does not list agents shared with you but not yet installed — an empty or unexpected result here does not mean the agent does not exist; use search_agents to browse the shared directory, or get_agent with an Explore link. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "string",
+              "description": "which capability to return: all (default), agents, models, or projects",
+              "default": "all",
+              "enum": [
+                "all",
+                "agents",
+                "models",
+                "projects"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "list_capabilities",
+        "title": "List capabilities"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Browse the files in your workspace: task artifacts (reports, scan output, screenshots), and anything you have uploaded. Filter by `directory` (e.g. tasks/{task_id}), a filename `search`, or `types` (comma-separated extensions). Returns each file's key, size, and MIME type — pass a key to get_file to read it. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "directory": {
+              "type": "string",
+              "description": "directory within the workspace to list (e.g. tasks/{task_id}); omit for the workspace root"
+            },
+            "search": {
+              "type": "string",
+              "description": "filter by filename substring"
+            },
+            "types": {
+              "type": "string",
+              "description": "comma-separated extensions to include (e.g. pdf,json,txt)"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "scope to an isolated task's sandbox"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "scope to a project's sandbox"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "max files to return (1-200, default 50)",
+              "default": 50
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "list_files",
+        "title": "List workspace files"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "List pull requests Neo can see, across every connected repository or within one `repo_id`. Each entry carries the PR number, title, author, branches, state, and — where Neo has already reviewed it — the finding counts by severity. Filter by `state` (open, closed, all), a `search` string, `has_issues` to show only PRs with findings, or `include_merged`. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "repo_id": {
+              "type": "string",
+              "description": "restrict to one repository (from list_repos); omit to span every connected repository"
+            },
+            "state": {
+              "type": "string",
+              "description": "open (default), closed, or all",
+              "default": "open",
+              "enum": [
+                "open",
+                "closed",
+                "all"
+              ]
+            },
+            "search": {
+              "type": "string",
+              "description": "filter by title or branch"
+            },
+            "has_issues": {
+              "type": "boolean",
+              "description": "only pull requests where Neo recorded findings"
+            },
+            "include_merged": {
+              "type": "boolean",
+              "description": "include merged pull requests"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "max pull requests to return (1-100, default 25)",
+              "default": 25
+            },
+            "page": {
+              "type": "integer",
+              "description": "1-based page number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "list_pull_requests",
+        "title": "List pull requests"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "List the GitHub repositories connected to Neo, with each one's repo_id, whether automatic review is enabled, and its review statistics. Start here: every other GitHub tool takes `repo_id`, which is Neo's own identifier and not the owner/name string. Filter with `search`. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "search": {
+              "type": "string",
+              "description": "filter repositories by name"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "max repositories to return (1-100, default 25)",
+              "default": 25
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "list_repos",
+        "title": "List connected repositories"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "List your assessments with optional filters (project_id, status, search, visibility, is_scheduled), optional team-shared tasks, and pagination. Returns task summaries (id, title, status, created time). Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "number of tasks to return (1-100)"
+            },
+            "status": {
+              "type": "string",
+              "description": "filter by status: active, completed, error, pending, suspended (awaiting your approval or answer), or aborted"
+            },
+            "search": {
+              "type": "string",
+              "description": "search query to filter tasks by title"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "filter to tasks in this project UUID"
+            },
+            "visibility": {
+              "type": "string",
+              "description": "filter by visibility: private, unlisted, team, or support"
+            },
+            "include_team_tasks": {
+              "type": "boolean",
+              "description": "include teammates' web tasks whose visibility is team in personal scope; forces source to web there"
+            },
+            "is_scheduled": {
+              "type": "string",
+              "description": "filter scheduled tasks: true or false"
+            },
+            "starting_after": {
+              "type": "string",
+              "description": "cursor UUID for forward pagination"
+            },
+            "ending_before": {
+              "type": "string",
+              "description": "cursor UUID for backward pagination"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "list_tasks",
+        "title": "List tasks"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Perform an action on a workspace file. `action` is one of: `move` (requires `new_key` — also the way to rename a file), or `delete` (requires `confirm` set to true; pass `recursive` to remove a whole directory). Use `task_id` or `project_id` to act on a file in that sandbox — the same key can exist in more than one. Deletion is permanent and a task artifact cannot be regenerated without re-running the task.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "file_key": {
+              "type": "string",
+              "description": "workspace path of the file to act on"
+            },
+            "action": {
+              "type": "string",
+              "description": "what to do: move or delete",
+              "enum": [
+                "move",
+                "delete"
+              ]
+            },
+            "new_key": {
+              "type": "string",
+              "description": "destination path starting with workspace/ (required when action=move)"
+            },
+            "recursive": {
+              "type": "boolean",
+              "description": "when action=delete and file_key is a directory, remove everything under it"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "must be true when action=delete"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "act on a file in an isolated task's sandbox"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "act on a file in a project's sandbox"
+            }
+          },
+          "required": [
+            "file_key",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_file",
+        "title": "Move or delete a workspace file"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Control the public download link for a workspace file. `action=get` creates one or returns the existing one, `action=revoke` removes it, and `action=regenerate` invalidates the current link and issues a new token. These links need no authentication and do not expire, so anyone holding one can read the file until it is revoked — get_file also mints one automatically for any file too large or too binary to return inline.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "file_key": {
+              "type": "string",
+              "description": "workspace path of the file"
+            },
+            "action": {
+              "type": "string",
+              "description": "what to do: get, revoke, or regenerate",
+              "enum": [
+                "get",
+                "revoke",
+                "regenerate"
+              ]
+            },
+            "project_id": {
+              "type": "string",
+              "description": "the file is in this project's sandbox"
+            }
+          },
+          "required": [
+            "file_key",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_file_share",
+        "title": "Manage a file's public link"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Change a finding's classification or add a comment. `action` is one of:\n- `update` (requires `issue_id`) — set any of severity, status, confidence, priority, assignee, tags/tags_add/tags_remove.\n- `bulk_update` (requires `issue_ids`, max 1000) — apply the same change to several findings at once.\n- `comment` (requires `issue_id` and `comment`) — record a note without changing any field.\n- `delete` (requires `issue_id` and `confirm`) — remove one finding permanently.\n- `bulk_delete` (requires `issue_ids` and `confirm`) — remove several permanently.\n\n`update` also edits the finding's body: title, description, impact, remediation, reproduction_steps, evidence, cvss_score, cwe_ids, cve_ids, references, target details, ticket links, and due_date. Deleting is irreversible and loses the finding's history — prefer status `false_positive` or `duplicate`, which keep the record.\n\nMoving a finding to `false_positive` or `accepted_risk` retires it from the active set and requires `comment` explaining why; the reason is stored on every affected finding and shows up in get_issue view=timeline. Call get_issue first — re-classifying a finding whose evidence you have not read is how real vulnerabilities get closed by mistake.\n\nNeo will not store a severity above `info` for a finding with no demonstrated impact: it rewrites the severity, and drags status and confidence down with it, while still reporting success. `action=update` compares what it sent against what came back and tells you when that happened — read that notice rather than assuming the value you asked for was stored.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "what to do: update, bulk_update, or comment",
+              "enum": [
+                "update",
+                "bulk_update",
+                "comment",
+                "delete",
+                "bulk_delete"
+              ]
+            },
+            "issue_id": {
+              "type": "string",
+              "description": "UUID of the finding (required when action=update or action=comment)"
+            },
+            "issue_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "UUIDs of the findings to change (required when action=bulk_update, max 1000)"
+            },
+            "severity": {
+              "type": "string",
+              "description": "new severity",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "info",
+                "unknown"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "new status; false_positive and accepted_risk retire the finding and require a comment",
+              "enum": [
+                "unverified",
+                "open",
+                "confirmed",
+                "in_progress",
+                "resolved",
+                "false_positive",
+                "accepted_risk",
+                "duplicate"
+              ]
+            },
+            "confidence": {
+              "type": "string",
+              "description": "new confidence in the finding being real",
+              "enum": [
+                "confirmed",
+                "firm",
+                "tentative"
+              ]
+            },
+            "priority": {
+              "type": "string",
+              "description": "new remediation priority",
+              "enum": [
+                "critical",
+                "high",
+                "medium",
+                "low",
+                "none"
+              ]
+            },
+            "assignee": {
+              "type": "string",
+              "description": "email of the person responsible for remediation"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "replacement tag set (pass an empty array to clear); use tags_add/tags_remove for incremental changes"
+            },
+            "tags_add": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "tags to add, leaving existing tags in place"
+            },
+            "tags_remove": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "tags to remove, leaving other tags in place"
+            },
+            "comment": {
+              "type": "string",
+              "description": "why this change is being made; required when status is false_positive or accepted_risk, and is the whole payload when action=comment"
+            },
+            "false_positive_reason": {
+              "type": "string",
+              "description": "structured reason stored on the finding when status=false_positive; defaults to comment"
+            },
+            "risk_acceptance_reason": {
+              "type": "string",
+              "description": "structured reason stored on the finding when status=accepted_risk; defaults to comment"
+            },
+            "title": {
+              "type": "string",
+              "description": "one-line summary of the finding"
+            },
+            "description": {
+              "type": "string",
+              "description": "what the finding is and how it was reached"
+            },
+            "impact": {
+              "type": "string",
+              "description": "what an attacker gains; state the demonstrated effect, not the theoretical one — this is part of what lets Neo store a severity above info"
+            },
+            "remediation": {
+              "type": "string",
+              "description": "how to fix it; required and at least 30 characters for high or critical severity"
+            },
+            "type": {
+              "type": "string",
+              "description": "finding category",
+              "enum": [
+                "vulnerability",
+                "misconfiguration",
+                "exposure",
+                "compliance",
+                "information",
+                "other"
+              ]
+            },
+            "reproduction_steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "ordered steps that reproduce the finding"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "artifact kind: http_exchange, command_output, code_reference, screenshot, or other",
+                    "enum": [
+                      "http_exchange",
+                      "command_output",
+                      "code_reference",
+                      "screenshot",
+                      "other"
+                    ]
+                  },
+                  "caption": {
+                    "type": "string",
+                    "description": "short description of what this artifact shows"
+                  },
+                  "request": {
+                    "type": "string",
+                    "description": "raw HTTP request (http_exchange)"
+                  },
+                  "response": {
+                    "type": "string",
+                    "description": "raw HTTP response (http_exchange)"
+                  },
+                  "command": {
+                    "type": "string",
+                    "description": "command that was run (command_output)"
+                  },
+                  "output": {
+                    "type": "string",
+                    "description": "command or tool output (command_output)"
+                  },
+                  "file": {
+                    "type": "string",
+                    "description": "source file path (code_reference)"
+                  },
+                  "line": {
+                    "type": "integer",
+                    "description": "line number (code_reference)"
+                  },
+                  "snippet": {
+                    "type": "string",
+                    "description": "code excerpt (code_reference)"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "screenshot or artifact URL (screenshot)"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              "description": "proof artifacts; a finding with no evidence and no demonstrated-effect impact cannot hold a severity above info"
+            },
+            "cvss_score": {
+              "type": "string",
+              "description": "CVSS base score 0.0-10.0 as a string; required for high or critical severity"
+            },
+            "cwe_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "CWE identifiers (e.g. CWE-79); at least one is required for a high or critical vulnerability"
+            },
+            "cve_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "CVE identifiers (e.g. CVE-2024-0001)"
+            },
+            "reference_urls": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "supporting links"
+            },
+            "target": {
+              "type": "string",
+              "description": "what is affected — host, URL, ARN, repo path, file:line"
+            },
+            "target_type": {
+              "type": "string",
+              "description": "category of target: host, cloud_resource, app, code, container, dependency, api, certificate"
+            },
+            "host": {
+              "type": "string",
+              "description": "affected hostname"
+            },
+            "ip_address": {
+              "type": "string",
+              "description": "affected IP address"
+            },
+            "port": {
+              "type": "integer",
+              "description": "affected port"
+            },
+            "protocol": {
+              "type": "string",
+              "description": "affected protocol"
+            },
+            "url": {
+              "type": "string",
+              "description": "affected URL"
+            },
+            "component": {
+              "type": "string",
+              "description": "affected component or service"
+            },
+            "ticket_id": {
+              "type": "string",
+              "description": "external ticket key (Jira, Linear, GitHub issue)"
+            },
+            "ticket_url": {
+              "type": "string",
+              "description": "link to the external ticket"
+            },
+            "due_date": {
+              "type": "string",
+              "description": "remediation deadline, RFC3339 (e.g. 2026-03-01T00:00:00Z)"
+            },
+            "observation_only": {
+              "type": "boolean",
+              "description": "treat this as an automatic scan refresh: preserves stored false-positive and accepted-risk decisions instead of overwriting them"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "must be true when action=delete or action=bulk_delete"
+            }
+          },
+          "required": [
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_issue",
+        "title": "Re-classify a finding"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Add, update, or remove one of the assets a finding affects — the hosts, URLs, or resources it was observed on. `action=add` needs at least one locator (target, host, url, or ip_address); `update` and `remove` need `asset_id` from get_issue view=assets. Per-asset `status` (open, fixed, ignored) tracks partial remediation without closing the finding.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "issue_id": {
+              "type": "string",
+              "description": "UUID of the finding the asset belongs to"
+            },
+            "action": {
+              "type": "string",
+              "description": "what to do: add, update, or remove",
+              "enum": [
+                "add",
+                "update",
+                "remove"
+              ]
+            },
+            "asset_id": {
+              "type": "string",
+              "description": "UUID of the asset (required when action=update or action=remove; see get_issue view=assets)"
+            },
+            "target": {
+              "type": "string",
+              "description": "the affected asset — host, URL, ARN, repo path"
+            },
+            "target_type": {
+              "type": "string",
+              "description": "category of target: host, cloud_resource, app, code, container, dependency, api, certificate"
+            },
+            "host": {
+              "type": "string",
+              "description": "affected hostname"
+            },
+            "ip_address": {
+              "type": "string",
+              "description": "affected IP address"
+            },
+            "port": {
+              "type": "integer",
+              "description": "affected port"
+            },
+            "url": {
+              "type": "string",
+              "description": "affected URL"
+            },
+            "status": {
+              "type": "string",
+              "description": "per-asset remediation state: open, fixed, or ignored",
+              "enum": [
+                "open",
+                "fixed",
+                "ignored"
+              ]
+            },
+            "asset_owner": {
+              "type": "string",
+              "description": "who is responsible for remediating this asset"
+            }
+          },
+          "required": [
+            "issue_id",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_issue_assets",
+        "title": "Manage a finding's affected assets"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Perform a lifecycle action on a project. `action` is one of: `rename` (requires `name`), `set_tags` (replaces the tag set with `tags`), `edit_settings` (edit settings_md — requires `text`, plus `settings_mode` and `old_text` for targeted replacements), `add_member` / `remove_member` (require `email`), `set_cap` (requires `spending_cap_credits`), `clear_cap`, or `delete`. `delete` is irreversible: it removes the project, its tasks, messages, and findings, and destroys its sandbox and volume — it requires `confirm_name` to exactly match the project's current name. Most actions require project ownership.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "project_id": {
+              "type": "string",
+              "description": "UUID of the project"
+            },
+            "action": {
+              "type": "string",
+              "description": "lifecycle action: rename, set_tags, edit_settings, add_member, remove_member, set_cap, clear_cap, or delete",
+              "enum": [
+                "rename",
+                "set_tags",
+                "edit_settings",
+                "add_member",
+                "remove_member",
+                "set_cap",
+                "clear_cap",
+                "delete"
+              ]
+            },
+            "name": {
+              "type": "string",
+              "description": "new project name (required when action=rename)"
+            },
+            "tags": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "description": "replacement tag set (required when action=set_tags; pass an empty array to clear)"
+            },
+            "settings_mode": {
+              "type": "string",
+              "description": "how to apply text when action=edit_settings: append (default), replace_text, or replace",
+              "default": "append",
+              "enum": [
+                "append",
+                "replace_text",
+                "replace"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "description": "text to append, the replacement text, or the full new document (required when action=edit_settings)"
+            },
+            "old_text": {
+              "type": "string",
+              "description": "exact existing text to replace; must occur exactly once (required when settings_mode=replace_text)"
+            },
+            "email": {
+              "type": "string",
+              "description": "member email (required when action=add_member or remove_member)"
+            },
+            "spending_cap_credits": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "description": "absolute credit cap, >= 0 (required when action=set_cap; 0 blocks all spend on the project)"
+            },
+            "confirm_name": {
+              "type": "string",
+              "description": "the project's exact current name, required when action=delete; for an unnamed project pass the project_id"
+            }
+          },
+          "required": [
+            "project_id",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_project",
+        "title": "Manage a project"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Perform a lifecycle action on a task. `action` is one of: `rename` (requires `title`), `abort` (stop a running task), `fork` (branch a new task from a message — requires `message_id`), `resume` (continue a run that stopped on its own; a deliberately aborted run cannot be resumed), `abort_tools` (stop one in-flight tool call or subagent run without stopping the task — requires `tool_call_id` or `subagent_run_id`), `set_visibility` (requires `visibility`), or `delete` (permanently remove the task and its messages — irreversible). `delete` requires `confirm_name` to exactly match the task's current title, or the task_id if it is untitled; read the task first. To stop a task without destroying it, use `abort`.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "description": "UUID of the task"
+            },
+            "action": {
+              "type": "string",
+              "description": "lifecycle action: rename, abort, delete, fork, resume, abort_tools, or set_visibility",
+              "enum": [
+                "rename",
+                "abort",
+                "delete",
+                "fork",
+                "resume",
+                "abort_tools",
+                "set_visibility"
+              ]
+            },
+            "title": {
+              "type": "string",
+              "description": "new title (required when action=rename)"
+            },
+            "confirm_name": {
+              "type": "string",
+              "description": "the task's exact current title, required when action=delete; for an untitled task pass the task_id"
+            },
+            "message_id": {
+              "type": "string",
+              "description": "message to fork from (required when action=fork)"
+            },
+            "new_task_id": {
+              "type": "string",
+              "description": "optional UUID for the forked task"
+            },
+            "tool_call_id": {
+              "type": "string",
+              "description": "tool call to abort (action=abort_tools); from the stream's tool-call chunks"
+            },
+            "subagent_run_id": {
+              "type": "string",
+              "description": "subagent run to abort (action=abort_tools)"
+            },
+            "visibility": {
+              "type": "string",
+              "description": "private, unlisted, or team (required when action=set_visibility)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "resume a turn that was cancelled deliberately (action=resume); the API refuses it otherwise"
+            }
+          },
+          "required": [
+            "task_id",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "name": "manage_task",
+        "title": "Manage a task"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Start a Neo task against a pull request and return its task_id, which get_task then follows. `command` selects what it does:\n- `review` — security review of the diff (the default choice)\n- `full_review` — review the whole changed surface, not just the diff\n- `investigate` — dig into a specific question; pass it in `message`\n- `summary` — plain-language summary of the change\n- `fix` — **writes to GitHub**: pushes remediation commits to the PR's branch\n- `create_issue` — **writes to GitHub**: opens an issue on the repository\n- `freeform` — run `message` as the instruction\n\n`fix` and `create_issue` change the repository and need `confirm` set to true. The others only produce a review. Runs are asynchronous and consume credits, so check get_pull_request for an existing review before starting another.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "repo_id": {
+              "type": "string",
+              "description": "repository UUID (from list_repos)"
+            },
+            "pull_number": {
+              "type": "integer",
+              "description": "the pull request number as GitHub shows it"
+            },
+            "command": {
+              "type": "string",
+              "description": "what to run: review (default), full_review, investigate, summary, fix, create_issue, or freeform",
+              "default": "review",
+              "enum": [
+                "review",
+                "full_review",
+                "investigate",
+                "summary",
+                "fix",
+                "create_issue",
+                "freeform"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "description": "extra instructions; required for investigate and freeform"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "must be true for fix and create_issue, which write to GitHub"
+            }
+          },
+          "required": [
+            "repo_id",
+            "pull_number"
+          ],
+          "additionalProperties": false
+        },
+        "name": "review_pull_request",
+        "title": "Run Neo on a pull request"
+      },
+      {
+        "annotations": {
+          "readOnlyHint": true
+        },
+        "description": "Browse or search the Explore directory of shareable Neo agents: public agents plus any team agents shared with you. Use it to find an agent you have not installed yet; use list_capabilities for the agents already on your account. Each result carries two identifiers — `uuid` (pass to get_agent / install_agent) and `agent_id` (pass to create_task once installed). Unlisted agents are deliberately not searchable; open them by UUID or Explore link with get_agent. Read-only.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "search text matched against agent name and description"
+            },
+            "tags": {
+              "type": "string",
+              "description": "comma-separated tags; matches agents carrying any of them"
+            },
+            "visibility": {
+              "type": "string",
+              "description": "restrict to public or team agents; omit for both",
+              "enum": [
+                "public",
+                "team"
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "description": "max agents to return (1-100, default 20)",
+              "default": 20
+            },
+            "offset": {
+              "type": "integer",
+              "description": "number of agents to skip, for paging"
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": "search_agents",
+        "title": "Search the agent directory"
+      },
+      {
+        "annotations": {
+          "destructiveHint": false
+        },
+        "description": "Send mid-run input to a task that is already working, without stopping it. The text is injected at the agent's next step, so use it to redirect scope, answer a question the run raised, or add a constraint — `abort` stops a run, this one changes its course. Only useful while a task is running; a finished task has no next step to inject into.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "task_id": {
+              "type": "string",
+              "description": "UUID of the running task"
+            },
+            "text": {
+              "type": "string",
+              "description": "the instruction to inject at the agent's next step"
+            },
+            "stream_id": {
+              "type": "string",
+              "description": "live stream UUID this input was typed against; the call fails if that stream is no longer live"
+            }
+          },
+          "required": [
+            "task_id",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        "name": "send_task_input",
+        "title": "Steer a running task"
+      },
+      {
+        "annotations": {
+          "destructiveHint": true
+        },
+        "description": "Write a UTF-8 text file into your workspace and return its file_key, which create_task and create_schedule accept in `file_keys`. Use it to attach scope documents, target lists, rules of engagement, or configuration an assessment needs to read. `file_key` must start with workspace/. Text only — this tool cannot carry binary content; upload those through the web UI. An existing file at the same key is overwritten.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "file_key": {
+              "type": "string",
+              "description": "destination path starting with workspace/ (e.g. workspace/scope/targets.txt)"
+            },
+            "content": {
+              "type": "string",
+              "description": "UTF-8 text to write"
+            },
+            "task_id": {
+              "type": "string",
+              "description": "write into an isolated task's sandbox"
+            },
+            "project_id": {
+              "type": "string",
+              "description": "write into a project's sandbox"
+            }
+          },
+          "required": [
+            "file_key",
+            "content"
+          ],
+          "additionalProperties": false
+        },
+        "name": "upload_file",
+        "title": "Upload a text file"
+      }
+    ]
+  }
+}
